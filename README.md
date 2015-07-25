@@ -21,4 +21,4 @@ pbox2d gem version 0.3.0
 [Japanese]:http://www.amazon.co.jp/Nature-Code--Processing%E3%81%A7%E3%81%AF%E3%81%98%E3%82%81%E3%82%8B%E8%87%AA%E7%84%B6%E7%8F%BE%E8%B1%A1%E3%81%AE%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3--%E3%83%80%E3%83%8B%E3%82%A8%E3%83%AB%E3%83%BB%E3%82%B7%E3%83%95%E3%83%9E%E3%83%B3/dp/4862462456/
 [examples]:https://github.com/shiffman/The-Nature-of-Code-Examples
 
-[glossary]:https://github.com/ruby-processing/The-Nature-of-Code-Examples-in-Ruby/wiki/Glossary
+[glossary]:https://github.com/ruby-processing/The-Nature-of-Code-for-JRubyArt/wiki/glossary
