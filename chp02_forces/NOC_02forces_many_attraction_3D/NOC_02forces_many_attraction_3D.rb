@@ -4,16 +4,13 @@
 
 class Attractor
   attr_reader :location, :mass
-
   G = 0.4
-
   def initialize
     @location = Vec3D.new
     @mass = 20
   end
 
-
-  def attract(mover)
+  def attract(mover:)
     force = location - mover.location       # Calculate direction of force
     distance = force.mag                     # Distance between objects
     # Limit "extreme" results for very close or very far objects
@@ -47,7 +44,7 @@ class Mover
     @acceleration = Vec3D.new
   end
 
-  def apply_force(force)
+  def apply_force(force:)
     @acceleration += force / mass
   end
 
@@ -81,7 +78,7 @@ end
 
 # NOC_02forces_many_attraction_3D
 def setup
-  sketch_title 'Noc 02forces Many Attraction 3 D'
+  sketch_title 'Forces Many Attraction 3D'
   background(255)
   @movers = Array.new(10) {
                             Mover.new(
@@ -99,12 +96,11 @@ def draw
   background(0)
   sphere_detail(8)
   lights
-  translate(width/2, height/2)
+  translate(width / 2, height / 2)
   rotate_y(@angle)
   @attractor.display
   @movers.each do |m|
-    force = @attractor.attract(m)
-    m.apply_force(force)
+    m.apply_force(force: @attractor.attract(mover: m))
     m.update
     m.display
   end
@@ -114,4 +110,3 @@ end
 def settings
   size(640, 360, P3D)
 end
-

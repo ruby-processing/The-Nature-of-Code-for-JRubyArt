@@ -1,7 +1,6 @@
 # NOC_2_5_fluidresistance
 # The Nature of Code
 # http://natureofcode.com
-
  class Liquid
   # Coefficient of drag
   def initialize(x, y, w, h, c)
@@ -11,7 +10,7 @@
   # Is the Mover in the Liquid?
   def contains(mover)
     l = mover.location
-    ((@x .. @x + @w).include? l.x) && ((@y .. @y + @h).include? l.y)
+    ((@x..@x + @w).cover? l.x) && ((@y..@y + @h).cover? l.y)
   end
 
   # Calculate drag force
@@ -29,22 +28,23 @@
   end
 
   def display
-    no_stroke()
+    no_stroke
     fill(50)
     rect(@x, @y, @w, @h)
   end
 end
 
 class Mover
-  attr_reader :acceleration, :location, :mass, :velocity
-  def initialize(mass, x, y)
-    @location = Vec2D.new(x, y)
+  attr_reader :acceleration, :location, :mass, :radius, :velocity
+  def initialize(mass:, location:)
+    @location = location
     @velocity = Vec2D.new(0, 0)
     @acceleration = Vec2D.new(0, 0)
     @mass = mass
+    @radius = mass * 8
   end
 
-  def apply_force(force)
+  def apply_force(force:)
     @acceleration += force / mass
   end
 
@@ -58,14 +58,14 @@ class Mover
     stroke(0)
     stroke_weight(2)
     fill(127, 200)
-    ellipse(location.x, location.y, mass * 16, mass * 16)
+    ellipse(location.x, location.y, radius * 2, radius * 2)
   end
 
   # bounce off the bottom of the window
-  def check_edges(height)
-    if location.y > height
+  def check_edges(max_y:)
+    if location.y > max_y - radius
       @velocity.y *= -0.9  # A little dampening when hitting the bottom
-      @location.y = height
+      @location.y = max_y - radius
     end
   end
 end
@@ -79,7 +79,7 @@ end
 attr_reader :liquid, :movers
 
 def setup
-  sketch_title 'Noc 2 5 Fluidresistance'
+  sketch_title 'Fluid Resistance'
   reset!
   @liquid = Liquid.new(0, height / 2, width, height / 2, 0.1)
 end
@@ -94,15 +94,15 @@ def draw
       # Calculate drag force
       drag_force = liquid.drag(m)
       # Apply drag force to Mover
-      m.apply_force(drag_force)
+      m.apply_force(force:drag_force)
     end
     # Gravity is scaled by mass here!
     gravity = Vec2D.new(0, 0.1 * m.mass)
-    m.apply_force(gravity)
+    m.apply_force(force: gravity)
     # Update and display
     m.update
     m.display
-    m.check_edges(height)
+    m.check_edges(max_y: height)
   end
   fill(0)
   text('click mouse to reset', 10, 30)
@@ -114,10 +114,11 @@ end
 
 # Restart all the Mover objects randomly
 def reset!
-  @movers = (0 .. 9).map { |i| Mover.new(rand(0.5 .. 3), 40 + i * 70, 0) }
+  @movers = (0..9).map do |i|
+    Mover.new(mass: rand(0.5..3), location: Vec2D.new(40 + i * 70, 0))
+  end
 end
 
 def settings
   size(640, 360)
 end
-

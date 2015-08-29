@@ -2,9 +2,10 @@
 # The Nature of Code
 # http://natureofcode.com
 # Example 1-3: Vector subtraction
-
+# In JRubyArt you do cool things with Vec2D
+# like subtract assign using operators (-, = methods really)
 def setup
-  sketch_title 'Noc 1 3 Vector Subtraction'
+  sketch_title 'Vector Subtraction'
 end
 
 def draw
@@ -22,4 +23,3 @@ def settings
   size(800, 200)
   smooth 4
 end
-

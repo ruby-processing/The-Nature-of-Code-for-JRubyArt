@@ -3,9 +3,9 @@
 require_relative 'mover'
 
 def setup
-  sketch_title 'Noc 2 4 Forces Nofriction'
+  sketch_title 'Forces No Friction'
   srand(1)
-  @movers = Array.new(15) { Mover.new(rand(1.0 .. 4), rand(width), 0) }
+  @movers = Array.new(15) { Mover.new(rand(1.0..4), rand(width), 0) }
 end
 
 def draw
@@ -16,11 +16,10 @@ def draw
     m.apply_forces(wind, gravity)
     m.update
     m.display
-    m.check_edges(width, height)
+    m.check_edges(max_x: width, max_y: height)
   end
 end
 
 def settings
   size(383, 200)
 end
-

@@ -3,7 +3,7 @@
 # Example 1-1: Bouncing Ball, no vectors
 
 def setup
-  sketch_title 'Noc 1 1 Bouncingball Novectors'
+  sketch_title 'Bouncing Ball No Vectors'
   @x = 100
   @y = 100
   @xspeed = 2.5
@@ -28,4 +28,3 @@ def settings
   size(800, 200)
   smooth 4
 end
-

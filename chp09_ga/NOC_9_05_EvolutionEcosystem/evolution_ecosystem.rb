@@ -7,7 +7,6 @@
 # The bigger they are, the slower they are to find food
 # When the creatures die, food is left behind
 
-
 require_relative 'world'
 
 include Eco
@@ -36,4 +35,3 @@ def settings
   size(640, 360)
   smooth 4
 end
-

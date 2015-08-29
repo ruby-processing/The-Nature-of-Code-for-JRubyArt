@@ -4,11 +4,12 @@
 
 
 class Mover
+  RADIUS = 24
   TOP_SPEED = 6
   attr_reader :location, :velocity, :topspeed_squared
 
-  def initialize(width, height)
-    @location = Vec2D.new(rand(width/2.0), rand(height/2.0))
+  def initialize(max_x:, max_y:)
+    @location = Vec2D.new(rand(RADIUS..max_x - RADIUS), rand(RADIUS..max_y - RADIUS))
     @velocity = Vec2D.new(0, 0)
   end
 
@@ -18,7 +19,7 @@ class Mover
     acceleration.normalize!
     acceleration *= 0.2
     @velocity += acceleration
-    velocity.set_mag(TOP_SPEED) {velocity.mag > TOP_SPEED}
+    velocity.set_mag(TOP_SPEED) { velocity.mag > TOP_SPEED }
     @location += velocity
   end
 
@@ -26,13 +27,13 @@ class Mover
     stroke(0)
     stroke_weight(2)
     fill(127)
-    ellipse(location.x, location.y, 48, 48)
+    ellipse(location.x, location.y, RADIUS * 2, RADIUS * 2)
   end
 end
 
 def setup
-  sketch_title 'Noc 1 11 Motion101 Acceleration Array'
-  @movers = Array.new(20) { Mover.new(width, height) }
+  sketch_title ' Motion 101 Acceleration Array'
+  @movers = Array.new(20) { Mover.new(max_x: width, max_y: height) }
 end
 
 def draw
@@ -46,4 +47,3 @@ end
 def settings
   size(800, 200)
 end
-

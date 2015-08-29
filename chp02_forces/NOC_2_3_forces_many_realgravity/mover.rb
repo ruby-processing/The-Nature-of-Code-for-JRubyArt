@@ -9,14 +9,13 @@ class Mover
     @mass = mass
   end
 
-  def apply_force(force)
+  def apply_force(force:)
     @acceleration += force / @mass
   end
 
   def update
     @velocity += @acceleration
     @location += @velocity
-
     @acceleration *= 0
   end
 
@@ -27,17 +26,16 @@ class Mover
     ellipse(@location.x, @location.y, @mass * 16, @mass * 16)
   end
 
-  def check_edges(width, height)
-    if @location.x > width
-      @location.x = width
+  def check_edges(max_x:, max_y:)
+    if @location.x > max_x
+      @location.x = max_x
       @velocity.x *= -1
     elsif @location.x < 0
       @location.x = 0
       @velocity.x *= -1
     end
-
-    if @location.y > height
-      @location.y = height
+    if @location.y > max_y
+      @location.y = max_y
       @velocity.y *= -1
     elsif @location.y < 0
       @location.y = 0

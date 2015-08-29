@@ -1,12 +1,10 @@
 # The Nature of Code
 # http://natureofcode.com
-
-
 class Mover
   attr_reader :location
   def initialize(width, height)
-    @location = Vec2D.new(rand(0 .. width), rand(0 .. height))
-    @velocity = Vec2D.new(rand(-2.0 .. 2.0), rand(-2.0 .. 2.0))
+    @location = Vec2D.new(rand(0..width), rand(0..height))
+    @velocity = Vec2D.new(rand(-2.0..2.0), rand(-2.0..2.0))
   end
 
   def update
@@ -21,16 +19,13 @@ class Mover
   end
 
   def check_edges(width, height)
-    if location.x > width
-      location.x = 0
-    elsif location.x < 0
-      location.x = width
+    unless (0..width).cover? location.x
+      location.x = 0 if location.x > width
+      location.x = width if location.x < 0
     end
-    if location.y > height
-      location.y = 0
-    elsif location.y < 0
-      location.y = height
-    end
+    return if (0..height).cover? location.y
+    location.y = 0 if location.y > height
+    location.y = height if location.y < 0
   end
 end
 
@@ -38,7 +33,7 @@ end
 attr_reader :mover
 
 def setup
-  sketch_title 'Noc 1 7 Motion101'
+  sketch_title 'Motion 101'
   @mover = Mover.new(width, height)
 end
 
@@ -52,4 +47,3 @@ end
 def settings
   size(800, 200)
 end
-

@@ -1,6 +1,6 @@
 class Mover
   include Processing::Proxy
-
+  RADIUS = 24
   def initialize
     @location = Vec2D.new(30, 30)
     @velocity = Vec2D.new
@@ -8,7 +8,7 @@ class Mover
     @mass = 1
   end
 
-  def apply_force(force)
+  def apply_force(force:)
     @acceleration += force / @mass
   end
 
@@ -22,23 +22,24 @@ class Mover
     stroke(0)
     stroke_weight(2)
     fill(127)
-    ellipse(@location.x, @location.y, 48, 48)
+    ellipse(@location.x, @location.y, 2 * RADIUS, 2 * RADIUS)
   end
 
-  def check_edges(width, height)
-    if @location.x > width
-      @location.x = width
+  def check_edges(max_x:, max_y:)
+    xmax = max_x - RADIUS
+    ymax = max_y - RADIUS
+    if @location.x > xmax
+      @location.x = xmax
       @velocity.x *= -1
-    elsif @location.x < 0
-      @location.x = 0
+    elsif @location.x < RADIUS
+      @location.x = RADIUS
       @velocity.x *= -1
     end
-
-    if @location.y > height
-      @location.y = height
+    if @location.y > ymax
+      @location.y = ymax
       @velocity.y *= -1
-    elsif @location.y < 0
-      @location.y = 0
+    elsif @location.y < RADIUS
+      @location.y = RADIUS
       @velocity.y *= -1
     end
   end

@@ -4,7 +4,7 @@
 # Example 1-2: Bouncing Ball, with Vec2D!
 
 def setup
-  sketch_title 'Noc 1 2 Bouncingball Vectors'
+  sketch_title 'Bouncing Ball With Vectors'
   background(255)
   @location = Vec2D.new(100.0, 100.0)
   @velocity = Vec2D.new(2.5, 5.0)
@@ -25,6 +25,5 @@ def draw
 end
 
 def settings
-  size(200,200)
+  size(200, 200)
 end
-

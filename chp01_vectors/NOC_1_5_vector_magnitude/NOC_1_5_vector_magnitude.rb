@@ -4,7 +4,7 @@
 # Example 1-5: Vector magnitude
 
 def setup
-  sketch_title 'Noc 1 5 Vector Magnitude'
+  sketch_title 'Vector Magnitude'
 end
 
 def draw
@@ -25,4 +25,3 @@ def settings
   size(800, 200)
   smooth 4
 end
-

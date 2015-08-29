@@ -6,7 +6,7 @@
 # Normalizing a vector sets its length to 1.
 
 def setup
-  sketch_title 'Noc 1 6 Vector Normalize'
+  sketch_title 'Vector Normalize'
 end
 
 def draw
@@ -17,7 +17,7 @@ def draw
   center = Vec2D.new(width / 2, height / 2)
   # Subtract center from mouse which results in a vector that points from center to mouse
   mouse -= center
-  # Normalize the vector
+  # Normalize the vector (bang version, changes original)
   mouse.normalize!
   # Multiply its length by 50
   mouse *= 50
@@ -32,4 +32,3 @@ def settings
   size 800, 200
   smooth 4
 end
-
