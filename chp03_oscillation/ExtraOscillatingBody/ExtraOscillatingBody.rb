@@ -1,9 +1,8 @@
 # ExtraOscillatingBody
 # The Nature of Code
 # http://natureofcode.com
-
 class Mover
-  attr_reader :location, :mass
+  attr_reader :location, :mass, :velocity
 
   def initialize
     @location = Vec2D.new(400, 50)
@@ -12,14 +11,14 @@ class Mover
     @mass = 1
   end
 
-  def apply_force(force)
+  def apply_force(force:)
     f = force / @mass
     @acceleration += f
   end
 
   def update
     @velocity += @acceleration
-    @location += @velocity
+    @location += velocity
     @acceleration *= 0
   end
 
@@ -28,9 +27,8 @@ class Mover
     stroke_weight(2)
     fill(127)
     push_matrix
-    translate(@location.x, @location.y)
-    heading = -1 * Math.atan2(-@velocity.y, @velocity.x)
-    rotate(heading)
+    translate(location.x, location.y)
+    rotate(velocity.heading)
     ellipse(0, 0, 16, 16)
     rect_mode(CENTER)
     # "20" should be a variable that is oscillating with sine function
@@ -39,25 +37,22 @@ class Mover
   end
 
   def check_edges(width, height)
-    if @location.x > width
-      @location.x = 0
-    elsif @location.x < 0
-      @location.x = width
+    if location.x > width
+      location.x = 0
+    elsif location.x < 0
+      location.x = width
     end
-
-    if @location.y > height
-      @velocity.y *= -1
-      @location.y = height
-    end
+    return unless location.y > height
+    velocity.y *= -1
+    location.y = height
   end
 end
 
 class Attractor
-
   G = 1
 
-  def initialize(width, height)
-    @location = Vec2D.new(width/2, height/2)
+  def initialize(location:)
+    @location = location
     @mass = 20
     @drag_offset = Vec2D.new(0.0, 0.0)
     @dragging = false
@@ -65,13 +60,12 @@ class Attractor
   end
 
   def attract(mover)
-    force = @location - mover.location   # Calculate direction of force
-    d = force.mag                        # Distance between objects
+    attraction = @location - mover.location   # Calculate direction of force
+    d = attraction.mag                        # Distance between objects
     d = constrain(d, 5.0, 25.0)          # Limiting the distance to eliminate "extreme" results for very close or very far objects
-    force.normalize!                     # Normalize vector (distance doesn't matter here, we just want this vector for direction)
+    attraction.normalize!                     # Normalize vector (distance doesn't matter here, we just want this vector for direction)
     strength = (G * @mass * mover.mass) / (d * d)     # Calculate gravitional force magnitude
-    force *= strength                    #  Get force vector --> magnitude * direction
-    force
+    attraction *= strength                    #  Get force vector --> magnitude * direction
   end
 
   # Method to display
@@ -90,17 +84,15 @@ class Attractor
   end
 
   # The methods below are for mouse interaction
-  def clicked(mx, my)
-    d = dist(mx, my, @location.x, @location.y)
-    if d < @mass
-      @dragging = true
-      @drag_offset.x = @location.x - mx
-      @drag_offset.y = @location.y - my
-    end
+  def clicked(position:)
+    d = position.dist(@location)
+    return unless d < @mass
+    @dragging = true
+    @drag_offset = @location -  position
   end
 
-  def hover(mx, my)
-    d = dist(mx, my, @location.x, @location.y)
+  def hover(position:)
+    d = position.dist(@location)
     @rollover = (d < @mass)
   end
 
@@ -120,25 +112,24 @@ end
 def setup
   sketch_title 'Extra Oscillating Body'
   @m = Mover.new
-  @a = Attractor.new(width, height)
+  @a = Attractor.new(location: Vec2D.new(width/2, height/2))
 end
 
 def draw
   background(255)
-
-  force = @a.attract(@m)
-  @m.apply_force(force)
+  attraction = @a.attract(@m)
+  @m.apply_force(force: attraction)
   @m.update
 
   @a.drag
-  @a.hover(mouse_x, mouse_y)
+  @a.hover(position: Vec2D.new(mouse_x, mouse_y))
 
   @a.display
   @m.display
 end
 
 def mouse_pressed
-  @a.clicked(mouse_x, mouse_y)
+  @a.clicked(position: Vec2D.new(mouse_x, mouse_y))
 end
 
 def mouse_released
@@ -148,4 +139,3 @@ end
 def settings
   size(640, 360)
 end
-

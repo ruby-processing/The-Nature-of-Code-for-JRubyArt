@@ -50,19 +50,18 @@ class Attractor
     @drag_offset = location - position
   end
 
-
   def stop_dragging
     @dragging = false
   end
-  
-  def go(position: Vec2D.new(mouse_x, mouse_y))  
+
+  def move(position: Vec2D.new(mouse_x, mouse_y))
     hover(position)
     drag(position)
     render
   end
-  
+
   private
-  
+
   # Method to display
   def render
     ellipse_mode(CENTER)
@@ -75,8 +74,8 @@ class Attractor
       fill 175, 50
     end
     ellipse(@location.x, @location.y, mass * 2, mass * 2)
-  end  
-  
+  end
+
   def hover(pos)
     d = pos.dist(location)
     @rollover = d < mass

@@ -1,10 +1,9 @@
 # Exercise_3_16_springs_array
-
 class Bob
   attr_reader :acceleration, :velocity, :location
 
-  def initialize(x, y)
-    @location = Vec2D.new(x, y)
+  def initialize(location:)
+    @location = location
     @velocity = Vec2D.new
     @acceleration = Vec2D.new
     @drag_offset = Vec2D.new
@@ -22,7 +21,7 @@ class Bob
   end
 
   # Newton's law: F = M * A
-  def apply_force(force)
+  def apply_force(force:)
     f = force / @mass
     @acceleration += f
   end
@@ -37,24 +36,20 @@ class Bob
   end
 
   # This checks to see if we clicked on the mover
-  def clicked(mx, my)
-    d = dist(mx, my, location.x, location.y)
-    if d < @mass
-      @dragging = true
-      @drag_offset.x = location.x - mx
-      @drag_offset.y = location.y - my
-    end
+  def clicked(position:)
+    d = position.dist(location)
+    return unless d < @mass
+    @dragging = true
+    @drag_offset = location - position
   end
 
   def stop_dragging
     @dragging = false
   end
 
-  def drag(mx, my)
-    if @dragging
-      @location.x = mx + @drag_offset.x
-      @location.y = my + @drag_offset.y
-    end
+  def drag(position:)
+    return unless @dragging
+    @location = position + @drag_offset
   end
 end
 
@@ -70,18 +65,18 @@ class Spring
   # Calculate spring force
   def update
     # Vector pointing from anchor to bob location
-    force = @bob_a.location - @bob_b.location
+    attraction = @bob_a.location - @bob_b.location
     # What is distance
-    d = force.mag
+    d = attraction.mag
     # Stretch is difference between current distance and rest length
     stretch = d - @len
     # Calculate force according to Hooke's Law
     # F = k * stretch
-    force.normalize!
-    force *= -1 * @k * stretch
-    @bob_a.apply_force(force)
-    force *= -1
-    @bob_b.apply_force(force)
+    attraction.normalize!
+    attraction *= -1 * @k * stretch
+    @bob_a.apply_force(force: attraction)
+    attraction *= -1
+    @bob_b.apply_force(force: attraction)
   end
 
   def display
@@ -96,8 +91,8 @@ def setup
   sketch_title 'Exercise 3 16 Springs Array'
   # Create objects at starting location
   # Note third argument in Spring constructor is "rest length"
-  @bobs = Array.new(5) { |i| Bob.new(width / 2, i * 40) }
-  @springs = Array.new(4) { |i| Spring.new(@bobs[i], @bobs[i + 1], 40) }
+  @bobs = (0..5).map { |i| Bob.new(location: Vec2D.new(width / 2, i * 40)) }
+  @springs = (0..4).map { |i| Spring.new(@bobs[i], @bobs[i + 1], 40) }
 end
 
 def draw
@@ -109,12 +104,12 @@ def draw
   @bobs.each do |b|
     b.update
     b.display
-    b.drag(mouse_x, mouse_y)
+    b.drag(position: Vec2D.new(mouse_x, mouse_y))
   end
 end
 
 def mouse_pressed
-  @bobs.each{ |b| b.clicked(mouse_x, mouse_y) }
+  @bobs.each{ |b| b.clicked(position: Vec2D.new(mouse_x, mouse_y)) }
 end
 
 def mouse_released
@@ -124,4 +119,3 @@ end
 def settings
   size(640, 360)
 end
-

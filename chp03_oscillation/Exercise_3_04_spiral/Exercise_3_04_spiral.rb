@@ -1,12 +1,11 @@
 # Exercise_3_04_spiral
 # The Nature of Code
 # http://natureofcode.com
-
 attr_reader :theta, :r
 
 # A Polar coordinate, radius now starts at 0 to spiral outwards
 def setup
-  sketch_title 'Exercise 3 04 Spiral'
+  sketch_title 'Exercise Spiral'
   background(255)
   @r = 0
   @theta = 0
@@ -31,4 +30,3 @@ def settings
   size(750, 200)
   smooth 4
 end
-

@@ -2,18 +2,16 @@
 # http://natureofcode.com
 
 def setup
-  sketch_title 'Exercise 3 01 Exercise Baton'
-
+  sketch_title 'Exercise Baton'
   @angle = 0
 end
 
 def draw
   background(255)
-
   fill(127)
   stroke(0)
   rect_mode(CENTER)
-  translate(width/2, height/2)
+  translate(width / 2, height / 2)
   rotate(@angle)
   line(-50, 0, 50, 0)
   stroke(0)
@@ -28,4 +26,3 @@ def settings
   size(750, 150)
   smooth
 end
-

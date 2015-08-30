@@ -5,16 +5,16 @@
 Vect = Struct.new(:x, :y) # no fancy functionality required why use PVector?
 
 class Wave
-
-  def initialize(o, w_, a, p)
-    @xspacing = 8                         # How far apart should each horizontal location be space
+  def initialize(position:, width:, amplitude:, period:)
+    @xspacing = 8    # How far apart should each horizontal location be space
     @theta = 0.0
-    @origin = o.dup                       # Where does the wave's first point start
-    @w = w_                               # Width of entire wave
-    @period = p                           # How many pixels before the wave repeats
-    @amplitude = a                        # Height of wave
-    @dx = (TWO_PI / @period) * @xspacing  # Value for incrementing X, to be calculated as a function of period and xspacing
-    @yvalues = Array.new(@w / @xspacing)  # Using an array to store height values for the wave (not entirely necessary)
+    @origin = position # Where does the wave's first point start
+    @w = width         # Width of entire wave
+    @period = period   # How many pixels before the wave repeats
+    @amplitude = amplitude  # Height of wave
+    @dx = (TWO_PI / @period) * @xspacing 
+    # Use an array to store height values for the wave (not really necessary)
+    @yvalues = Array.new(@w / @xspacing)  
   end
 
   def calculate
@@ -43,10 +43,20 @@ attr_reader :wave0, :wave1
 
 # Exercise_3_10_OOPWave
 def setup
-  sketch_title 'Exercise 3 10 Oop Wave'
+  sketch_title 'Exercise OO Wave'
   # Initialize a wave with starting point, width, amplitude, and period
-  @wave0 = Wave.new(Vect.new(50, 75), 100, 20, 500)
-  @wave1 = Wave.new(Vect.new(300, 100), 300, 40, 220)
+  @wave0 = Wave.new(
+    position: Vect.new(50, 75), 
+    width: 100, 
+    amplitude: 20, 
+    period: 500
+  )
+  @wave1 = Wave.new(
+    position: Vect.new(300, 100), 
+    width: 300, 
+    amplitude: 40, 
+    period: 220
+  )
 end
 
 def draw
@@ -61,4 +71,3 @@ end
 def settings
   size(750, 200)
 end
-

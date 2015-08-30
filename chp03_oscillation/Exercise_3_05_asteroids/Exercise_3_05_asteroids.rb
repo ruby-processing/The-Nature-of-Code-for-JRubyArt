@@ -2,11 +2,10 @@
 # The Nature of Code
 # http://natureofcode.com
 # Chapter 3: Asteroids
-
 class Spaceship
 
-  def initialize(width, height)
-    @location = Vec2D.new(width / 2, height / 2)
+  def initialize(location:)
+    @location = location
     @velocity = Vec2D.new
     @acceleration = Vec2D.new
     @damping = 0.995
@@ -23,16 +22,14 @@ class Spaceship
   def update
     @velocity += @acceleration
     @velocity *= @damping
-    @velocity.set_mag(@topspeed) {@velocity.mag > @topspeed}
+    @velocity.set_mag(@topspeed) { @velocity.mag > @topspeed }
     @location += @velocity
     @acceleration *= 0
   end
 
   # Newton's law: F = M * A
-  def apply_force(force)
-    #f = force.copy
-    #f.div(mass); # ignoring mass right now
-    @acceleration += force
+  def apply_force(force:)
+     @acceleration += force
   end
 
   # Turn changes angle
@@ -45,25 +42,24 @@ class Spaceship
     # Offset the angle since we drew the ship vertically
     angle = @heading - PI / 2
     # Polar to cartesian for force vector!
-    force = Vec2D.new(cos(angle), sin(angle))
-    force *= 0.1
-    apply_force(force)
+    propel = Vec2D.new(cos(angle), sin(angle))
+    propel *= 0.1
+    apply_force(force: propel)
     # To draw booster
     @thrusting = true
   end
 
-  def wrap_edges(width, height)
+  def wrap_edges(max_x:, max_y:)
     buffer = @r * 2
-    if @location.x > width +  buffer
+    if @location.x > max_x +  buffer
       @location.x = -buffer
     elsif @location.x < -buffer
-      @location.x = width+buffer
+      @location.x = max_x+buffer
     end
-
-    if @location.y > height + buffer
+    if @location.y > max_y + buffer
       @location.y = -buffer
     elsif @location.y < -buffer
-      @location.y = height+buffer
+      @location.y = max_y+buffer
     end
   end
 
@@ -94,8 +90,8 @@ end
 
 # Exercise_3_05_asteroids
 def setup
-  sketch_title 'Exercise 3 05 Asteroids'
-  @ship = Spaceship.new(width, height)
+  sketch_title 'Exercise Asteroids'
+  @ship = Spaceship.new(location: Vec2D.new(width / 2, height / 2))
 end
 
 def draw
@@ -103,7 +99,7 @@ def draw
   # Update location
   @ship.update
   # Wrap edges
-  @ship.wrap_edges(width, height)
+  @ship.wrap_edges(max_x: width, max_y: height)
   # Draw ship
   @ship.display
   fill(0)
@@ -123,4 +119,3 @@ end
 def settings
   size(640, 360)
 end
-

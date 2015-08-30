@@ -6,19 +6,17 @@
 # Create a more complex wave by adding two waves together.
 
 def setup
-  sketch_title 'Exercise 3 11 Additive Wave'
+  sketch_title 'Additive Wave Exercise'
   @w = width + 16    # Width of entire wave
   @xspacing = 8      #  How far apart should each horizontal location be spaced
   @maxwaves = 5      # total # of waves to add together
   @theta = 0.0
-  @amplitudes = Array.new(@maxwaves) do |amplitude| # Height of wave
-    amplitude = rand(10 .. 30)
-  end
+  @amplitudes = (0..@maxwaves).map {rand(10..30) }
   @dx = Array.new(@maxwaves) do |x|     # Value for incrementing X, to be calculated as a function of period and xspacing
-    period = rand(100 .. 300)            # How many pixels before the wave repeats
+    period = rand(100..300)            # How many pixels before the wave repeats
     (TWO_PI / period) * @xspacing
   end
-  @yvalues = Array.new(@w/@xspacing)
+  @yvalues = Array.new(@w / @xspacing)
 end
 
 def draw
@@ -26,7 +24,6 @@ def draw
   calc_wave
   render_wave
 end
-
 
 def calc_wave
   # Increment theta (try different values for 'angular velocity' here
@@ -59,4 +56,3 @@ end
 def settings
   size(750, 200)
 end
-
