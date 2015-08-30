@@ -1,15 +1,17 @@
+# A simple mover class
 class Mover
   include Processing::Proxy
 
-  attr_reader :acceleration, :mass, :velocity, :location
+  attr_reader :acceleration, :mass, :velocity, :location, :diameter
   def initialize
     @location = Vec2D.new(400, 50)
     @velocity = Vec2D.new(1, 0)
     @acceleration = Vec2D.new(0, 0)
     @mass = 1
+    @diameter = mass * 24
   end
 
-  def apply_force(force)
+  def apply_force(force:)
     @acceleration += force / mass
   end
 
@@ -23,19 +25,6 @@ class Mover
     stroke(0)
     stroke_weight(2)
     fill(127)
-    ellipse(location.x, location.y, mass * 16, mass * 16)
-  end
-
-  def check_edges(width, height)
-    if location.x > width
-      location.x = 0
-    elsif location.x < 0
-      location.x = width
-    end
-    if location.y > height
-      location.y = height
-      velocity.y *= -1
-    end
+    ellipse(location.x, location.y, diameter, diameter)
   end
 end
-

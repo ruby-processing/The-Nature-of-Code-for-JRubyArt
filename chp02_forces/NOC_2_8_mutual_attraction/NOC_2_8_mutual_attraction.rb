@@ -3,8 +3,12 @@
 require_relative 'mover'
 
 def setup
-  sketch_title 'Noc 2 8 Mutual Attraction'
-  @movers = Array.new(20) { Mover.new(rand(width), rand(height), rand(0.1 .. 2)) }
+  sketch_title 'Mutual Attraction'
+  @movers = (0..19).map do
+    Mover.new(
+      location: Vec2D.new(rand(width), rand(height)),
+      mass: rand(0.1..2))
+  end
 end
 
 def draw
@@ -12,8 +16,8 @@ def draw
   @movers.each do |m|
     @movers.each do |mm|
       next if m.equal? mm
-      force = mm.attract(m)
-      m.apply_force(force)
+      attraction = mm.attract(mover: m)
+      m.apply_force(force: attraction)
     end
     m.update
     m.display
@@ -23,4 +27,3 @@ end
 def settings
   size(800, 200)
 end
-

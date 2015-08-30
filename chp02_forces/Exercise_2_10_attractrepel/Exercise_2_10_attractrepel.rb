@@ -1,23 +1,18 @@
 # Exercise_2_10_attractrepel
 # The Nature of Code
 # http://natureofcode.com
-
-
 require_relative 'attractor'
 require_relative 'mover'
 
-G = 1 # kind of pointless gravitational constant
-
 def setup
-  sketch_title 'Exercise 2 10 Attractrepel'
-  @attractor = Attractor.new(width, height)
-  @movers = Array.new(20) {
-                            Mover.new(
-                                      rand(4.0 .. 12),
-                                      rand(width.to_f),
-                                      rand(height.to_f)
-                                     )
-                           }
+  sketch_title 'Attract Repel Exercise'
+  @attractor = Attractor.new(location: Vec2D.new(width / 2, height / 2))
+  @movers = (0..19).map do
+    Mover.new(
+      mass: rand(4.0..12),
+      location: Vec2D.new(rand(width), rand(height))
+    )
+  end
 end
 
 def draw
@@ -26,11 +21,11 @@ def draw
   @movers.each do |m|
     @movers.each do |mm|
       next if m.equal? mm
-      force = mm.repel(m)
-      m.apply_force(force)
+      repel = mm.repel(mover: m)
+      m.apply_force(force: repel)
     end
-    force = @attractor.attract(m)
-    m.apply_force(force)
+    attraction = @attractor.attract(mover: m)
+    m.apply_force(force: attraction)
     m.update
     m.display
   end
@@ -39,4 +34,3 @@ end
 def settings
   size(800, 200)
 end
-
