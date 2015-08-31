@@ -43,7 +43,7 @@ end
 
 # NOC_3_10_PendulumExampleSimplified
 def setup
-  sketch_title 'Noc 3 10 Pendulum Example Simplified'
+  sketch_title 'Pendulum Example Simplified'
   # Make a new Pendulum with an origin location and armlength
   @p = Pendulum.new(Vec2D.new(width / 2, 0), 175)
 end

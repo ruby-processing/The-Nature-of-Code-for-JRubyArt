@@ -2,17 +2,17 @@ class Mover
   include Processing::Proxy
   attr_reader :location, :mass
 
-  def initialize(m, x, y)
-    @mass = m
-    @location = Vec2D.new(x,y)
-    @velocity = Vec2D.new(rand(-1.0 .. 1), rand(-1.0 .. 1))
+  def initialize(mass:, location:)
+    @mass = mass
+    @location = location
+    @velocity = Vec2D.new(rand(-1.0..1), rand(-1.0..1))
     @acceleration = Vec2D.new(0, 0)
     @angle = 0
     @a_velocity = 0
     @a_acceleration = 0
   end
 
-  def apply_force(force)
+  def apply_force(force:)
     f = force / @mass
     @acceleration += f
   end

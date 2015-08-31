@@ -1,76 +1,90 @@
 # OOPWaveParticles
 # The Nature of Code
 # http://natureofcode.com
-
-Vect = Struct.new(:x, :y) # no fancy behaviour reqd we can use a struct here
-
 class Particle
+  attr_reader :location
 
-  def initialize
-    @location = Vect.new(0, 0)
+  def initialize(location:)
+    @location = location
   end
 
-  def set_location(x, y)
-    @location.x = x
-    @location.y = y
+  def new_location(position:)
+    @location = position
   end
 
   def display
     fill(rand(255))
-    ellipse(@location.x, @location.y, 16, 16)
+    ellipse(location.x, location.y, 16, 16)
   end
 end
 
-class Wave
+Vect = Struct.new(:x, :y) # no fancy behaviour reqd we can use a struct here
 
-  def initialize(o, w_, a, p)
-    @origin = o.dup
-    @w = w_
-    @period = p
-    @amplitude = a
+# The Wave class
+class Wave
+  attr_reader :origin
+
+  def initialize(origin:, width:, amplitude:, period:)
+    @origin = origin
+    @w = width
+    @period = period
+    @amplitude = amplitude
     @xspacing = 8
     @dx = (TWO_PI / @period) * @xspacing
     @theta = 0.0
-    @particles = Array.new(@w/@xspacing){ Particle.new }
+    @particles = (0..@w / @xspacing).map { Particle.new(location: Vec2D.new) }
   end
 
   def calculate
     # Increment theta (try different values for 'angular velocity' here
     @theta += 0.02
-
     # For every x value, calculate a y value with sine function
     x = @theta
     @particles.each_index do |i|
-      @particles[i].set_location(@origin.x+i*@xspacing, @origin.y+sin(x)*@amplitude)
+      @particles[i].new_location(
+        position: Vec2D.new(
+          origin.x + i * @xspacing,
+          origin.y + sin(x) * @amplitude
+        )
+      )
       x += @dx
     end
   end
 
   def display
     # A simple way to draw the wave with an ellipse at each location
-    @particles.each { |p| p.display }
+    @particles.each(&:display)
   end
 end
 
+attr_reader :waves
+
 def setup
-  sketch_title 'Oop Wave Particles'
-  # Initialize a wave with starting point, width, amplitude, and period
-  @wave0 = Wave.new(Vect.new(200, 75), 100, 20, 500)
-  @wave1 = Wave.new(Vect.new(150, 250), 300, 40, 220)
+  sketch_title 'OO Wave Particles'
+  wave0 = Wave.new(
+    origin: Vect.new(200, 75),
+    width: 100,
+    amplitude: 20,
+    period: 500
+  )
+  wave1 = Wave.new(
+    origin: Vect.new(150, 250),
+    width: 300,
+    amplitude: 40,
+    period: 220
+  )
+  @waves = [wave0, wave1]
 end
 
 def draw
   background(255)
-
   # Update and display waves
-  @wave0.calculate
-  @wave0.display
-
-  @wave1.calculate
-  @wave1.display
+  waves.each do |wave|
+    wave.calculate
+    wave.display
+  end
 end
 
 def settings
   size(640, 360)
 end
-

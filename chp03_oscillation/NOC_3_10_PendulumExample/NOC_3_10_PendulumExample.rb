@@ -6,11 +6,10 @@
 # Includes functionality for user can click and drag the pendulum
 
 class Pendulum
-
-  def initialize(origin_, r_)
-    @origin = origin_.copy
+  def initialize(origin:, length:)
+    @origin = origin
     @location = Vec2D.new
-    @r = r_ # length of arm
+    @r = length # length of arm
     @angle = PI / 4
     @aVelocity = 0.0
     @aAcceleration = 0.0
@@ -66,10 +65,9 @@ class Pendulum
     # If we are draging the ball, we calculate the angle between the
     # pendulum origin and mouse location
     # we assign that angle to the pendulum
-    if @dragging
-      diff = @origin - Vec2D.new(mouse_x, mouse_y)
-      @angle = atan2(-1 * diff.y, diff.x) - PI / 2 # Relative to vertical axis
-    end
+    return unless @dragging
+    diff = @origin - Vec2D.new(mouse_x, mouse_y)
+    @angle = -diff.heading - PI / 2
   end
 end
 
@@ -77,7 +75,7 @@ end
 def setup
   sketch_title 'Noc 3 10 Pendulum Example'
   # Make a new Pendulum with an origin location and armlength
-  @p = Pendulum.new(Vec2D.new(width/2, 0), 175)
+  @p = Pendulum.new(origin: Vec2D.new(width/2, 0), length: 175)
 end
 
 def draw
@@ -96,4 +94,3 @@ end
 def settings
   size(800, 200)
 end
-

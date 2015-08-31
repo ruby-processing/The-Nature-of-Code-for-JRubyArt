@@ -24,7 +24,7 @@ class Bob
   end
 
   # Newton's law: F = M * A
-  def apply_force(force)
+  def apply_force(force:)
     f = force / @mass
     @acceleration += f
   end
@@ -65,25 +65,25 @@ end
 
 class Spring
 
-  def initialize(x, y, l)
-    @anchor = Vec2D.new(x, y)
-    @len = l
+  def initialize(origin:, length:)
+    @anchor = origin
+    @len = length
     @k = 0.2
   end
 
   # Calculate spring force
   def connect(bob)
     # Vector pointing from anchor to bob location
-    force = bob.location - @anchor
-    d = force.mag
+    attraction = bob.location - @anchor
+    d = attraction.mag
     # Stretch is difference between current distance and rest length
     stretch = d - @len
 
     # Calculate force according to Hooke's Law
     # F = k * stretch
-    force.normalize!
-    force *= -1 * @k * stretch
-    bob.apply_force(force)
+    attraction.normalize!
+    attraction *= -1 * @k * stretch
+    bob.apply_force(force: attraction)
   end
 
   # Constrain the distance between bob and anchor between min and max
@@ -123,10 +123,8 @@ end
 
 # NOC_3_11_spring
 def setup
-  sketch_title 'Noc 3 11 Spring'
-  # Create objects at starting location
-  # Note third argument in Spring constructor is "rest length"
-  @spring = Spring.new(width/2, 10, 100)
+  sketch_title 'Spring'
+  @spring = Spring.new(origin: Vec2D.new(width/2, 10), length: 100)
   @bob = Bob.new(width/2, 100)
 end
 
@@ -134,7 +132,7 @@ def draw
   background(255)
   # Apply a gravity force to the bob
   gravity = Vec2D.new(0,2)
-  @bob.apply_force(gravity)
+  @bob.apply_force(force: gravity)
 
   # Connect the bob to the spring (this calculates the force)
   @spring.connect(@bob)

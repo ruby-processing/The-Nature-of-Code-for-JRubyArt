@@ -1,13 +1,13 @@
 class Attractor
   include Processing::Proxy
 
-  def initialize(width, height)
-    @location = Vec2D.new(width / 2, height / 2)
+  def initialize(location:)
+    @location = location
     @mass = 20
     @g = 0.4
   end
 
-  def attract(mover)
+  def attract(mover:)
     force = @location - mover.location
     distance = force.mag
     distance = constrain(distance, 5.0, 25.0)

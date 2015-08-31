@@ -3,12 +3,11 @@
 # http://natureofcode.com
 
 require_relative 'oscillator'
-
 attr_reader :oscillators
 
 def setup
-  sketch_title 'Noc 3 07 Oscillating Objects'
-  @oscillators = Array.new(10) { Oscillator.new(width, height) }
+  sketch_title 'Oscillating Objects'
+  @oscillators = Array.new(10) { Oscillator.new(max_x: width, max_y: height) }
 end
 
 def draw
@@ -23,4 +22,3 @@ def settings
   size 800, 200
   smooth 4
 end
-

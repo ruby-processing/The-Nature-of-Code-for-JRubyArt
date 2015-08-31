@@ -6,18 +6,23 @@ require_relative 'mover'
 
 # NOC_3_02_forces_angular_motion
 def setup
-  sketch_title 'Noc 3 02 Forces Angular Motion'
+  sketch_title 'Forces Angular Motion'
   background(255)
-  @movers = Array.new(20) { Mover.new(rand(0.1 .. 2), rand(width), rand(height)) }
-  @a = Attractor.new(width, height)
+  @movers = (0..19).map do
+    Mover.new(
+      mass: rand(0.1..2),
+      location: Vec2D.new(rand(width), rand(height))
+    )
+  end
+  @a = Attractor.new(location: Vec2D.new(width / 2, height / 2))
 end
 
 def draw
   background(255)
   @a.display
   @movers.each do |m|
-    force = @a.attract(m)
-    m.apply_force(force)
+    attraction = @a.attract(mover: m)
+    m.apply_force(force: attraction)
     m.update
     m.display
   end
@@ -26,4 +31,3 @@ end
 def settings
   size(640, 360)
 end
-

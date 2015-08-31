@@ -1,23 +1,21 @@
 class Mover
   include Processing::Proxy
-  attr_reader :location, :mass, :velocity, :width, :height
+  attr_reader :location, :mass, :velocity
 
-  def initialize(x, y)
-    @width, @height = x * 2, y * 2
-    @location = Vec2D.new(x, y)
+  def initialize(location:)    
+    @location = location
     @velocity = Vec2D.new
     @topspeed = 4
     @xoff = 1_000
     @yoff = 0
   end
 
-  def update
-    mouse = Vec2D.new(mouse_x, mouse_y)
+  def update(mouse:)
     dir = mouse - location
     dir.normalize!
     dir *= 0.5
     @velocity += dir
-    @velocity.set_mag(@topspeed) {velocity.mag > @topspeed}
+    @velocity.set_mag(@topspeed) { velocity.mag > @topspeed }
     @location += velocity
   end
 
@@ -34,17 +32,16 @@ class Mover
     pop_matrix
   end
 
-  def check_edges
-    if location.x > width
+  def check_edges(max_x:, max_y:)
+    if location.x > max_x
       location.x = 0
     elsif location.x < 0
-      location.x = width
+      location.x = max_x
     end
-
-    if location.y > height
+    if location.y > max_y
       location.y = 0
     elsif location.y < 0
-      location.y = height
+      location.y = max_y
     end
   end
 end

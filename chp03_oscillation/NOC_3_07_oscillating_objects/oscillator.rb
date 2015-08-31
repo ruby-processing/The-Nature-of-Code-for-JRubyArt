@@ -2,11 +2,11 @@ class Oscillator
   include Processing::Proxy
 
   attr_reader :angle, :amplitude, :velocity, :width, :height
-  def initialize(width, height)
-    @width, @height = width, height
+  def initialize(max_x:, max_y:)
+    @width, @height = max_x, max_y
     @angle = Vec2D.new
-    @velocity = Vec2D.new(rand(-0.05 .. 0.05), rand(-0.05 .. 0.05))
-    @amplitude = Vec2D.new(rand(20 ..  width / 2), rand(20 ..  height / 2))
+    @velocity = Vec2D.new(rand(-0.05..0.05), rand(-0.05..0.05))
+    @amplitude = Vec2D.new(rand(20..width / 2), rand(20..height / 2))
   end
 
   def oscillate

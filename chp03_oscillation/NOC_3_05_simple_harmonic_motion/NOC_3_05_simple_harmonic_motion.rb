@@ -3,7 +3,7 @@
 # http://natureofcode.com
 
 def setup
-  sketch_title 'Noc 3 05 Simple Harmonic Motion'
+  sketch_title 'Simple Harmonic Motion'
 end
 
 def draw
@@ -23,4 +23,3 @@ end
 def settings
   size 800, 200
 end
-

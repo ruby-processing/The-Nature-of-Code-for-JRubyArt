@@ -4,7 +4,7 @@
 attr_reader :angle, :velocity
 
 def setup
-  sketch_title 'Noc 03spring Exercise Sine'
+  sketch_title 'Exercise Sine Spring'
   @angle = 0
   @velocity = 0.05
 end
@@ -12,7 +12,7 @@ end
 def draw
   background(255)
   x = width / 2
-  y = map1d(sin(angle), (-1 .. 1), (50 .. 250))
+  y = map1d(sin(angle), (-1..1), (50..250))
   @angle += velocity
   ellipse_mode(CENTER)
   stroke(0)

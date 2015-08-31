@@ -4,7 +4,7 @@
 attr_reader :acceleration, :angle, :velocity
 
 def setup
-  sketch_title 'Noc 3 01 Angular Motion'
+  sketch_title 'Angular Motion'
   @angle = 0
   @velocity = 0
   @acceleration = 0.0001
@@ -30,4 +30,3 @@ def settings
   size 800, 200
   smooth 4
 end
-

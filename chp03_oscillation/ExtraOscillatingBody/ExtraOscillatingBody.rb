@@ -36,15 +36,15 @@ class Mover
     pop_matrix
   end
 
-  def check_edges(width, height)
-    if location.x > width
+  def check_edges(max_x:, max_y:)
+    if location.x > max_x
       location.x = 0
     elsif location.x < 0
-      location.x = width
+      location.x = max_x
     end
-    return unless location.y > height
+    return unless location.y > max_y
     velocity.y *= -1
-    location.y = height
+    location.y = max_y
   end
 end
 
@@ -62,7 +62,7 @@ class Attractor
   def attract(mover)
     attraction = @location - mover.location   # Calculate direction of force
     d = attraction.mag                        # Distance between objects
-    d = constrain(d, 5.0, 25.0)          # Limiting the distance to eliminate "extreme" results for very close or very far objects
+    d = constrain(d, 5.0, 25.0)               # Limiting the distance to eliminate "extreme" results for very close or very far objects
     attraction.normalize!                     # Normalize vector (distance doesn't matter here, we just want this vector for direction)
     strength = (G * @mass * mover.mass) / (d * d)     # Calculate gravitional force magnitude
     attraction *= strength                    #  Get force vector --> magnitude * direction
@@ -100,11 +100,9 @@ class Attractor
     @dragging = false
   end
 
-  def drag
-    if @dragging
-      @location.x = mouse_x + @drag_offset.x
-      @location.y = mouse_y + @drag_offset.y
-    end
+  def drag(position:)
+    return unless @dragging
+    @location = position + @drag_offset
   end
 end
 
@@ -112,7 +110,7 @@ end
 def setup
   sketch_title 'Extra Oscillating Body'
   @m = Mover.new
-  @a = Attractor.new(location: Vec2D.new(width/2, height/2))
+  @a = Attractor.new(location: Vec2D.new(width / 2, height / 2))
 end
 
 def draw
@@ -121,7 +119,7 @@ def draw
   @m.apply_force(force: attraction)
   @m.update
 
-  @a.drag
+  @a.drag(position: Vec2D.new(mouse_x, mouse_y))
   @a.hover(position: Vec2D.new(mouse_x, mouse_y))
 
   @a.display

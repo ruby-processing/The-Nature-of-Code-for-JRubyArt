@@ -2,7 +2,7 @@
 
 attr_reader :angle, :velocity
 def setup
-  sketch_title 'Noc 3 06 Simple Harmonic Motion'
+  sketch_title 'Simple Harmonic Motion'
   @angle = 0
   @velocity = 0.03
 end
