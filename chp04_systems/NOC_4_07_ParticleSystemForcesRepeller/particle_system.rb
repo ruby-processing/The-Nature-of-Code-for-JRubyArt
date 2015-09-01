@@ -3,8 +3,8 @@ require_relative 'particle'
 
 module Runnable
   def run
-    reject! { |item| item.dead? }
-    each    { |item| item.run }
+    reject!(&:dead?)
+    each(&:run)
   end
 end
 
@@ -12,25 +12,24 @@ class ParticleSystem
   include Enumerable, Runnable
   extend Forwardable
   def_delegators(:@particle_system, :each, :<<, :reject!)
-
-
-  def initialize(origin)
+  
+  def initialize(origin:)
     @origin = origin
     @particle_system = []
   end
 
   def add_particle
-    self << Particle.new(@origin)
+    self << Particle.new(location: @origin)
   end
 
-  def apply_force(f)
-    each { |p| p.apply_force(f) }
+  def apply_force(force:)
+    each { |p| p.apply_force(force: force) }
   end
 
-  def apply_repeller(repeller)
+  def apply_repeller(repel:)
     each do |p|
-      f = repeller.repel(p)
-      p.apply_force(f)
+      f = repel.repel(particle: p)
+      p.apply_force(force: f)
     end
   end
 end

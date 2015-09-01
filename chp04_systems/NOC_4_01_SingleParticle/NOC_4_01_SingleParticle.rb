@@ -7,10 +7,10 @@
 class Particle
 
   attr_reader :acceleration, :lifespan, :location, :velocity
-  def initialize(location)
+  def initialize(location:)
     @acceleration = Vec2D.new(0, 0.05)
-    @velocity = Vec2D.new(rand(-1.0 .. 1), rand(-1.0 .. 1))
-    @location = location.copy
+    @velocity = Vec2D.new(rand(-1.0..1), rand(-1.0..1))
+    @location = location
     @lifespan = 255.0
   end
 
@@ -43,8 +43,8 @@ end
 attr_reader :p
 
 def setup
-  sketch_title 'Noc 4 01 Single Particle'
-  @p = Particle.new(Vec2D.new(width / 2, 20))
+  sketch_title 'Single Particle'
+  @p = Particle.new(location: Vec2D.new(width / 2, 20))
   background(255)
 
 end
@@ -52,11 +52,10 @@ end
 def draw
   background(255)
   p.run
-  @p = Particle.new(Vec2D.new(width / 2, 20)) if p.dead?
+  @p = Particle.new(location: Vec2D.new(width / 2, 20)) if p.dead?
 end
 
 def settings
   size(800, 200)
   smooth 4
 end
-

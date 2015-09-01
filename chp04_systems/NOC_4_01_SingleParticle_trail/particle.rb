@@ -8,10 +8,10 @@ class Particle
 
   attr_reader :acceleration, :lifespan, :location, :velocity
 
-  def initialize(location)
+  def initialize(location:)
     @acceleration = Vec2D.new(0, 0.05)
-    @velocity = Vec2D.new(rand(-1.0 .. 1), rand(-1.0 .. 0))
-    @location = location.copy
+    @velocity = Vec2D.new(rand(-1.0..1), rand(-1.0..0))
+    @location = location
     @lifespan = 255
   end
 

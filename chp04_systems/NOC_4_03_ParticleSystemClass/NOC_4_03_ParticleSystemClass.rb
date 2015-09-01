@@ -2,8 +2,8 @@
 require_relative 'particle_system'
 
 def setup
-  sketch_title 'Noc 4 03 Particle System Class'
-  @particle_system = ParticleSystem.new(Vec2D.new(width / 2, 50))
+  sketch_title 'Particle System Class'
+  @particle_system = ParticleSystem.new(origin: Vec2D.new(width / 2, 50))
 end
 
 def draw

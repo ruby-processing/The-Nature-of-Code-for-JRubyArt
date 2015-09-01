@@ -7,8 +7,8 @@
 require_relative 'particle'
 
 def setup
-  sketch_title 'Noc 4 01 Single Particle Trail'
-  @p = Particle.new(Vec2D.new(width / 2, 20))
+  sketch_title 'Single Particle Trail'
+  @p = Particle.new(location: Vec2D.new(width / 2, 20))
   background(255)
 end
 
@@ -26,4 +26,3 @@ def settings
   size(800, 200)
   smooth 4
 end
-

@@ -1,14 +1,16 @@
 # NOC_4_05_ParticleSystemInheritancePolymorphism
 # The Nature of Code
 # http://natureofcode.com
+require_relative 'particle_system'
+require_relative 'particle'
 
 class Particle
   include Processing::Proxy
   attr_reader :acceleration, :lifespan, :location, :velocity
 
-  def initialize(location)
+  def initialize(location:)
     @acceleration = Vec2D.new(0, 0.05)
-    @velocity = Vec2D.new(rand(-1.0 .. 1), rand(-1 ..0))
+    @velocity = Vec2D.new(rand(-1.0..1), rand(-1 ..0))
     @location = location
     @lifespan = 255.0
   end
@@ -49,19 +51,16 @@ class Confetti < Particle
     stroke_weight(2)
     push_matrix
     translate(location.x, location.y)
-    theta = map1d(location.x, (0 .. 640), (0 .. TAU * 2))
+    theta = map1d(location.x, (0..640), (0..TAU * 2))
     rotate(theta)
     rect(0, 0, 12, 12)
     pop_matrix
   end
 end
 
-
-
-
 def setup
   sketch_title 'Particle'
-  @particle_system = ParticleSystem.new(Vec2D.new(width / 2, 50))
+  @particle_system = ParticleSystem.new(origin: Vec2D.new(width / 2, 50))
 end
 
 def draw

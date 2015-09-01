@@ -2,10 +2,10 @@ class Particle
   include Processing::Proxy
   attr_reader :acceleration, :lifespan, :location, :velocity
 
-  def initialize(location)
+  def initialize(location:)
     @acceleration = Vec2D.new(0, 0)
-    @velocity = Vec2D.new(rand(-1.0 .. 1), rand(-2 .. 0))
-    @location = location.copy
+    @velocity = Vec2D.new(rand(-1.0..1), rand(-2..0))
+    @location = location
     @lifespan = 255.0
     @mass = 1
   end
@@ -15,7 +15,7 @@ class Particle
     display
   end
 
-  def apply_force(force)
+  def apply_force(force:)
     f = force / @mass
     @acceleration += f
   end

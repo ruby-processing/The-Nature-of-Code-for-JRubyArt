@@ -5,7 +5,7 @@ require_relative 'particle_system'
 
 def setup
   sketch_title 'Noc 4 05 Particle System Inheritance Polymorphism'
-  @particle_system = ParticleSystem.new(Vec2D.new(width / 2, 50))
+  @particle_system = ParticleSystem.new(origin: Vec2D.new(width / 2, 50))
 end
 
 def draw

@@ -3,8 +3,8 @@ require 'forwardable'
 
 module Runnable
   def run
-    reject! { |item| item.dead? }
-    each    { |item| item.run }
+    reject!(&:dead?)
+    each(&:run)
   end
 end
 
@@ -13,13 +13,13 @@ class ParticleSystem
   def_delegators(:@particles, :reject!, :<<, :each)
   include Enumerable, Runnable
 
-  def initialize(origin)
+  def initialize(origin:)
     @origin = origin
     @particles = []
   end
 
   def add_particle
-    part = (rand < 0.5) ? Particle.new(@origin) : Confetti.new(@origin)
+    part = (rand < 0.5) ? Particle.new(location: @origin) : Confetti.new(location: @origin)
     self << part
   end
 end

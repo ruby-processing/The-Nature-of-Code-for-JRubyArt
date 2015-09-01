@@ -3,10 +3,10 @@ class Particle
 
   attr_reader :acceleration, :lifespan, :location, :velocity
 
-  def initialize(loc)
+  def initialize(location:)
     @acceleration = Vec2D.new(0, 0)
-    @velocity = Vec2D.new(rand(-1.0 .. 1), rand(-2.0 ... 0))
-    @location = loc.copy
+    @velocity = Vec2D.new(rand(-1.0..1), rand(-2.0...0))
+    @location = location
     @lifespan = 255
     @mass = 1
   end
@@ -16,7 +16,7 @@ class Particle
     display
   end
 
-  def apply_force(force)
+  def apply_force(force:)
     f = force / @mass
     @acceleration += f
   end
