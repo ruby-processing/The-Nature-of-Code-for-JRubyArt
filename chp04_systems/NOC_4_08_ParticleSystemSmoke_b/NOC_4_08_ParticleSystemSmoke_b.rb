@@ -8,16 +8,20 @@ attr_reader :ps
 
 def setup
   sketch_title 'Noc 4 08 Particle System Smoke B'
-  img = load_image("#{Dir.pwd}/data/texture.png")
-  @ps = ParticleSystem.new(0, Vec2D.new(width / 2, height - 75), img)
+  img = load_image('texture.png')
+  @ps = ParticleSystem.new(
+    number: 0, 
+    origin: Vec2D.new(width / 2, height - 75), 
+    image: img
+  )
 end
 
 def draw
   background(0)
   # Calculate a "wind" force based on mouse horizontal position
-  dx = map1d(mouse_x, (0 .. width), (-0.2 .. 0.2))
+  dx = map1d(mouse_x, (0..width), (-0.2..0.2))
   wind = Vec2D.new(dx, 0)
-  ps.apply_force(wind)
+  ps.apply_force(force: wind)
   ps.run
   2.times { ps.add_particle }
   # Draw an arrow representing the wind force

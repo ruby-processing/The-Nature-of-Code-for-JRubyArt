@@ -41,4 +41,3 @@ def settings
   size(640, 360)
   smooth
 end
-

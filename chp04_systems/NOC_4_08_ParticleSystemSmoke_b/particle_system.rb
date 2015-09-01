@@ -7,8 +7,8 @@ require_relative 'particle'
 
 module Runnable
   def run
-    reject! { |item| item.lifespan <= 0 }
-    each    { |item| item.run }
+    reject!(&:dead?)
+    each(&:run)
   end
 end
 
@@ -18,12 +18,12 @@ class ParticleSystem
   def_delegators(:@particles, :reject!, :<<, :each, :empty?)
   def_delegator(:@particles, :empty?, :dead?)
 
-  def initialize(num, origin, img)
-    @origin = origin.copy
-    @img = img
+  def initialize(number:, origin:, image:)
+    @origin = origin
+    @img = image
     # avoid confusion with ruby Random
     @generator = Java::JavaUtil::Random.new
-    @particles = Array.new(num) { create_particle }
+    @particles = Array.new(number) { create_particle }
   end
 
   def add_particle(particle = nil)
@@ -31,8 +31,8 @@ class ParticleSystem
     self << particle
   end
 
-  def apply_force(f)
-    each { |p| p.apply_force(f) }
+  def apply_force(force:)
+    each { |p| p.apply_force(force) }
   end
 
   private
@@ -44,5 +44,3 @@ class ParticleSystem
     Particle.new(@origin, vel, @img)
   end
 end
-
-

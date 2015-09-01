@@ -1,7 +1,6 @@
 # NOC_4_08_ParticleSystemSmoke_b
 # The Nature of Code
 # http://natureofcode.com
-
 class Particle
   include Processing::Proxy
   attr_reader :lifespan
@@ -43,6 +42,3 @@ class Particle
     lifespan <= 0.0
   end
 end
-
-
-

@@ -28,7 +28,7 @@ class ParticleSystem
 
   def apply_repeller(repel:)
     each do |p|
-      f = repel.repel(particle: p)
+      f = repel.repel_force(particle: p)
       p.apply_force(force: f)
     end
   end

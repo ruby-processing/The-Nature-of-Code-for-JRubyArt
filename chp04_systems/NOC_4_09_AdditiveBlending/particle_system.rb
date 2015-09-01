@@ -7,8 +7,8 @@ require_relative 'particle'
 
 module Runnable
   def run
-    reject! { |item| item.dead? }
-    each    { |item| item.run }
+    reject!(&:dead?)
+    each(&:run)
   end
 end
 
@@ -18,14 +18,14 @@ class ParticleSystem
   def_delegators(:@particles, :reject!, :<<, :each, :empty)
   def_delegator(:@particles, :empty?, :dead?)
 
-  def initialize(num, origin)
+  def initialize(number:, origin:)
     @origin = origin
-    @img = load_image("#{Dir.pwd}/data/texture.png")
-    @particles = Array.new(num) { Particle.new(@origin, @img) }
+    @img = load_image('texture.png')
+    @particles = Array.new(number) { Particle.new(location: @origin, image: @img) }
   end
 
   def add_particle(p = nil)
-    p ||= Particle.new(@origin, @img)
+    p ||= Particle.new(location: @origin, image: @img)
     self << p
   end
 end

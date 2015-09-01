@@ -37,10 +37,9 @@ def draw
     point(pos.x, pos.y)
   end
   fill(0)
-  text("f.p.s #{frame_rate.to_i}", 10, 60)
+  text(format('f.p.s %s', frame_rate.to_i), 10, 60)
 end
 
 def settings
   size(640, 360, P2D)
 end
-
