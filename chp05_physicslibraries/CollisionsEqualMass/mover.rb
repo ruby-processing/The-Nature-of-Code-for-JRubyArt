@@ -31,12 +31,12 @@ class Mover
   attr_accessor :vel
   attr_reader :world, :colliding, :loc, :r, :app
 
-  def initialize(app, v, l)
+  def initialize(app:, velocity:, location:)
     @app = app
-    @vel = v.copy
-    @loc = l.copy
-    @world = World.new((0..app.width), (0..app.height))
+    @vel = velocity
+    @loc = location  
     @r = 20
+    @world = World.new((r..app.width - r), (r..app.height - r))
     @colliding = false
   end
 

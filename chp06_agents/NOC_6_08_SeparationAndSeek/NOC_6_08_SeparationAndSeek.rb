@@ -5,8 +5,10 @@ require_relative 'vehicle'
 attr_reader :vehicles
 
 def setup
-  sketch_title 'Noc 6 08 Separation And Seek'
-  @vehicles = Array.new(100) { Vehicle.new(rand(width), rand(height)) }
+  sketch_title 'Separation And Seek'
+  @vehicles = Array.new(100) do 
+    Vehicle.new(location: Vec2D.new(rand(width), rand(height)))
+  end
 end
 
 def draw
@@ -20,10 +22,9 @@ def draw
 end
 
 def mouse_dragged
-  vehicles << Vehicle.new(mouse_x, mouse_y)
+  vehicles << Vehicle.new(location: Vec2D.new(mouse_x, mouse_y))
 end
 
 def settings
   size(640, 360)
 end
-

@@ -38,7 +38,7 @@ class Chain
   # Check if a point is within the ball at the end of the chain
   # If so, set dragged = true
   def contains(x, y)
-    return if (x - tail.x) * (x - tail.x)  + (y - tail.y) * (y - tail.y) < radius * radius
+    return unless (tail.x - x) * (tail.x - x)  + (tail.y - y) * (tail.y - y) < radius * radius
     offset.x = tail.x - x
     offset.y = tail.y - y
     tail.lock

@@ -4,10 +4,10 @@ class Particle
   attr_accessor :body
   attr_reader :box2d, :radius, :col
 
-  def initialize(b2d, x, y, r)
-    @box2d, @x, @y, @radius = b2d, x, y, r
+  def initialize(world:, location:, radius:)
+    @box2d, @radius = world, radius
     # This function puts the particle in the Box2d world
-    make_body(x, y, radius)
+    make_body(position: location, size: radius)
     @col = -5_263_441 # grey
     body.setUserData(self)
   end
@@ -32,7 +32,7 @@ class Particle
     true
   end
 
-  def display(app)
+  def display(app:)
     # We look at each body and get its screen position
     pos = box2d.body_coord(body)
     # Get its angle of rotation
@@ -50,16 +50,16 @@ class Particle
   end
 
   # Here's our function that adds the particle to the Box2D world
-  def make_body(x, y, r)
+  def make_body(position:, size:)
     # Define a body
     bd = BodyDef.new
     # Set its position
-    bd.position = box2d.processing_to_world(x, y)
+    bd.position = box2d.processing_to_world(position.x, position.y)
     bd.type = BodyType::DYNAMIC
     @body = box2d.create_body(bd)
     # Make the body's shape a circle
     cs = CircleShape.new
-    cs.m_radius = box2d.scale_to_world(r)
+    cs.m_radius = box2d.scale_to_world(size)
     fd = FixtureDef.new
     fd.shape = cs
     # Parameters that affect physics

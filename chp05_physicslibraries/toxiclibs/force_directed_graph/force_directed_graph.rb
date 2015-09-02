@@ -46,7 +46,14 @@ def new_graph
   # Clear physics
   physics.clear
   center = TVec2D.new(width / 2, height / 2)
-  @clusters = (0..8).map { Cluster.new(rand(3..8), rand(20..100), center) }
+  @clusters = (0..8).map do
+    Cluster.new(
+      app: self,
+      number: rand(3..8),
+      diameter: rand(20..100),
+      center: center
+    )
+  end
   #	All clusters connect to all clusters
   clusters.each_with_index do |ci, i|
     clusters[i + 1..clusters.size - 1].each do |cj|
@@ -94,4 +101,3 @@ end
 def settings
   size(640, 360)
 end
-

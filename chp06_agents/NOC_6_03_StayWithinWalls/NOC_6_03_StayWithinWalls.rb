@@ -3,15 +3,16 @@
 
 
 class Vehicle
-  attr_reader :location, :velocity, :acceleration, :world
-  def initialize(x, y, world, safe_distance)
+  attr_reader :location, :velocity, :acceleration, :width, :height
+  def initialize(location:, max_x:, max_y:, safe_distance:)
     @acceleration = Vec2D.new
     @velocity = Vec2D.new(3, -2)
-    @location = Vec2D.new(x, y)
+    @location = location
     @r = 6
     @maxspeed = 3
     @maxforce = 0.15
-    @world = world
+    @width = max_x
+    @height = max_y
     @d = safe_distance
   end
 
@@ -20,7 +21,7 @@ class Vehicle
     display
   end
 
-  def apply_force(force)
+  def apply_force(force:)
     @acceleration += force
   end
 
@@ -34,11 +35,11 @@ class Vehicle
   def boundaries
     if location.x < @d
       desired = Vec2D.new(@maxspeed, velocity.y)
-    elsif location.x > world.width - @d
+    elsif location.x > width - @d
       desired = Vec2D.new(-@maxspeed, velocity.y)
     elsif location.y < @d
       desired = Vec2D.new(velocity.x, @maxspeed)
-    elsif location.y > world.height - @d
+    elsif location.y > height - @d
       desired = Vec2D.new(velocity.x, -@maxspeed)
     else
       desired = nil
@@ -48,7 +49,7 @@ class Vehicle
     desired *= @maxspeed
     steer = desired - velocity
     steer.set_mag(@maxforce) { steer.mag > @maxforce }
-    apply_force(steer)
+    apply_force(force: steer)
   end
 
   def display
@@ -71,19 +72,22 @@ end
 attr_reader :seeker
 
 def setup
-  sketch_title 'Noc 6 03 Stay Within Walls'
+  sketch_title 'Stay Within Walls'
   @d = 25
-  @seeker = Vehicle.new(width / 2, height / 2, self, @d)
+  @seeker = Vehicle.new(
+    location: Vec2D.new(width / 2, height / 2),
+    max_x: width,
+    max_y: height,
+    safe_distance: @d
+  )
 end
 
 def draw
   background(255)
-
   stroke(175)
   no_fill
   rect_mode(CENTER)
   rect(width / 2, height / 2, width - @d * 2, height - @d * 2)
-
   # Call the appropriate steering behaviors for our agents
   @seeker.boundaries
   @seeker.run
@@ -92,4 +96,3 @@ end
 def settings
   size(640, 360)
 end
-

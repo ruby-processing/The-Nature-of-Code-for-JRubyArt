@@ -23,13 +23,13 @@ end
 class Vehicle
   attr_reader :acceleration, :location, :velocity
 
-  def initialize(loc, ms, mf)
-    @location = loc.copy
+  def initialize(location:, maxspeed:, maxforce:)
+    @location = location
     @r = 4
-    @maxspeed = ms
-    @maxforce = mf
+    @maxspeed = maxspeed
+    @maxforce = maxforce
     @acceleration = Vec2D.new(0, 0)
-    @velocity = Vec2D.new(@maxspeed, 0)
+    @velocity = Vec2D.new(maxspeed, 0)
   end
 
   def run
@@ -37,10 +37,9 @@ class Vehicle
     display
   end
 
-  def follow(path)
+  def follow(path:)
     # predict location 50 frames ahead
-    predict = velocity.copy
-    predict.normalize!
+    predict = velocity.normalize
     predict *= 50
     predict_loc = location + predict
     # look at the line segment
@@ -48,18 +47,16 @@ class Vehicle
     b = path.finish
     # get the normal point to that line
     normal_point = get_normal_point(predict_loc, a, b)
-    dir = b - a
-    dir.normalize!
+    dir = (b - a).normalize
     dir *= 10 # this could be based on velocity instead of arbitrary 10 pixels
-    target = normal_point + dir
+    local_target = normal_point + dir
     distance = predict_loc.dist(normal_point)
-    seek(target) if distance > path.radius
+    seek(target: local_target) if distance > path.radius
   end
 
   def get_normal_point(p, a, b)
     ap = p - a
-    ab = b - a
-    ab.normalize!
+    ab = (b - a).normalize
     # project vector "diff" onto line by using the dot product
     ab *= ap.dot(ab)
     a + ab
@@ -72,18 +69,18 @@ class Vehicle
     @acceleration *= 0
   end
 
-  def apply_force(force)
+  def apply_force(force:)
     @acceleration += force
   end
 
-  def seek(target)
+  def seek(target:)
     desired = target - location
-    return if desired.mag < PConstants.EPSILON
+    return if desired.mag < EPSILON
     desired.normalize!
     desired *= @maxspeed
     steer = desired - velocity
     steer.set_mag(@maxforce) { steer.mag > @maxforce }
-    apply_force(steer)
+    apply_force(force: steer)
   end
 
   def display
@@ -94,7 +91,7 @@ class Vehicle
     push_matrix
     translate(location.x, location.y)
     rotate(theta)
-    begin_shape(PConstants.TRIANGLES)
+    begin_shape(TRIANGLES)
     vertex(0, -@r * 2)
     vertex(-@r, @r * 2)
     vertex(@r, @r * 2)
@@ -103,35 +100,44 @@ class Vehicle
   end
 
   # wrap around
-  def borders(path)
+  def borders(path:)
     if location.x > path.finish.x + @r
-      @location.x = path.start.x - @r
-      @location.y = path.start.y + (location.y - path.finish.y)
+      location.x = path.start.x - @r
+      location.y = path.start.y + (location.y - path.finish.y)
     end
   end
 end
 
+attr_reader :car1, :car2, :road
+
 def setup
-  sketch_title 'Noc 6 05 Path Following Simple'
+  sketch_title 'Path Following Simple'
   start = Vec2D.new(0, height / 3)
   finish = Vec2D.new(width, 2 * height / 3)
-  @path = Path.new(start, finish)
-  @car1 = Vehicle.new(Vec2D.new(0, height / 2), 2, 0.02)
-  @car2 = Vehicle.new(Vec2D.new(0, height / 2), 3, 0.05)
+  @road = Path.new(start, finish)
+  @car1 = Vehicle.new(
+    location: Vec2D.new(0, height / 2),
+    maxspeed: 2,
+    maxforce: 0.02
+  )
+  @car2 = Vehicle.new(
+    location: Vec2D.new(0, height / 2),
+    maxspeed: 3,
+    maxforce: 0.05
+  )
 end
 
 def draw
   background(255)
-  @path.display
-  @car1.follow(@path)
-  @car2.follow(@path)
-  @car1.run
-  @car2.run
-  @car1.borders(@path)
-  @car2.borders(@path)
+  road.display
+  car1.follow(path: road)
+  car2.follow(path: road)
+  car1.run
+  car2.run
+  car1.borders(path: road)
+  car2.borders(path: road)
 end
 
 def settings
   size(640, 360)
 end
-

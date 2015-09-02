@@ -31,7 +31,6 @@ def setup
   @physics = Physics::VerletPhysics2D.new
   physics.addBehavior(Physics::GravityBehavior2D.new(TVec2D.new(0, 0.1)))
   physics.setWorldBounds(Toxi::Rect.new(0, 0, width, height))
-
   # Initialize the chain
   @chain = Chain.new(physics, 180, 20, 16, 0.2)
 end
@@ -59,4 +58,3 @@ end
 def settings
   size(640, 360)
 end
-

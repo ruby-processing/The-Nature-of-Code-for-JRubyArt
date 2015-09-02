@@ -1,30 +1,19 @@
-
 # The Nature of Code
 # NOC_6_04_Flowfield
-
 class FlowField
-  def initialize(r, width, height)
-    @resolution = r
-    @cols = width / @resolution
-    @rows = height / @resolution
+  attr_reader :cols, :field, :resolution, :rows
 
-    noise_seed(rand(10_000))
-    xoff = -1
-    @field = Array.new(@cols) do
-      yoff = 0
-      xoff += 1
-      Array.new(@rows) do
-        theta = map1d(noise(xoff, yoff), (0..1), (0..TWO_PI))
-        yoff += 1
-        Vec2D.new(cos(theta), sin(theta))
-      end
-    end
+  def initialize(resolution:, width:, height:)
+    @resolution = resolution
+    @cols = width / resolution
+    @rows = height / resolution
+    reset!
   end
 
   def display
-    @field.each_with_index do |row, i|
+    field.each_with_index do |row, i|
       row.each_with_index do |v, j|
-        draw_vector(v, i * @resolution, j * @resolution, @resolution - 1)
+        draw_vector(v, i * resolution, j * resolution, resolution - 1)
       end
     end
   end
@@ -40,32 +29,54 @@ class FlowField
   end
 
   def lookup(vector)
-    column = (0..@cols - 1).clip(vector.x / @resolution)
-    row = (0..@rows - 1).clip(vector.y / @resolution)
-    @field[column][row].copy
+    column = constrain(vector.x / resolution, 0, cols - 1).to_i
+    row = constrain(vector.y / resolution, 0, rows - 1).to_i
+    field[column][row].copy
+  end
+  
+  def reset!
+    @field = create_field(cols, rows)
+  end
+
+  private
+
+  def create_field(cols, rows)
+    noise_seed(rand(10_000))
+    xoff = -1
+    field = Array.new(cols) do
+      yoff = 0
+      xoff += 1
+      Array.new(rows) do
+        theta = map1d(noise(xoff, yoff), (0..1), (0..TWO_PI))
+        yoff += 1
+        Vec2D.new(cos(theta), sin(theta))
+      end
+    end
+    field # need to return field 2D Array
   end
 end
 
 class Vehicle
-  attr_reader :acceleration, :location, :velocity, :world
+  attr_reader :acceleration, :location, :velocity, :width, :height
 
-  def initialize(loc, maxspeed, maxforce, world)
+  def initialize(location:, maxspeed:, maxforce:, max_x:, max_y:)
     @acceleration = Vec2D.new
     @velocity = Vec2D.new(0, -2)
-    @location = loc.copy
+    @location = location
     @r = 6
     @maxspeed = maxspeed
     @maxforce = maxforce
-    @world = world
+    @width = max_x
+    @height = max_y
   end
 
   def run
     update
-    borders
+    borders # ensure we don't lose those vehicles
     display
   end
 
-  def apply_force(force)
+  def apply_force(force:)
     @acceleration += force
   end
 
@@ -76,7 +87,7 @@ class Vehicle
     @acceleration *= 0
   end
 
-  def follow(flowfield)
+  def follow(field: flowfield)
     # What is the vector at that spot in the flow field?
     desired = flowfield.lookup(location)
     # Scale it up by maxspeed
@@ -84,7 +95,7 @@ class Vehicle
     # Steering is desired minus velocity
     steer = desired - velocity
     steer.set_mag(@maxforce) { steer.mag > @maxforce }
-    apply_force(steer)
+    apply_force(force: steer)
   end
 
   def display
@@ -104,36 +115,47 @@ class Vehicle
   end
 
   def borders
-    @location.x = world.width + @r if location.x < -@r
-    @location.y = world.height + @r if location.y < -@r
-    @location.x = -@r if location.x > world.width + @r
-    @location.y = -@r if location.y > world.height + @r
+    location.x = width - @r if location.x < -@r
+    location.y = height - @r if location.y < -@r
+    location.x = -@r if location.x > width + @r
+    location.y = -@r if location.y > height + @r
   end
 end
 
+attr_reader :flowfield, :vehicles
+
 def setup
-  sketch_title 'Noc 6 04 Flowfield'
-  @flowfield = FlowField.new(20, width, height)
+  sketch_title 'Flow Field'
+  @flowfield = FlowField.new(
+    resolution: 20,
+    width: width,
+    height: height
+  )
   @vehicles = Array.new(120) do
     Vehicle.new(
-      Vec2D.new(rand(width), rand(height)),
-      rand(2.0..5),
-      rand(0.1..0.5),
-      self
+        location: Vec2D.new(rand(width), rand(height)),
+        maxspeed: rand(2.0..5),
+        maxforce: rand(0.1..0.5),
+        max_x: width,
+        max_y: height
     )
   end
 end
 
 def draw
   background(255)
-  @vehicles.each do |v|
-    v.follow(@flowfield)
+  vehicles.each do |v|
+    v.follow(field: flowfield)
     v.run
   end
-  @flowfield.display
+  flowfield.display
 end
 
 def settings
   size(640, 340)
 end
 
+def mouse_pressed
+  flowfield.reset!
+end
+  

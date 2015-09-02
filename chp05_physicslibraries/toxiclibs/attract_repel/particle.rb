@@ -8,9 +8,9 @@ class Particle < Physics::VerletParticle2D
   def_delegators(:@app, :fill, :stroke, :stroke_weight, :ellipse, :physics)
   attr_reader :r
 
-  def initialize(loc)
-    super(loc)
-    @app = $app
+  def initialize(app:, location:)
+    super(location)
+    @app = app
     @r = 8
     physics.add_particle(self)
     physics.add_behavior(Physics::AttractionBehavior2D.new(self, r * 4, -1))

@@ -1,7 +1,5 @@
 # The Nature of Code
 # NOC_6_06_PathFollowing
-
-
 class Path
   attr_reader :points, :radius
   def initialize
@@ -10,15 +8,15 @@ class Path
   end
 
   def add_point(x, y)
-    @points << Vec2D.new(x, y)
+    points << Vec2D.new(x, y)
   end
 
   def start
-    @points[0]
+    points[0]
   end
 
-  def end
-    @points[-1]
+  def finish
+    points[-1]
   end
 
   def display
@@ -53,16 +51,16 @@ class Vehicle
     display
   end
 
-  def follow(path)
+  def follow(path:)
     # predict location 50 frames ahead
     predict = velocity.copy
     predict.normalize!
     predict *= 50
     predict_loc = location + predict
     worldrecord = 100_000 # far away
-    target = nil
+    near_target = nil
     normal = nil
-    (0 ... path.points.size - 1).each do |i|
+    (0...path.points.size - 1).each do |i|
       a = path.points[i]
       b = path.points[i + 1]
       normal_point = get_normal_point(predict_loc, a, b)
@@ -74,17 +72,16 @@ class Vehicle
         dir = b - a
         dir.normalize!
         dir *= 10
-        target = normal_point.copy
-        target += dir
+        near_target = normal_point.copy
+        near_target += dir
       end
     end
-    seek(target) if worldrecord > path.radius
+    seek(target: near_target) if worldrecord > path.radius
   end
 
   def get_normal_point(p, a, b)
     ap = p - a
-    ab = b - a
-    ab.normalize!
+    ab = (b - a).normalize
     # project vector "diff" onto line by using the dot product
     ab *= ap.dot(ab)
     a + ab
@@ -97,18 +94,18 @@ class Vehicle
     @acceleration *= 0
   end
 
-  def apply_force(force)
+  def apply_force(force:)
     @acceleration += force
   end
 
-  def seek(target)
+  def seek(target:)
     desired = target - location
-    return if desired.mag < PConstants.EPSILON
+    return if desired.mag < EPSILON
     desired.normalize!
     desired *= @maxspeed
     steer = desired - velocity
     steer.set_mag(@maxforce) { steer.mag > @maxforce }
-    apply_force(steer)
+    apply_force(force: steer)
   end
 
   def display
@@ -119,7 +116,7 @@ class Vehicle
     push_matrix
     translate(@location.x, @location.y)
     rotate(theta)
-    begin_shape(PConstants.TRIANGLES)
+    begin_shape(TRIANGLES)
     vertex(0, -@r * 2)
     vertex(-@r, @r * 2)
     vertex(@r, @r * 2)
@@ -128,15 +125,17 @@ class Vehicle
   end
 
   # wrap around
-  def borders(path)
-    return if @location.x < path.end.x + @r
+  def borders(path:)
+    return if @location.x < path.finish.x + @r
     @location.x = path.start.x - @r
-    @location.y = path.start.y + (@location.y - path.end.y)
+    @location.y = path.start.y + (@location.y - path.finish.y)
   end
 end
 
+attr_reader :car1, :car2, :road
+
 def setup
-  sketch_title 'Noc 6 06 Path Following'
+  sketch_title 'Path Following'
   new_path
   @car1 = Vehicle.new(Vec2D.new(0, height / 2), 2, 0.04)
   @car2 = Vehicle.new(Vec2D.new(0, height / 2), 3, 0.1)
@@ -144,21 +143,21 @@ end
 
 def draw
   background(255)
-  @path.display
-  @car1.follow(@path)
-  @car2.follow(@path)
-  @car1.run
-  @car2.run
-  @car1.borders(@path)
-  @car2.borders(@path)
+  road.display
+  car1.follow(path: road)
+  car2.follow(path: road)
+  car1.run
+  car2.run
+  car1.borders(path: road)
+  car2.borders(path: road)
 end
 
 def new_path
-  @path = Path.new
-  @path.add_point(-20, height / 2)
-  @path.add_point(rand(0 ..  width / 2), rand(0 .. height))
-  @path.add_point(rand(width / 2 ..  width), rand(0 .. height))
-  @path.add_point(width + 20, height / 2)
+  @road = Path.new
+  road.add_point(-20, height / 2)
+  road.add_point(rand(0.. width / 2), rand(0..height))
+  road.add_point(rand(width / 2.. width), rand(0..height))
+  road.add_point(width + 20, height / 2)
 end
 
 def mouse_pressed
@@ -168,4 +167,3 @@ end
 def settings
   size(640, 360)
 end
-

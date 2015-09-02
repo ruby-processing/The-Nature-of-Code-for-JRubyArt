@@ -3,6 +3,7 @@
 # world = World.new((0..width), (0..height))
 # world.constrain_mover(mover)
 class World
+  include Processing::MathTool
   attr_reader :xrange, :yrange
 
   def initialize(xrange, yrange)
@@ -16,10 +17,10 @@ class World
     # Note clip functionality, extends Range in ruby-processing
     unless xrange.cover? mover.loc.x
       mover.vel.x *= -1
-      mover.loc.x = xrange.clip mover.loc.x
+      mover.loc.x = constrain(mover.loc.x, xrange.begin, xrange.last)
     end
     return if yrange.cover? mover.loc.y
     mover.vel.y *= -1
-    mover.loc.y = yrange.clip mover.loc.y
+    mover.loc.y = constrain(mover.loc.y, yrange.begin, yrange.last)
   end
 end

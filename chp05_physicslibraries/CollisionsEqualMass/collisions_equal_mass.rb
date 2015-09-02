@@ -15,8 +15,16 @@ attr_reader :a, :b, :show_vectors
 
 def setup
   sketch_title 'Collisions Equal Mass'
-  @a = Mover.new(self, Vec2D.new(rand(5.0), rand(-5..5.0)), Vec2D.new(10, 10))
-  @b = Mover.new(self, Vec2D.new(-2, 1), Vec2D.new(150, 150))
+  @a = Mover.new(
+    app: self, 
+    velocity: Vec2D.new(rand(5.0), rand(-5..5.0)), 
+    location: Vec2D.new(10, 10)
+  )
+  @b = Mover.new(
+    app: self, 
+    velocity: Vec2D.new(-2, 1), 
+    location: Vec2D.new(150, 150)
+  )
   @show_vectors = true
 end
 

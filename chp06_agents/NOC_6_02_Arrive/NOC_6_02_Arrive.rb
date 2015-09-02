@@ -1,20 +1,18 @@
 # The Nature of Code
 # NOC_6_02_Arrive
-
-
 class Vehicle
   attr_reader :location, :velocity, :acceleration
 
-  def initialize(x, y)
+  def initialize(location:)
     @acceleration = Vec2D.new
     @velocity = Vec2D.new(0, -2)
-    @location = Vec2D.new(x, y)
+    @location = location
     @r = 6
     @maxspeed = 4
     @maxforce = 0.1
   end
 
-  def apply_force(force)
+  def apply_force(force:)
     @acceleration += force
   end
 
@@ -25,7 +23,7 @@ class Vehicle
     @acceleration *= 0
   end
 
-  def arrive(target)
+  def arrive(target:)
     desired = target - location
     d = desired.mag
 
@@ -36,7 +34,7 @@ class Vehicle
     end
     steer = desired - velocity
     steer.set_mag(@maxforce) { steer.mag > @maxforce }
-    apply_force(steer)
+    apply_force(force: steer)
   end
 
   def display
@@ -59,8 +57,8 @@ end
 attr_reader :seeker
 
 def setup
-  sketch_title 'Noc 6 02 Arrive'
-  @seeker = Vehicle.new(width / 2, height / 2)
+  sketch_title 'Arrive'
+  @seeker = Vehicle.new(location: Vec2D.new(width / 2, height / 2))
 end
 
 def draw
@@ -71,7 +69,7 @@ def draw
   stroke_weight(2)
   ellipse(mouse.x, mouse.y, 48, 48)
   # Call the appropriate steering behaviors for our agents
-  seeker.arrive(mouse)
+  seeker.arrive(target: mouse)
   seeker.update
   seeker.display
 end
@@ -79,4 +77,3 @@ end
 def settings
   size(640, 360)
 end
-

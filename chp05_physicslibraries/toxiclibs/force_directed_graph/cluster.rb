@@ -9,11 +9,11 @@ class Cluster
   attr_reader :nodes, :diameter
 
   # We initialize a Cluster with a number of nodes, a diameter, and centerpoint
-  def initialize(n, d, center)
-    @diameter = d
-    @app = $app
+  def initialize(app:, number:, diameter:, center:)
+    @diameter = diameter
+    @app = app
     # Create the nodes
-    @nodes = (0..n).map { Node.new(center.add(TVec2D.randomVector)) }
+    @nodes = (0..number).map { Node.new(app: app, location: center.add(TVec2D.randomVector)) }
     # Connect all the nodes with a Spring
     nodes[1..nodes.size - 1].each_with_index do |pi, i|
       nodes[0..i].each do |pj|

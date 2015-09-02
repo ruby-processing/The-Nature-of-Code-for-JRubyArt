@@ -13,9 +13,9 @@ class Node < Physics::VerletParticle2D
   extend Forwardable
   def_delegators(:@app, :fill, :stroke, :stroke_weight, :ellipse)
 
-  def initialize(pos)
-    super(pos)
-    @app = $app
+  def initialize(app:, location:)
+    super(location)
+    @app = app
   end
 
   # All we're doing really is adding a :display function to a VerletParticle

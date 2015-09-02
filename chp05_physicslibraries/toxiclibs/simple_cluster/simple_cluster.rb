@@ -23,7 +23,12 @@ def setup
   @physics.setWorldBounds(Toxi::Rect.new(10, 10, width - 20, height - 20))
 
   # Spawn a new random graph
-  @cluster = Cluster.new(8, 100, TVec2D.new(width / 2, height / 2))
+  @cluster = Cluster.new(
+    app: self,
+    number: 8, 
+    diameter: 100, 
+    center: TVec2D.new(width / 2, height / 2)
+  )
 end
 
 def draw
@@ -51,7 +56,12 @@ def key_pressed
     @show_particles = true unless show_physics
   when 'n'
     physics.clear
-    @cluster = Cluster.new(rand(3..20), rand(10..width / 2), TVec2D.new(width / 2, height / 2))
+    @cluster = Cluster.new(
+      app: self,
+      number: rand(3..20), 
+      diameter: rand(10..width / 2), 
+      center: TVec2D.new(width / 2, height / 2)
+    )
   end
 end
 

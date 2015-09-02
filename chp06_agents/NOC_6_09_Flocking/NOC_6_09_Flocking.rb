@@ -1,12 +1,11 @@
 # The Nature of Code
 # NOC_6_09_Flocking
-
 class Boid
   attr_reader :location, :velocity, :acceleration
-  def initialize(x, y)
+  def initialize(location:)
     @acceleration = Vec2D.new
-    @velocity = Vec2D.new(rand(-1.0 .. 1), rand(-1.0 .. 1))
-    @location = Vec2D.new(x, y)
+    @velocity = Vec2D.new(rand(-1.0..1), rand(-1.0..1))
+    @location = location
     @r = 3
     @maxspeed = 3
     @maxforce = 0.05
@@ -19,7 +18,7 @@ class Boid
     render
   end
 
-  def apply_force(force)
+  def apply_force(force:)
     @acceleration += force
   end
 
@@ -28,14 +27,14 @@ class Boid
     ali = align(boids)
     coh = cohesion(boids)
     sep *= 1.5
-    apply_force(sep)
-    apply_force(ali)
-    apply_force(coh)
+    apply_force(force: sep)
+    apply_force(force: ali)
+    apply_force(force: coh)
   end
 
   def seek(target)
     desired = target - location
-    return if desired.mag < PConstants.EPSILON
+    return if desired.mag < EPSILON
     desired.normalize!
     desired *= @maxspeed
     steer = desired - velocity
@@ -50,9 +49,8 @@ class Boid
     vehicles.each do |other|
       next if other.equal? self
       d = location.dist(other.location)
-      if (PConstants.EPSILON .. desired_separation).include? d
-        diff = location - other.location
-        diff.normalize!
+      if (EPSILON..desired_separation).cover? d
+        diff = (location - other.location).normalize
         diff /= d
         sum += diff
         count += 1
@@ -64,7 +62,7 @@ class Boid
       sum *= @maxspeed
       steer = sum + velocity
       steer.set_mag(@maxforce) { steer.mag > @maxforce }
-      apply_force(steer)
+      apply_force(force: steer)
     end
     sum
   end
@@ -75,7 +73,7 @@ class Boid
     count = 0
     boids.each do |other|
       d = location.dist(other.location)
-      if (PConstants.EPSILON .. neighbordist).include? d
+      if (EPSILON..neighbordist).cover? d
         sum += other.velocity
         count += 1
       end
@@ -96,7 +94,7 @@ class Boid
     boids.each do |other|
       next if other.equal? self
       d = location.dist(other.location)
-      if (PConstants.EPSILON .. neighbordist).include? d
+      if (EPSILON..neighbordist).cover? d
         sum += other.location
         count += 1
       end
@@ -151,9 +149,11 @@ class Flock
 end
 
 def setup
-  sketch_title 'Noc 6 09 Flocking'
+  sketch_title 'Flocking'
   @flock = Flock.new
-  200.times { @flock.add_boid(Boid.new(width / 2, height / 2)) }
+  200.times do
+    @flock.add_boid(Boid.new(location: Vec2D.new(width / 2, height / 2)))
+  end
 end
 
 def draw
@@ -162,11 +162,10 @@ def draw
 end
 
 def mouse_dragged
-  @flock.add_boid(Boid.new(mouse_x, mouse_y))
+  @flock.add_boid(Boid.new(location: Vec2D.new(mouse_x, mouse_y)))
 end
 
 def settings
   size(640, 360)
   smooth 4
 end
-
