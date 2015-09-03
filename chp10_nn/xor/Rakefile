@@ -1,11 +1,29 @@
 # -*- encoding: utf-8 -*-
-require 'java'
-require 'rake/javaextensiontask'
 
-Rake::JavaExtensionTask.new('nn') do |ext|
-  ext.name = 'nn'
-  ext.debug = true
-  ext.lib_dir = 'library/nn'
-  ext.source_version = '1.7'
-  ext.target_version = '1.7'
+desc 'Compile java library'
+task default: [:compile_and_run]
+
+desc 'Compile and Run'
+task :compile_and_run do
+  Rake::Task[:compile].execute
+  Rake::Task[:run].execute
+end
+
+desc 'Compile'
+task :compile do
+  sh 'jruby -S rake --rakefile JRakefile compile'
+end
+
+desc 'Run'
+task :run do
+  sh 'k9 run xor.rb'
+end
+
+desc 'clean'
+task :clean do
+  Dir['./**/*.jar'].each do |path|
+    puts format('Deleting %s ...', path)
+    File.delete(path)
+  end
+  FileUtils.rm_rf('./tmp')
 end

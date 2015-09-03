@@ -1,12 +1,10 @@
 # The Nature of Code
 # http://natureofcode.com
-
-
 module SeekingNeural
   class Perceptron
     # Perceptron is created with n weights and learning constant
     def initialize(n, c)
-      @weights = Array.new(n) { rand(0 .. 1.0) }
+      @weights = Array.new(n) { rand(0..1.0) }
       @c = c
     end
 
@@ -15,7 +13,7 @@ module SeekingNeural
     def train(forces, error)
       trained = @weights.zip(forces.map(&:to_a)
         .map { |a, b| (a * error.x + b * error.y) * @c })
-      .map { |w, c| (0.0..1.0).clip(w + c) }
+      .map { |w, c| constrain(w + c, 0, 1.0) }
       @weights = trained
     end
 
@@ -51,8 +49,8 @@ module SeekingNeural
       @location += @velocity
       # Reset acceleration to 0 each cycle
       @acceleration *= 0
-      @location.x = (0..width).clip(location.x)
-      @location.y = (0..height).clip(location.y)
+      @location.x = constrain(location.x, 0, width)
+      @location.y = constrain(location.y, 0, height)
     end
 
     def apply_force(force)
@@ -165,4 +163,3 @@ end
 def settings
   size(640, 360)
 end
-

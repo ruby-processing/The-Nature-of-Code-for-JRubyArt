@@ -3,7 +3,6 @@
 # http:#natureofcode.com
 
 # "Landscape" example
-
 class Landscape
   include Processing::Proxy
 
@@ -19,20 +18,22 @@ class Landscape
 
   # Calculate height values (based off a neural network)
   def calculate(nn)
-    val = ->(curr, net, x, y) { curr * 0.95 + 0.05 * (net.feed_forward([x, y]) * 280.0 - 140.0) }
-    @z = (0 ... cols).map { |i|
-      (0 ... rows).map { |j|
+    val = lambda do |curr, net, x, y|
+      curr * 0.95 + 0.05 * (net.feed_forward([x, y]) * 280.0 - 140.0)
+    end
+    @z = (0...cols).map do |i|
+      (0...rows).map do |j|
         val.call(z[i][j], nn, i * 1.0 / cols, j * 1.0 / cols)
-      }
-    }
+      end
+    end
   end
 
   # Render landscape as grid of quads
   def render
     # Every cell is an individual quad
     # (could use quad_strip here, but produces funny results, investigate this)
-    (0 ... z.size - 1).each do |x|
-      (0 ... z[0].size - 1).each do |y|
+    (0...z.size - 1).each do |x|
+      (0...z[0].size - 1).each do |y|
         # one quad at a time
         # each quad's color is determined by the height value at each vertex
         # (clean this part up)
@@ -54,4 +55,3 @@ class Landscape
     end
   end
 end
-

@@ -1,7 +1,7 @@
 # The Nature of Code
 # NOC_8_02_Recursion
 def setup
-  sketch_title 'Noc 8 02 Recursion'
+  sketch_title 'Recursion'
 end
 
 def draw
@@ -19,11 +19,10 @@ def draw_circle(x, y, r)
   # Exit condition, stop when radius is too small
   return unless r > 2
   # now we draw 2 circles, 1 on the left, 1 on the right
-  draw_circle(x + r/2, y, r/2)
-  draw_circle(x - r/2, y, r/2)
+  draw_circle(x + r / 2, y, r / 2)
+  draw_circle(x - r / 2, y, r / 2)
 end
 
 def settings
   size(640, 360)
 end
-

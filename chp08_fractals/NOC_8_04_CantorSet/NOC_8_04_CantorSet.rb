@@ -1,7 +1,7 @@
 # The Nature of Code
 # NOC_8_04_CantorSet
 def setup
-  sketch_title 'Noc 8 04 Cantor Set'
+  sketch_title 'Cantor Set'
   background(255)
   @h = 30
   # Call the recursive function
@@ -25,4 +25,3 @@ end
 def settings
   size(800, 200)
 end
-

@@ -1,8 +1,7 @@
 # The Nature of Code
 # NOC_8_01_Recursion
-
 def setup
-  sketch_title 'Noc 8 01 Recursion'
+  sketch_title 'Recursion'
 end
 
 def draw
@@ -25,4 +24,3 @@ end
 def settings
   size(640, 360)
 end
-

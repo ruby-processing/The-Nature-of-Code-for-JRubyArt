@@ -48,9 +48,7 @@ class GOL
 
   def generate
     @board.each do |rows|
-      rows.each do |cell|
-        cell.save_previous
-      end
+      rows.each(&:save_previous)
     end
     # Loop through every spot in our 2D array and check spots neighbors
     @board.each_index do |x|
@@ -79,15 +77,13 @@ class GOL
 
   def display
     @board.each do |rows|
-      rows.each do |cell|
-        cell.display
-      end
+      rows.each(&:display)
     end
   end
 end
 
 def setup
-  sketch_title 'Noc 7 03 Game Of Life Oop'
+  sketch_title 'Game Of Life OOP'
   @gol = GOL.new(width, height)
 end
 

@@ -14,13 +14,13 @@ def setup
   layers = 3
   inputs = 2
   @output = Neuron.new 250, 0
-  (0 ... layers).each do |i|
+  (0...layers).each do |i|
     inputs.times do |j|
-      x = map1d(i, (0 .. layers), (-250 .. 300))
-      y = map1d(j, (0 .. inputs - 1), (-75 .. 75))
+      x = map1d(i, (0..layers), (-250..300))
+      y = map1d(j, (0..inputs - 1), (-75..75))
       n = Neuron.new(x, y)
       if i > 0
-        (0 ... inputs).each do |k|
+        (0...inputs).each do |k|
           prev = network.neurons[network.neurons.size - inputs + k - j]
           network.connect(prev, n, rand)
         end
@@ -44,4 +44,3 @@ end
 def settings
   size 640, 360
 end
-

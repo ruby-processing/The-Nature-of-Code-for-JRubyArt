@@ -8,7 +8,7 @@ class Perceptron
 
   # Perceptron is created with n weights and a learning constant
   def initialize(n, c)
-    @weights = Array.new(n) { rand(-1.0 .. 1) }
+    @weights = Array.new(n) { rand(-1.0..1) }
     @c = c # learning constant
   end
 
@@ -42,7 +42,6 @@ end
 # A class to describe a training point
 # Has an x and y, a "bias" (1) and a known output
 # Could also add a variable for "guess" but not required here
-
 class Trainer
   attr_reader :inputs, :answer
 
@@ -73,8 +72,8 @@ def setup
   @ptron = Perceptron.new 3, 0.00001
   # Create a rand set of training points and calculate the "known" answer
   @training = Array.new(2_000) do
-    x = rand(@xmin .. @xmax)
-    y = rand(@ymin .. @ymax)
+    x = rand(@xmin..@xmax)
+    y = rand(@ymin..@ymax)
     answer = y < f(x) ? -1 : 1
     Trainer.new(x, y, answer)
   end
@@ -121,4 +120,3 @@ def settings
   size 640, 360
   smooth 4
 end
-

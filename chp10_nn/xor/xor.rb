@@ -2,7 +2,7 @@
 # Daniel Shiffman
 # http://natureofcode.com
 # XOR Multi-Layered Neural Network Example
-# Neural network code is all in the "code" folder
+# Neural network code is all in the 'code' folder
 load_library :nn
 
 require_relative './landscape'
@@ -13,7 +13,7 @@ ITERATIONS_PER_FRAME = 5
 attr_reader :inputs, :nn, :count, :land, :theta, :f, :result, :known
 
 def setup
-  sketch_title 'Xor'
+  sketch_title 'XOR'
   @theta = 0.0
   # Create a landscape object
   @land = Landscape.new(20, 300, 300)
@@ -65,10 +65,10 @@ def network_status
   text_font(f)
   fill(0)
   text('Your friendly neighborhood neural network solving XOR.', 10, 20)
-  text("Total iterations: #{count}", 10, 40)
+  text(format('Total iterations: %d', count), 10, 40)
   mse += (result - known) * (result - known)
   rmse = Math.sqrt(mse / 4.0)
-  out = "Root mean squared error: #{format('%.5f', rmse)}"
+  out = format('Root mean squared error: %.5f', rmse)
   hint DISABLE_DEPTH_SORT
   text(out, 10, 60)
   hint ENABLE_DEPTH_SORT
@@ -77,4 +77,3 @@ end
 def settings
   size(400, 400, P3D)
 end
-

@@ -35,13 +35,13 @@ class CA
         fill(255)
       end
       no_stroke
-      rect(i * @w, @generation * @w, @w, @w)
+      rect(i * w, generation * w, w, w)
     end
   end
 end
 
 def setup
-  sketch_title 'Noc 7 01 Wolfram Ca Simple'
+  sketch_title 'Wolfram CA Simple'
   background(255)
   @ca = CA.new(width)
 end
@@ -54,4 +54,3 @@ end
 def settings
   size(800, 400)
 end
-

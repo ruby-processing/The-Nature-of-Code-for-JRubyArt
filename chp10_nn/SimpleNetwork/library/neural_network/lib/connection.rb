@@ -2,14 +2,13 @@
 # Daniel Shiffman
 # http://natureofcode.com
 # An animated drawing of a Neural Network
-
 class Connection
   include Processing::Proxy
 
   attr_reader :neuron_a, :neuron_b, :weight, :sending, :sender, :output
 
-  def initialize(from, to, w)
-    @weight = w
+  def initialize(from, to, weight)
+    @weight = weight
     @neuron_a = from
     @neuron_b = to
     @sending = false
@@ -47,4 +46,3 @@ class Connection
     ellipse(sender.x, sender.y, 16, 16)
   end
 end
-

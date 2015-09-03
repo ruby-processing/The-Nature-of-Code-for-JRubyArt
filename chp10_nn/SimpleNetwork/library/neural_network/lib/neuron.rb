@@ -2,15 +2,14 @@
 # Daniel Shiffman
 # http://natureofcode.com
 # An animated drawing of a Neural Network
-
 class Neuron
   include Processing::Proxy
   ACTIVATION_THRESHOLD =  1.0
 
   attr_reader :connections, :location, :sum, :r
 
-  def initialize(x, y)
-    @location = Vec2D.new(x, y)
+  def initialize(location:)
+    @location = location
     @connections = []
     @r = 32
     @sum = 0
@@ -43,7 +42,7 @@ class Neuron
     stroke(0)
     stroke_weight(1)
     # Brightness is mapped to the accumulated action potential
-    b = map1d(sum, (0 .. 1), (255 .. 0))
+    b = map1d(sum, (0..1), (255..0))
     fill(b)
     ellipse(location.x, location.y, r, r)
     # Size shrinks down back to original dimensions
