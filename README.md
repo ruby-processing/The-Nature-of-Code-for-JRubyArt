@@ -9,11 +9,11 @@ Although many of the sketches here stand on their own merit, you should remember
 
 ruby 2.2 
 
-jruby-9.1.0.0
+jruby-9.1.2.0
 
-JRubyArt gem version 1.0.7 (processing-3.1)
+JRubyArt gem version 1.1.1 (processing-3.1.1)
 
-pbox2d gem version 0.3.0
+pbox2d gem version 0.3.2
 
 
 [The Nature of Code]:http://natureofcode.com
