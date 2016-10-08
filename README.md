@@ -1,19 +1,19 @@
 #The-Nature-of-Code-Examples-in-JRubyArt
 
-A new ruby port of the [examples][] from [The Nature of Code][] by Daniel Shiffman. Samples have been adapted to run with JRubyArt (processing-3.0 and ruby-2.1+), from the [original ruby port][], which should be used with ruby-processing (processing-2.2.1 and ruby-1.9.3). Some of the changes in this version are required because of changes to processing (eg. size now belongs in settings), but others have been made to take advantage of newer ruby syntax. In particular the fact keyword arguments are now first class citizens, so argument order should no longer be an issue, and method signatures can have more meaning.
+A new ruby port of the [examples][] from [The Nature of Code][] by Daniel Shiffman. Samples have been adapted to run with JRubyArt (processing-3.1+ and ruby-2.2+), from the [original ruby port][], which should be used with ruby-processing (processing-2.2.1 and ruby-1.9.3). Some of the changes in this version are required because of changes to processing (eg. size now belongs in settings), but others have been made to take advantage of newer ruby syntax. In particular the fact keyword arguments are now first class citizens, so argument order should no longer be an issue, and method signatures can have more meaning.
 
 
-Although many of the sketches here stand on their own merit, you should remember that they were originally designed to illustrate the book (so to get the most from them you should definetly [get the book][]). Since the sketches have been translated to a more idiomatic ruby, some of the sketches may not exactly match the points made in the book. However such sketches do serve to demonstrate the differences between processing and ruby-processing. Since the book is now also available in [Japanese][] it would be great if someone would fork this and add Japanese annotations. For the most part the code is just ruby and processing, but see [glossary][] for some convenience methods unique to ruby-processing/JRubyArt (eg `load_library` and `clip`).
+Although many of the sketches here stand on their own merit, you should remember that they were originally designed to illustrate the book (so to get the most from them you should definetly [get the book][]). Since the sketches have been translated to a more idiomatic ruby, some of the sketches may not exactly match the points made in the book. However such sketches do serve to demonstrate the differences between processing and JRubyArt. Since the book is now also available in [Japanese][] it would be great if someone would fork this and add Japanese annotations. For the most part the code is just ruby and processing, but see [glossary][] for some convenience methods unique to JRubyArt (eg `load_library`, `map1d`, `constrained_map`).
 
 ## Tested versions
 
 ruby 2.2 
 
-jruby-9.0.0.0
+jruby-9.1.5.0
 
-ruby-processing gem version 0.4.0 (processing-3.0a11)
+JRubyArt gem version 1.2.4 (processing-3.2.1)
 
-pbox2d gem version 0.3.0
+pbox2d gem version 0.3.2
 
 
 [The Nature of Code]:http://natureofcode.com
