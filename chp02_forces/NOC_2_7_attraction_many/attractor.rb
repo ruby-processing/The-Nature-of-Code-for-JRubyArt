@@ -26,7 +26,7 @@ class Attractor
     force.normalize!
     # Calculate magnitude of gravitional force
     strength = (G * mass * mover.mass) / (d * d)
-    force *= strength  # Calculate force vector --> magnitude * direction
+    force *= strength # Calculate force vector --> magnitude * direction
     force
   end
 

@@ -10,9 +10,10 @@ attr_reader :boxes, :boundaries, :box2d
 
 def setup
   sketch_title 'Liquid Fun Test'
-  @box2d = Box2D.new(self)
-  box2d.init_options(gravity: [0, -10])
-  box2d.create_world
+  # @box2d = Box2D.new(self)
+  # box2d.init_options(gravity: [0, -10])
+  # box2d.create_world
+  @box2d = WorldBuilder.build(app: self, gravity: [0, -10])
   @boundaries = []
   @boxes = []
   box2d.world.set_particle_radius(0.15)

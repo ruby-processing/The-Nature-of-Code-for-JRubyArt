@@ -12,7 +12,7 @@ class Mover
   end
 
   def shake
-    force = Vec2D.new(rand, rand)
+    force = Vec2D.random
     force *= 0.7
     apply_force(force)
   end
@@ -68,7 +68,7 @@ end
 
 # Instant Force
 def mouse_pressed
-  cannon = Vec2D.new(rand, rand)
+  cannon = Vec2D.random
   cannon *= 5
   @mover.apply_force(force: cannon)
 end

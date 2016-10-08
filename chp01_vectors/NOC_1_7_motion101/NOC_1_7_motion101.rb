@@ -1,6 +1,7 @@
 # The Nature of Code
 # http://natureofcode.com
 class Mover
+  RADIUS = 24
   attr_reader :location
   def initialize(width, height)
     @location = Vec2D.new(rand(0..width), rand(0..height))
@@ -15,17 +16,17 @@ class Mover
     stroke(0)
     stroke_weight(2)
     fill(127)
-    ellipse(location.x, location.y, 48, 48)
+    ellipse(location.x, location.y, RADIUS * 2, RADIUS * 2)
   end
 
   def check_edges(width, height)
-    unless (0..width).cover? location.x
-      location.x = 0 if location.x > width
-      location.x = width if location.x < 0
+    unless (RADIUS..width - RADIUS).cover? location.x
+      location.x = RADIUS if location.x > width - RADIUS
+      location.x = width - RADIUS if location.x < RADIUS
     end
-    return if (0..height).cover? location.y
-    location.y = 0 if location.y > height
-    location.y = height if location.y < 0
+    return if (RADIUS..height - RADIUS).cover? location.y
+    location.y = RADIUS if location.y > height - RADIUS
+    location.y = height - RADIUS if location.y < RADIUS
   end
 end
 

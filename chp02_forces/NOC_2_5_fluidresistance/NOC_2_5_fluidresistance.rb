@@ -1,7 +1,7 @@
 # NOC_2_5_fluidresistance
 # The Nature of Code
 # http://natureofcode.com
- class Liquid
+class Liquid
   # Coefficient of drag
   def initialize(x, y, w, h, c)
     @x, @y, @w, @h, @c = x, y, w, h, c
@@ -34,6 +34,7 @@
   end
 end
 
+# Mover class
 class Mover
   attr_reader :acceleration, :location, :mass, :radius, :velocity
   def initialize(mass:, location:)
@@ -64,7 +65,7 @@ class Mover
   # bounce off the bottom of the window
   def check_edges(max_y:)
     if location.y > max_y - radius
-      @velocity.y *= -0.9  # A little dampening when hitting the bottom
+      @velocity.y *= -0.9 # A little dampening when hitting the bottom
       @location.y = max_y - radius
     end
   end
@@ -94,7 +95,7 @@ def draw
       # Calculate drag force
       drag_force = liquid.drag(m)
       # Apply drag force to Mover
-      m.apply_force(force:drag_force)
+      m.apply_force(force: drag_force)
     end
     # Gravity is scaled by mass here!
     gravity = Vec2D.new(0, 0.1 * m.mass)

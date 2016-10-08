@@ -1,17 +1,25 @@
 # The Nature of Code
 # http://natureofcode.com
 # NOC_1_11_motion101_acceleration_array
-
-
 class Mover
   RADIUS = 24
   TOP_SPEED = 6
   attr_reader :location, :velocity, :topspeed_squared
 
   def initialize(max_x:, max_y:)
-    @location = Vec2D.new(rand(RADIUS..max_x - RADIUS), rand(RADIUS..max_y - RADIUS))
+    @location = Vec2D.new(
+      rand(RADIUS..max_x - RADIUS),
+      rand(RADIUS..max_y - RADIUS)
+    )
     @velocity = Vec2D.new(0, 0)
   end
+
+  def update_display
+    update
+    display
+  end
+
+  private
 
   def update
     mouse = Vec2D.new(mouse_x, mouse_y)
@@ -31,17 +39,16 @@ class Mover
   end
 end
 
+attr_reader :movers
+
 def setup
-  sketch_title ' Motion 101 Acceleration Array'
+  sketch_title 'Motion 101 Acceleration Array'
   @movers = Array.new(20) { Mover.new(max_x: width, max_y: height) }
 end
 
 def draw
   background(255)
-  @movers.each do |mover|
-    mover.update
-    mover.display
-  end
+  movers.each(&:update_display)
 end
 
 def settings

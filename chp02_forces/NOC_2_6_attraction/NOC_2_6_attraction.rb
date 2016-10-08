@@ -10,7 +10,7 @@ attr_reader :attractor, :attractor_mover
 
 def setup
   sketch_title 'Attraction'
-  @attractor_mover =  Mover.new
+  @attractor_mover = Mover.new
   @attractor = Attractor.new(location: Vec2D.new(width / 2, height / 2))
 end
 

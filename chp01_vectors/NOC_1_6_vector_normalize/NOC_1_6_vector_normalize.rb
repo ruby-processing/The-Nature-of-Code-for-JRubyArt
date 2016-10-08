@@ -15,7 +15,8 @@ def draw
   mouse = Vec2D.new(mouse_x, mouse_y)
   # A vector that points to the center of the window
   center = Vec2D.new(width / 2, height / 2)
-  # Subtract center from mouse which results in a vector that points from center to mouse
+  # Subtract center from mouse which results in a vector that points from center
+  # to mouse
   mouse -= center
   # Normalize the vector (bang version, changes original)
   mouse.normalize!
@@ -26,7 +27,7 @@ def draw
   stroke(0)
   stroke_weight(2)
   line(0, 0, mouse.x, mouse.y)
- end
+end
 
 def settings
   size 800, 200

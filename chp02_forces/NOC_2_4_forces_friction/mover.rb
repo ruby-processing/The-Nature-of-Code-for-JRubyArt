@@ -1,3 +1,4 @@
+# Mover class
 class Mover
   include Processing::Proxy
 

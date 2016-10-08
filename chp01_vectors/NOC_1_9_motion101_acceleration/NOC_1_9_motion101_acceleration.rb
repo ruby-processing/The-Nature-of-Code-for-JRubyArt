@@ -11,7 +11,7 @@ class Mover
   end
 
   def update
-    acceleration = Vec2D.new(rand, rand)
+    acceleration = Vec2D.random
     acceleration *= rand(0..2.0)
     @velocity += acceleration
     @velocity.set_mag(@topspeed) { @velocity.mag > @topspeed }
@@ -36,7 +36,7 @@ class Mover
   end
 end
 
-#NOC_1_9_motion101_acceleration
+# NOC_1_9_motion101_acceleration
 def setup
   sketch_title 'Motion 101 Acceleration'
   @mover = Mover.new(max_x: width, max_y: height)

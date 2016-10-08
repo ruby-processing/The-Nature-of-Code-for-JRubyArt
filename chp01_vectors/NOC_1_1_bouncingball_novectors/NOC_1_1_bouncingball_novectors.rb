@@ -1,6 +1,7 @@
 # NOC_1_1_bouncingball_novectors
 # http://natureofcode.com
 # Example 1-1: Bouncing Ball, no vectors
+RADIUS = 24
 
 def setup
   sketch_title 'Bouncing Ball No Vectors'
@@ -15,13 +16,13 @@ def draw
   # Add the current speed to the location.
   @x += @xspeed
   @y += @yspeed
-  @xspeed = -@xspeed if @x > width or @x < 0
-  @yspeed = -@yspeed if @y > height or @y < 0
+  @xspeed = -@xspeed unless (RADIUS..width - RADIUS).cover?(@x)
+  @yspeed = -@yspeed unless (RADIUS..height - RADIUS).cover?(@y)
   # Display circle at x location
   stroke(0)
   stroke_weight(2)
   fill(127)
-  ellipse(@x, @y, 48, 48)
+  ellipse(@x, @y, 2 * RADIUS, 2 * RADIUS)
 end
 
 def settings

@@ -7,7 +7,8 @@ def setup
   @movers = (0..19).map do
     Mover.new(
       location: Vec2D.new(rand(width), rand(height)),
-      mass: rand(0.1..2))
+      mass: rand(0.1..2)
+    )
   end
 end
 

@@ -1,3 +1,4 @@
+# the mover class
 class Mover
   include Processing::Proxy
   RADIUS = 24
