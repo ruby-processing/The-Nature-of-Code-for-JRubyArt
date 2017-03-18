@@ -1,4 +1,4 @@
-#The-Nature-of-Code-Examples-in-JRubyArt
+# The-Nature-of-Code-Examples-in-JRubyArt #
 
 A new ruby port of the [examples][] from [The Nature of Code][] by Daniel Shiffman. Samples have been adapted to run with JRubyArt (processing-3.1+ and ruby-2.2+), from the [original ruby port][]. Some of the changes in this version are required because of changes to processing (eg. size now belongs in settings), but others have been made to take advantage of newer ruby syntax. In particular the fact keyword arguments are now first class citizens, so argument order should no longer be an issue, and method signatures can have more meaning.
 
