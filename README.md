@@ -7,7 +7,7 @@ Although many of the sketches here stand on their own merit, you should remember
 
 ## Tested versions
 
-ruby 2.2 
+ruby 2.3 
 
 jruby-9.1.8.0
 
