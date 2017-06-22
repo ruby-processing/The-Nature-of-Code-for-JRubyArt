@@ -21,7 +21,7 @@ public class Network {
     InputNeuron[] input_array;
     HiddenNeuron[] hidden_array;
     OutputNeuron output;
-    
+
     public static final double LEARNING_CONSTANT = 0.5;
 
     // Only One output now to start!!! (i can do better, really. . .)
@@ -37,7 +37,7 @@ public class Network {
         for (int i = 0; i < input_array.length-1; i++) {
             input_array[i] = new InputNeuron();
         }
-        
+
         // Make hidden_array neurons
         for (int i = 0; i < hidden_array.length-1; i++) {
             hidden_array[i] = new HiddenNeuron();
@@ -67,12 +67,12 @@ public class Network {
 
 
     public double feedForward(double[] inputVals) {
-        
+
         // Feed the input_array with an array of inputs
         for (int i = 0; i < inputVals.length; i++) {
-            input_array[i].input(inputVals[i]);  
+            input_array[i].input(inputVals[i]);
         }
-        
+
         // Have the hidden_array layer calculate its output
         for (int i = 0; i < hidden_array.length-1; i++) {
             hidden_array[i].calcOutput();
@@ -80,56 +80,56 @@ public class Network {
 
         // Calculate the output of the output neuron
         output.calcOutput();
-        
+
         // Return output
-        return output.getOutput();
+        return output.output();
     }
 
     public double train(double[] inputs, double answer) {
         double result = feedForward(inputs);
-        
-        
+
+
         // This is where the error correction all starts
         // Derivative of sigmoid output function * diff between known and guess
         double deltaOutput = result * (1 - result) * (answer - result);
 
-        
+
         // BACKPROPOGATION
         // This is easier b/c we just have one output
         // Apply Delta to connections between hidden_array and output
-        ArrayList<Connection> connections = output.getConnections();
+        ArrayList<Connection> connections = output.connections();
         for (int i = 0; i < connections.size(); i++) {
             Connection c = connections.get(i);
-            Neuron neuron = c.getFrom();
-            double temp_output = neuron.getOutput();
+            Neuron neuron = c.from();
+            double temp_output = neuron.output();
             double deltaWeight = temp_output * deltaOutput;
             c.adjustWeight(LEARNING_CONSTANT * deltaWeight);
         }
         for (HiddenNeuron hidden : hidden_array) {
-            connections = hidden.getConnections();
+            connections = hidden.connections();
             double sum  = 0;
             // Sum output delta * hidden_array layer connections (just one output)
             for (int j = 0; j < connections.size(); j++) {
                 Connection c = connections.get(j);
                 // Is this a connection from hidden_array layer to next layer (output)?
-                if (c.getFrom() == hidden) {
-                    sum += c.getWeight() * deltaOutput;
+                if (c.from() == hidden) {
+                    sum += c.weight() * deltaOutput;
                 }
-            }    
+            }
             // Then adjust the weights coming in based:
             // Above sum * derivative of sigmoid output function for hidden_array neurons
             for (int j = 0; j < connections.size(); j++) {
                 Connection c = connections.get(j);
                 // Is this a connection from previous layer (input_array) to hidden_array layer?
-                if (c.getTo() == hidden) {
-                    double temp_output = hidden.getOutput();
+                if (c.to() == hidden) {
+                    double temp_output = hidden.output();
                     double deltaHidden = temp_output * (1 - temp_output);  // Derivative of sigmoid(x)
                     deltaHidden *= sum;   // Would sum for all outputs if more than one output
-                    Neuron neuron = c.getFrom();
-                    double deltaWeight = neuron.getOutput() * deltaHidden;
+                    Neuron neuron = c.from();
+                    double deltaWeight = neuron.output() * deltaHidden;
                     c.adjustWeight(LEARNING_CONSTANT * deltaWeight);
                 }
-            } 
+            }
         }
         return result;
     }
