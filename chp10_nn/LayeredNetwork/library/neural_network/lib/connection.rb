@@ -3,7 +3,6 @@
 # http://natureofcode.com
 
 # An animated drawing of a Neural Network
-
 class Connection
   include Processing::Proxy
   # Connection is from A to B
@@ -51,4 +50,3 @@ class Connection
     line a.x, a.y, b.x, b.y
   end
 end
-

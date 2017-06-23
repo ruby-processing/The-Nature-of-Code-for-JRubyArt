@@ -1,7 +1,7 @@
 # The Nature of Code
 # Daniel Shiffman
 # http://natureofcode.com
-
+# The static network
 class StaticNetwork
   include Processing::Proxy
   attr_reader :neurons, :location
@@ -32,7 +32,7 @@ class StaticNetwork
   def display
     push_matrix
     translate(location.x, location.y)
-    neurons.each { |n| n.display }
+    neurons.each(&:display)
     pop_matrix
   end
 end

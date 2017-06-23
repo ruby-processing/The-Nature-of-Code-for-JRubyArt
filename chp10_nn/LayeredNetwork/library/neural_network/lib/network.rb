@@ -1,11 +1,9 @@
 # The Nature of Code
 # Daniel Shiffman
 # http:#natureofcode.com
-# An animated drawing of a Neural Network
-
+# The Network has a list of neurons
 class Network
   include Processing::Proxy
-  # The Network has a list of neurons
   attr_reader :neurons, :connections, :location
 
   def initialize(x, y)
@@ -38,15 +36,15 @@ class Network
 
   # Update the animation
   def update
-    connections.each { |c| c.update }
+    connections.each(&:update)
   end
 
   # Draw everything
   def display
     push_matrix
     translate(location.x, location.y)
-    neurons.each { |n| n.display }
-    connections.each { |c| c.display }
+    neurons.each(&:display)
+    connections.each(&:display)
     pop_matrix
   end
 end

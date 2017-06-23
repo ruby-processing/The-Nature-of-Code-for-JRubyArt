@@ -2,7 +2,6 @@
 # The Nature of Code
 # http://natureofcode.com
 # An animated drawing of a Neural Network
-
 class Neuron
   include Processing::Proxy
   # Neuron has a location

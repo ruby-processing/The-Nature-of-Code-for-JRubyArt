@@ -38,7 +38,7 @@ def draw
   network.update
   network.display
   # Every 30 frames feed in an input
-  network.feedforward(rand, rand) if (frame_count % 30 == 0)
+  network.feedforward(rand, rand) if (frame_count % 30).zero?
 end
 
 def settings
