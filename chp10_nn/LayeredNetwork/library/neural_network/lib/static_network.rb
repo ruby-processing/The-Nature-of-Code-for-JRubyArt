@@ -7,7 +7,7 @@ class StaticNetwork
   attr_reader :neurons, :location
 
   def initialize(layers, inputs, _outputs)
-    @location = Vec2D.new($app.width / 2, $app.height / 2)
+    @location = Vec2D.new(width / 2, height / 2)
     @neurons = []
     output = Neuron.new(250, 0)
     layers.times do |i|
