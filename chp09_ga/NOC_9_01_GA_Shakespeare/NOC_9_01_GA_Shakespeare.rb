@@ -17,7 +17,7 @@ class DNA
   attr_reader :genes
 
   def initialize(num)
-    @genes = (0 ... num).map { rand(32 .. 122).chr }
+    @genes = (0 ... num).map { rand(32..122).chr }
   end
 
   # Converts character array to a String
@@ -38,7 +38,7 @@ class DNA
   def crossover(partner)
     # A new child
     child = DNA.new(@genes.size)
-    midpoint = rand(0 .. @genes.size) # Pick a midpoint
+    midpoint = rand(0..@genes.size) # Pick a midpoint
     # Half from one, half from the other
     @genes.each_with_index do |c, i|
       if i > midpoint
@@ -52,7 +52,7 @@ class DNA
 
   # Based on a mutation probability, picks a new rand character
   def mutate(mutation_rate)
-    @genes.map! { |c| (rand < mutation_rate) ? rand(32 .. 122).chr : c }
+    @genes.map! { |c| (rand < mutation_rate) ? rand(32..122).chr : c }
   end
 
   def to_s
@@ -94,7 +94,7 @@ class Population
     # likely to be picked as a parent, a lower fitness = fewer entries to mating
     # pool = less likely to be picked as a parent
     @population.each do |p|
-      fitness = map1d(p.fitness(@target), (0 .. max_fitness), (0 .. 1.0))
+      fitness = map1d(p.fitness(@target), (0..max_fitness), (0..1.0))
       # Arbitrary multiplier, we can also use monte carlo method
       n = (fitness * 100).to_i
       n.times{ @mating_pool << p } # and pick two rand numbers

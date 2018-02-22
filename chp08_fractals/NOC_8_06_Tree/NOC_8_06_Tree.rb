@@ -11,7 +11,7 @@ end
 def draw
   background(255);
   # Let's pick an angle 0 to 90 degrees based on the mouse position
-  @theta = map1d(mouse_x, (0 .. width), (0 .. PI / 2))
+  @theta = map1d(mouse_x, (0..width), (0..PI / 2))
   # Start the tree from the bottom of the screen
   translate(width / 2, height)
   stroke(0)
@@ -21,7 +21,7 @@ end
 def branch(len)
   # Each branch will be 2/3rds the size of the previous one
 
-  # sw = map1d(len, (2 .. 120), (1 .. 10))
+  # sw = map1d(len, (2..120), (1..10))
   #stroke_weight(sw)
   stroke_weight(2)
 

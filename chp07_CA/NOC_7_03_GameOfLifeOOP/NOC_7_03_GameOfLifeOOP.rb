@@ -55,8 +55,8 @@ class GOL
       @board[x].each_index do |y|
         # Add up all the states in a 3x3 surrounding grid
         neighbors = 0
-        (-1 .. 1).each do |i|
-          (-1 .. 1).each do |j|
+        (-1..1).each do |i|
+          (-1..1).each do |j|
             neighbors += @board[(x + i + @columns) % @columns][(y + j + @rows) % @rows].previous
           end
         end

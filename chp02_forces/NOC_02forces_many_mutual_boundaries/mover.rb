@@ -28,6 +28,11 @@ class Mover
     ellipse(location.x, location.y, mass * 16, mass * 16)
   end
 
+  def run
+    update
+    display
+  end
+
   def attract(mover:)
     force = location - mover.location                            # Calculate direction of force
     distance = force.mag                                         # Distance between objects

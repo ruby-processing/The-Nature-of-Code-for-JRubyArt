@@ -33,7 +33,7 @@ end
 
 def branch(h)
   # thickness of the branch is mapped to its length
-  sw = map1d(h, (2 .. 120), (1 .. 5))
+  sw = map1d(h, (2..120), (1..5))
   stroke_weight(sw)
   # Draw the actual branch
   line(0, 0, 0, -h)
@@ -45,10 +45,10 @@ def branch(h)
   # Here, ours is when the length of the branch is 2 pixels or less
   return unless h > 2
   # A rand number of branches
-  n = rand(1 .. 4)
+  n = rand(1..4)
   n.times do
     # Picking a rand angle
-    theta = rand(-PI / 2 ..  PI / 2)
+    theta = rand(-PI / 2.. PI / 2)
     push_matrix      # Save the current state of transformation (i.e. where are we now)
     rotate(theta)    # Rotate by theta
     branch(h)        # Ok, now call myself to branch again

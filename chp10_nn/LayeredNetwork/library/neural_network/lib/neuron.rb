@@ -45,7 +45,7 @@ class Neuron
     stroke(0)
     stroke_weight(1)
     # Brightness is mapped to sum
-    b = map1d(sum, (0 .. 1), (255 .. 0))
+    b = map1d(sum, (0..1), (255..0))
     fill(b)
     ellipse(location.x, location.y, r, r)
     # Size shrinks down back to original dimensions

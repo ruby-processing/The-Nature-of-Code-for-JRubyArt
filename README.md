@@ -7,11 +7,11 @@ Although many of the sketches here stand on their own merit, you should remember
 
 ## Tested versions
 
-ruby 2.3 
+ruby 2.3
 
-jruby-9.1.8.0
+jruby-9.1..6.0
 
-JRubyArt gem version 1.3.0 (processing-3.3)
+JRubyArt gem version 1.4.4 (processing-3.6)
 
 pbox2d gem version 0.9.1
 

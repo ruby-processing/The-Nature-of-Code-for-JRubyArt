@@ -12,7 +12,7 @@ def draw
   angle = @start_angle
 
   (0..width).step(24) do |x|
-    y = map1d(sin(angle), (-1 .. 1), (0 .. height))
+    y = map1d(sin(angle), (-1..1), (0..height))
     stroke(0)
     fill(0, 50)
     stroke_weight(2)

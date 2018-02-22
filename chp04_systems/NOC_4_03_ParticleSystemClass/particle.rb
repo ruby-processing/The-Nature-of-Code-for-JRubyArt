@@ -6,7 +6,7 @@ class Particle
   def initialize(location:)
     @location = location
     @acceleration = Vec2D.new(0, 0.05)
-    @velocity = Vec2D.new(rand(-1.0 .. 1), rand(-1 .. 0))
+    @velocity = Vec2D.new(rand(-1.0..1), rand(-1..0))
     @lifespan = 255.0
   end
 

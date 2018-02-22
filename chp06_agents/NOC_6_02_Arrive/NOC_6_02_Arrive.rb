@@ -28,7 +28,7 @@ class Vehicle
     d = desired.mag
 
     if d < 100 # scale with arbitrary damping withing 100 pixels
-      desired.set_mag(map1d(d, (0 .. 100), (0 .. @maxspeed)))
+      desired.set_mag(map1d(d, (0..100), (0..@maxspeed)))
     else
       desired.set_mag(@maxspeed)
     end
