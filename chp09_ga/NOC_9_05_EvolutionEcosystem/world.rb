@@ -40,7 +40,7 @@ module Eco
       @dna = dna
       @maxspeed = map1d(dna.genes[0], (0..1), (15..0))
       @r = map1d(dna.genes[0], (0..1), (0..50))
-      @width, @height = $app.width, $app.height
+      @width, @height = Processing.app.width, Processing.app.height
     end
 
     def run

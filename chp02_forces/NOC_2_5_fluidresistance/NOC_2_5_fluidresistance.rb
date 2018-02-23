@@ -36,6 +36,8 @@ end
 
 # Mover class
 class Mover
+
+
   attr_reader :acceleration, :location, :mass, :radius, :velocity
   def initialize(mass:, location:)
     @location = location
@@ -79,6 +81,8 @@ end
 # Bodies experience fluid resistance when in "water"
 attr_reader :liquid, :movers
 
+SIZE = 9
+
 def setup
   sketch_title 'Fluid Resistance'
   reset!
@@ -115,7 +119,7 @@ end
 
 # Restart all the Mover objects randomly
 def reset!
-  @movers = (0..9).map do |i|
+  @movers = (0..SIZE).map do |i|
     Mover.new(mass: rand(0.5..3), location: Vec2D.new(40 + i * 70, 0))
   end
 end

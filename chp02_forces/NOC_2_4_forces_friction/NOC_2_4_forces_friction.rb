@@ -1,11 +1,12 @@
 # The Nature of Code
 # http://natureofcode.com
 require_relative 'mover'
+SIZE = 15
 
 def setup
   sketch_title 'Forces Friction'
   srand(1)
-  @movers = Array.new(15) { Mover.new(rand(1.0..4), rand(width), 0) }
+  @movers = (0..SIZE).map { Mover.new(rand(1.0..4), rand(width), 0) }
 end
 
 def draw

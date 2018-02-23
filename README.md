@@ -13,7 +13,7 @@ jruby-9.1..6.0
 
 JRubyArt gem version 1.4.4 (processing-3.6)
 
-pbox2d gem version 0.9.1
+pbox2d gem version 1.0.2
 
 
 [The Nature of Code]:http://natureofcode.com

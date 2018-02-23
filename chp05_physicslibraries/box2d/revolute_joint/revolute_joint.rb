@@ -4,6 +4,7 @@
 
 # Example demonstrating revolute joint
 require 'pbox2d'
+require 'forwardable'
 require_relative 'windmill'
 require_relative 'particle'
 

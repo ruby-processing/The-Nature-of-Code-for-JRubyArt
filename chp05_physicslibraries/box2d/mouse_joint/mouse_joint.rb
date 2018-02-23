@@ -3,14 +3,12 @@
 # http://natureofcode.com
 
 # Basic example of controlling an object with the mouse (by attaching a spring)
-
 require 'pbox2d'
+require 'forwardable'
 require_relative 'box'
 require_relative 'boundary'
 require_relative 'spring'
 require_relative 'dummy_spring'
-require 'forwardable'
-
 # A reference to our box2d world
 attr_reader :box2d, :boundaries, :box, :spring
 
@@ -42,7 +40,7 @@ def mouse_pressed
   # Check to see if the mouse was clicked on the box and if so create
   # a real spring and bind the mouse location to the box with a spring
   return unless box.contains(mouse_x, mouse_y)
-  @spring = spring.bind(mouse_x, mouse_y, box) 
+  @spring = spring.bind(mouse_x, mouse_y, box)
 end
 
 def draw
@@ -60,4 +58,3 @@ end
 def settings
   size(640, 360)
 end
-

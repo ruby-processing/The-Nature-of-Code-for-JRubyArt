@@ -18,17 +18,33 @@ class Attractor
   def attract(mover:)
     # Calculate direction of force
     force = location - mover.location
-    # Distance between objects
-    d = force.mag
-    # Limit the distance to avoid "extreme" results
-    d = constrain(d, 5.0, 25.0)
-    # Normalize vector, we just want the vector direction
-    force.normalize!
-    # Calculate magnitude of gravitional force
-    strength = (G * mass * mover.mass) / (d * d)
-    force *= strength # Calculate force vector --> magnitude * direction
-    force
+    force.tap do |f|
+      # Distance between objects
+      d = f.mag
+      # Limit the distance to avoid "extreme" results
+      d = constrain(d, 5.0, 25.0)
+      # Normalize vector, we just want the vector direction
+      f.normalize!
+      # Calculate magnitude of gravitional force
+      strength = (G * mass * mover.mass) / (d * d)
+      f *= strength # Calculate force vector --> magnitude * direction
+    end
   end
+
+  # def attract(mover:)
+  #   # Calculate direction of force
+  #   force = location - mover.location
+  #   # Distance between objects
+  #   d = force.mag
+  #   # Limit the distance to avoid "extreme" results
+  #   d = constrain(d, 5.0, 25.0)
+  #   # Normalize vector, we just want the vector direction
+  #   force.normalize!
+  #   # Calculate magnitude of gravitional force
+  #   strength = (G * mass * mover.mass) / (d * d)
+  #   force *= strength # Calculate force vector --> magnitude * direction
+  #   force
+  # end
 
   def display
     ellipse_mode(CENTER)

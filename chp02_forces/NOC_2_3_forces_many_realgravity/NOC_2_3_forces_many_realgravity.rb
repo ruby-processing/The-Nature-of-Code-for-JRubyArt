@@ -2,9 +2,11 @@
 # http://natureofcode.com
 require_relative 'mover'
 
+SIZE = 20
+
 def setup
   sketch_title 'Noc 2 3 Forces Many Realgravity'
-  @movers = Array.new(20) { Mover.new(rand(1.0..4), 0, 0) }
+  @movers = (0..SIZE).map { Mover.new(rand(1.0..4), 0, 0) }
 end
 
 def draw
