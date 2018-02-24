@@ -2,12 +2,12 @@
 # The Nature of Code
 # http://natureofcode.com
 require_relative 'particle_system'
-
 attr_reader :ps
 
 def setup
   sketch_title 'Additive Blending'
-  @ps = ParticleSystem.new(number: 0, origin: Vec2D.new(width / 2, 50))
+  img = load_image(data_path('texture.png'))
+  @ps = ParticleSystem.new(number: 0, origin: Vec2D.new(width / 2, 50), image: img)
 end
 
 def draw

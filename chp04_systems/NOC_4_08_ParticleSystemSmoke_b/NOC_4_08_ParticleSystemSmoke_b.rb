@@ -1,17 +1,16 @@
 # NOC_4_08_ParticleSystemSmoke_b
 # The Nature of Code
 # http://natureofcode.com
-# Needs to run with jruby-complete (not system jruby)
 require_relative 'particle_system'
 
 attr_reader :ps
 
 def setup
   sketch_title 'Noc 4 08 Particle System Smoke B'
-  img = load_image('texture.png')
+  img = load_image(data_path('texture.png'))
   @ps = ParticleSystem.new(
-    number: 0, 
-    origin: Vec2D.new(width / 2, height - 75), 
+    number: 0,
+    origin: Vec2D.new(width / 2, height - 75),
     image: img
   )
 end
@@ -50,4 +49,3 @@ def settings
   size(640, 360)
   smooth 4
 end
-
