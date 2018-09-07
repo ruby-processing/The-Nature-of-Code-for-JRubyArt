@@ -58,43 +58,43 @@ class Network
   end
 
   def train(inputs, answer)
-    result = feed_forward(inputs)
-    # This is where the error correction all starts
-    # Derivative of sigmoid output function * diff between known and guess
-    delta_output = result * (1 - result) * (answer - result)
-    # BACKPROPOGATION
-    # This is easier b/c we just have one output
-    # Apply Delta to connections between hidden and output
-    connections = output.connections
-    connections.each do |c|
-      neuron = c.from
-      loutput = neuron.output
-      delta_weight = loutput * delta_output
-      c.adjust_weight(LEARNING_CONSTANT * delta_weight)
-    end
-
-    # ADJUST HIDDEN WEIGHTS
-    hidden.each do |hidden1|
-      connections = hidden1.connections
-      sum = 0
-      # Sum output delta * hidden layer connections (just one output)
+    @result = feed_forward(inputs).tap do |res|
+      # This is where the error correction all starts
+      # Derivative of sigmoid output function * diff between known and guess
+      delta_output = res * (1 - res) * (answer - res)
+      # BACKPROPOGATION
+      # This is easier b/c we just have one output
+      # Apply Delta to connections between hidden and output
+      connections = output.connections
       connections.each do |c|
-        # Is this a from hidden layer to next layer (output)?
-        sum += c.weight * delta_output if c.from == hidden1
-      end
-      # Then adjust the weights coming in based:
-      # Above sum * derivative of sigmoid output function for hidden neurons
-      connections.each do |c|
-        # Is this a from previous layer (input) to hidden layer?
-        next unless c.to == hidden1
-        loutput = hidden1.output
-        delta_hidden = loutput * (1 - loutput) # Derivative of sigmoid(x)
-        delta_hidden *= sum # Would sum for all outputs if more than one output
         neuron = c.from
-        delta_weight = neuron.output * delta_hidden
+        loutput = neuron.output
+        delta_weight = loutput * delta_output
         c.adjust_weight(LEARNING_CONSTANT * delta_weight)
       end
+
+      # ADJUST HIDDEN WEIGHTS
+      hidden.each do |hidden1|
+        connections = hidden1.connections
+        sum = 0
+        # Sum output delta * hidden layer connections (just one output)
+        connections.each do |c|
+          # Is this a from hidden layer to next layer (output)?
+          sum += c.weight * delta_output if c.from == hidden1
+        end
+        # Then adjust the weights coming in based:
+        # Above sum * derivative of sigmoid output function for hidden neurons
+        connections.each do |c|
+          # Is this a from previous layer (input) to hidden layer?
+          next unless c.to == hidden1
+          loutput = hidden1.output
+          delta_hidden = loutput * (1 - loutput) # Derivative of sigmoid(x)
+          delta_hidden *= sum # Would sum for all outputs if more than one output
+          neuron = c.from
+          delta_weight = neuron.output * delta_hidden
+          c.adjust_weight(LEARNING_CONSTANT * delta_weight)
+        end
+      end
     end
-    result
   end
 end

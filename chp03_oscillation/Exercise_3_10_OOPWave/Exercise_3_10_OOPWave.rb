@@ -1,8 +1,7 @@
 # Exercise_3_10_OOPWave
 # The Nature of Code
 # http://natureofcode.com
-
-Vect = Struct.new(:x, :y) # no fancy functionality required why use PVector?
+Vect = Struct.new(:x, :y) # no functionality required no need for Vec2D here
 
 class Wave
   def initialize(position:, width:, amplitude:, period:)
@@ -12,9 +11,9 @@ class Wave
     @w = width         # Width of entire wave
     @period = period   # How many pixels before the wave repeats
     @amplitude = amplitude  # Height of wave
-    @dx = (TWO_PI / @period) * @xspacing 
+    @dx = (TWO_PI / @period) * @xspacing
     # Use an array to store height values for the wave (not really necessary)
-    @yvalues = Array.new(@w / @xspacing)  
+    @yvalues = Array.new(@w / @xspacing)
   end
 
   def calculate
@@ -46,15 +45,15 @@ def setup
   sketch_title 'Exercise OO Wave'
   # Initialize a wave with starting point, width, amplitude, and period
   @wave0 = Wave.new(
-    position: Vect.new(50, 75), 
-    width: 100, 
-    amplitude: 20, 
+    position: Vect.new(50, 75),
+    width: 100,
+    amplitude: 20,
     period: 500
   )
   @wave1 = Wave.new(
-    position: Vect.new(300, 100), 
-    width: 300, 
-    amplitude: 40, 
+    position: Vect.new(300, 100),
+    width: 300,
+    amplitude: 40,
     period: 220
   )
 end

@@ -12,7 +12,9 @@ class Landscape
     @scl, @w, @h  = scl, w, h
     @cols = w / scl
     @rows = h / scl
-    @z = Array.new(cols, Array.new(rows, 0.0))
+    @z = (0..cols).map do |row|
+      (0..rows).map { 0.0 }
+    end
     @zoff = 0
   end
 

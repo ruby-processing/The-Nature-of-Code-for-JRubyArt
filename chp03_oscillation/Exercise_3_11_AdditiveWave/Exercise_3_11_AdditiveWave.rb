@@ -5,18 +5,24 @@
 # Additive Wave
 # Create a more complex wave by adding two waves together.
 
+attr_reader :theta
+
+MAX_WAVES = 5 # total # of waves to add together
+
 def setup
   sketch_title 'Additive Wave Exercise'
   @w = width + 16    # Width of entire wave
   @xspacing = 8      #  How far apart should each horizontal location be spaced
-  @maxwaves = 5      # total # of waves to add together
   @theta = 0.0
-  @amplitudes = (0..@maxwaves).map {rand(10..30) }
-  @dx = Array.new(@maxwaves) do |x|     # Value for incrementing X, to be calculated as a function of period and xspacing
+  @amplitudes = (0..MAX_WAVES).map { rand(10..30) }
+  # @dx = Array.new(MAX_WAVES) do |x|     # Value for incrementing X, to be calculated as a function of period and xspacing
+  #   period = rand(100..300)            # How many pixels before the wave repeats
+  #   (TWO_PI / period) * @xspacing
+  # end
+  @dx = (0..MAX_WAVES).map do
     period = rand(100..300)            # How many pixels before the wave repeats
     (TWO_PI / period) * @xspacing
   end
-  @yvalues = Array.new(@w / @xspacing)
 end
 
 def draw
@@ -29,10 +35,10 @@ def calc_wave
   # Increment theta (try different values for 'angular velocity' here
   @theta += 0.02
   # Set all height values to zero
-  @yvalues.each_index{ |i| @yvalues[i] = 0 }
+  @yvalues = (0..(@w / @xspacing)).map {0}
   # Accumulate wave height values
-  (0...@maxwaves).each do |j|
-    x = @theta
+  (0...MAX_WAVES).each do |j|
+    x = theta
     @yvalues.each_index do |i|
       # Every other wave is cosine instead of sine
       if j.even?
