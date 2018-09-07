@@ -3,7 +3,7 @@
 # world = World.new((0..width), (0..height))
 # world.constrain_mover(mover)
 class World
-  include MathTool
+  include MathTool # avoid including all Processing::Proxy to use constrain
   attr_reader :xrange, :yrange
 
   def initialize(xrange, yrange)
