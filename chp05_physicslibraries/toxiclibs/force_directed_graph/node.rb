@@ -2,7 +2,7 @@
 # Daniel Shiffman
 # http://natureofcode.com
 # Force directed graph
-# Heavily based on: http:#code.google.com/p/fidgen/
+# Heavily based on: http://code.google.com/p/fidgen/
 # Notice how we are using inheritance here!
 # We could have just stored a reference to a VerletParticle object
 # inside the Node class, but inheritance is a nice alternative

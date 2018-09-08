@@ -1,6 +1,6 @@
 # The Nature of Code
 # Daniel Shiffman
-# http:#natureofcode.com
+# http://natureofcode.com
 # The Network has a list of neurons
 class Network
   include Processing::Proxy
