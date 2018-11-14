@@ -9,9 +9,9 @@ Although many of the sketches here stand on their own merit, you should remember
 
 ruby 2.3
 
-jruby-9.2.0.0
+jruby-9.2.4.0
 
-JRubyArt gem version 1.5.4 (processing-3.4)
+JRubyArt gem version 1.6.1 (processing-3.4)
 
 pbox2d gem version 1.0.3
 
