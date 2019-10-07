@@ -3,7 +3,7 @@
 # http://natureofcode.com
 # XOR Multi-Layered Neural Network Example
 # Neural network code is all in the 'code' folder
-load_library :nn
+load_library :xor
 
 require_relative './landscape'
 include_package 'nn'

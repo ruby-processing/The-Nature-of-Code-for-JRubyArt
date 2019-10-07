@@ -1,29 +1,18 @@
-# -*- encoding: utf-8 -*-
-
-desc 'Compile java library'
-task default: [:compile_and_run]
-
-desc 'Compile and Run'
-task :compile_and_run do
-  Rake::Task[:compile].execute
-  Rake::Task[:run].execute
-end
+desc 'Default'
+task :default => [:compile, :install, :run]
 
 desc 'Compile'
 task :compile do
-  sh 'jruby -S rake --rakefile JRakefile compile'
+  sh 'mvn package'
+end
+
+desc 'Move xor jar'
+task :install do
+  sh 'mkdir -p library/xor' unless File.exist?('./library/xor')
+  sh 'mv target/xor-1.0-SNAPSHOT.jar library/xor/xor.jar'
 end
 
 desc 'Run'
 task :run do
-  sh 'k9 -r xor.rb'
-end
-
-desc 'clean'
-task :clean do
-  Dir['./**/*.jar'].each do |path|
-    puts format('Deleting %s ...', path)
-    File.delete(path)
-  end
-  FileUtils.rm_rf('./tmp')
+  exec 'k9 -r xor.rb'
 end
