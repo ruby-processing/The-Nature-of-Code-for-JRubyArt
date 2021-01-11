@@ -6,7 +6,7 @@ class Bob
   attr_accessor :location, :velocity
 
   def initialize(x, y)
-    @location = Vec2D.new(x,y)
+    @location = Vec2D.new(x, y)
     @velocity = Vec2D.new
     @acceleration = Vec2D.new
     @drag_offset = Vec2D.new
@@ -35,7 +35,7 @@ class Bob
     stroke_weight(2)
     fill(175)
     fill(50) if @dragging
-    ellipse(@location.x, @location.y, @mass*2, @mass*2)
+    ellipse(@location.x, @location.y, @mass * 2, @mass * 2)
   end
 
   # This checks to see if we clicked on the mover
@@ -43,8 +43,8 @@ class Bob
     d = dist(mx, my, @location.x, @location.y)
     if d < @mass
       @dragging = true
-      @drag_offset.x = @location.x-mx
-      @drag_offset.y = @location.y-my
+      @drag_offset.x = @location.x - mx
+      @drag_offset.y = @location.y - my
     end
   end
 
@@ -64,7 +64,6 @@ end
 # Thank you: http://www.myphysicslab.com/spring2d.html
 
 class Spring
-
   def initialize(origin:, length:)
     @anchor = origin
     @len = length
@@ -124,14 +123,14 @@ end
 # NOC_3_11_spring
 def setup
   sketch_title 'Spring'
-  @spring = Spring.new(origin: Vec2D.new(width/2, 10), length: 100)
-  @bob = Bob.new(width/2, 100)
+  @spring = Spring.new(origin: Vec2D.new(width / 2, 10), length: 100)
+  @bob = Bob.new(width / 2, 100)
 end
 
 def draw
   background(255)
   # Apply a gravity force to the bob
-  gravity = Vec2D.new(0,2)
+  gravity = Vec2D.new(0, 2)
   @bob.apply_force(force: gravity)
 
   # Connect the bob to the spring (this calculates the force)
@@ -163,4 +162,3 @@ end
 def settings
   size(640, 360)
 end
-

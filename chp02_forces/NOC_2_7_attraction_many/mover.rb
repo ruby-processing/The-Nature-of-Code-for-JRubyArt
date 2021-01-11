@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # NOC_2_7_attraction_many
 # The Nature of Code
 # http://natureofcode.com
@@ -6,6 +8,7 @@ class Mover
   include Processing::Proxy
 
   attr_reader :mass, :velocity, :location, :diameter
+
   def initialize(location:, mass:)
     @location = location
     @velocity = Vec2D.new(1, 0)

@@ -3,8 +3,10 @@
 class Mover
   RADIUS = 24
   attr_reader :max_x, :max_y, :location
+
   def initialize(max_x:, max_y:)
-    @max_x, @max_y = max_x - RADIUS, max_y - RADIUS
+    @max_x = max_x - RADIUS
+    @max_y = max_y - RADIUS
     @location = Vec2D.new(rand(RADIUS..max_x), rand(RADIUS..max_y))
     @velocity = Vec2D.new(0, 0)
     @acceleration = Vec2D.new(-0.001, 0.01)
@@ -30,6 +32,7 @@ class Mover
       location.x = max_x if location.x < RADIUS
     end
     return if (RADIUS..max_y).cover? location.y
+
     location.y = RADIUS if location.y > max_y
     location.y = max_y if location.y < RADIUS
   end

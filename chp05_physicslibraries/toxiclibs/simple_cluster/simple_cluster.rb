@@ -25,8 +25,8 @@ def setup
   # Spawn a new random graph
   @cluster = Cluster.new(
     app: self,
-    number: 8, 
-    diameter: 100, 
+    number: 8,
+    diameter: 100,
     center: TVec2D.new(width / 2, height / 2)
   )
 end
@@ -58,8 +58,8 @@ def key_pressed
     physics.clear
     @cluster = Cluster.new(
       app: self,
-      number: rand(3..20), 
-      diameter: rand(10..width / 2), 
+      number: rand(3..20),
+      diameter: rand(10..width / 2),
       center: TVec2D.new(width / 2, height / 2)
     )
   end

@@ -35,7 +35,7 @@ class Population
     # A lower fitness = fewer entries to mating pool
     population.each do |pop|
       fitness_normal = map1d(pop.fitness, (0..max), (0..1.0))
-      n = (fitness_normal * 100).to_i  # Arbitrary multiplier
+      n = (fitness_normal * 100).to_i # Arbitrary multiplier
       (n - 1).times do
         mating_pool << pop
       end
@@ -75,8 +75,9 @@ end
 # http://www.genarts.com/karl/papers/siggraph91.html
 class DNA
   # The genetic sequence
-  LEN = 20  # Arbitrary length
+  LEN = 20 # Arbitrary length
   attr_reader :genes
+
   # Constructor (makes a random DNA)
   def initialize(genes = nil)
     @genes = genes.nil? ? (0..LEN).map { rand(0..1.0) } : genes
@@ -88,7 +89,7 @@ class DNA
     child = Array.new(genes.length, 0.0)
     crossover = rand(0..genes.length)
     genes.length.times do |i|
-      child[i] = (i > crossover) ? genes[i] : partner.genes[i]
+      child[i] = i > crossover ? genes[i] : partner.genes[i]
     end
     DNA.new(child)
   end

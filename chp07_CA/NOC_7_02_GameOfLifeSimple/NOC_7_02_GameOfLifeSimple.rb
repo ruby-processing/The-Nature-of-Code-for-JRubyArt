@@ -2,9 +2,11 @@
 # NOC_7_02_GameOfLifeSimple
 class GOL
   attr_reader :board, :cols, :rows, :w
+
   def initialize(width, height)
     @w = 8
-    @rows,  @cols = height / w, width / w
+    @rows = height / w
+    @cols = width / w
     init
   end
 
@@ -28,15 +30,15 @@ class GOL
         # we added it in the loop above
         neighbors -= board[x][y]
         # rules of life
-        if board[x][y] == 1 && neighbors <  2
-          nextgen[x][y] = 0            # Loneliness
-        elsif board[x][y] == 1 && neighbors >  3
-          nextgen[x][y] = 0            # Overpopulation
-        elsif board[x][y] == 0 && neighbors == 3
-          nextgen[x][y] = 1            # Reproduction
-        else
-          nextgen[x][y] = board[x][y] # Stasis
-        end
+        nextgen[x][y] = if board[x][y] == 1 && neighbors < 2
+                          0 # Loneliness
+                        elsif board[x][y] == 1 && neighbors >  3
+                          0            # Overpopulation
+                        elsif board[x][y] == 0 && neighbors == 3
+                          1            # Reproduction
+                        else
+                          board[x][y] # Stasis
+                        end
       end
     end
     @board = nextgen

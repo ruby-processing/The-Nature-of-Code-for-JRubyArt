@@ -40,6 +40,7 @@ end
 
 def mouse_pressed
   return unless button.clicked(mouse_x, mouse_y)
+
   population.selection
   population.reproduction
 end

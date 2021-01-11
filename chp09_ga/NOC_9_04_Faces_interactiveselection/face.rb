@@ -8,7 +8,9 @@ class Face
 
   # Create a new face
   def initialize(dna, x, y)
-    @dna, @x, @y = dna, x, y
+    @dna = dna
+    @x = x
+    @y = y
     @fitness = 1.0
     # Using java.awt.Rectangle (see: http://java.sun.com/j2se/1.4.2/docs/api/java/awt/Rectangle.html)
     @r = Rectangle.new((x - WH / 2.0).to_i, (y - WH / 2.0).to_i, WH, WH)

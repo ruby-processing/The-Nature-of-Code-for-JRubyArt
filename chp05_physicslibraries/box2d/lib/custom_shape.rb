@@ -23,6 +23,7 @@ class CustomShape
     pos = box2d.body_coord(body)
     # Is it off the bottom of the screen?
     return false unless pos.y > box2d.height
+
     kill_body!
     true
   end
@@ -76,8 +77,13 @@ end
 class Boundary
   include Processing::Proxy
   attr_reader :box2d, :b, :x, :y, :w, :h
+
   def initialize(b2d, x, y, w, h, a)
-    @box2d, @x, @y, @w, @h = b2d, x, y, w, h
+    @box2d = b2d
+    @x = x
+    @y = y
+    @w = w
+    @h = h
     # Define the polygon
     sd = PolygonShape.new
     # Figure out the box2d coordinates

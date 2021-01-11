@@ -4,7 +4,7 @@
 # An animated drawing of a Neural Network
 class Neuron
   include Processing::Proxy
-  ACTIVATION_THRESHOLD =  1.0
+  ACTIVATION_THRESHOLD = 1.0
 
   attr_reader :connections, :location, :sum, :r
 
@@ -26,6 +26,7 @@ class Neuron
     @sum += input
     # Activate the neuron when it reaches its threshold
     return sum unless sum > ACTIVATION_THRESHOLD
+
     fire
     @sum = 0 # On firing the resting action potential is set to 0
   end

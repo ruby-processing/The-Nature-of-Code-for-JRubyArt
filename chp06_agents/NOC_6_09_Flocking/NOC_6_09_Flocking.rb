@@ -2,6 +2,7 @@
 # NOC_6_09_Flocking
 class Boid
   attr_reader :location, :velocity, :acceleration
+
   def initialize(location:)
     @acceleration = Vec2D.new
     @velocity = Vec2D.new(rand(-1.0..1), rand(-1.0..1))
@@ -35,6 +36,7 @@ class Boid
   def seek(target)
     desired = target - location
     return if desired.mag < EPSILON
+
     desired.normalize!
     desired *= @maxspeed
     steer = desired - velocity
@@ -48,13 +50,14 @@ class Boid
     count = 0
     vehicles.each do |other|
       next if other.equal? self
+
       d = location.dist(other.location)
-      if (EPSILON..desired_separation).cover? d
-        diff = (location - other.location).normalize
-        diff /= d
-        sum += diff
-        count += 1
-      end
+      next unless (EPSILON..desired_separation).cover? d
+
+      diff = (location - other.location).normalize
+      diff /= d
+      sum += diff
+      count += 1
     end
     if count > 0
       sum /= count
@@ -79,6 +82,7 @@ class Boid
       end
     end
     return Vec2D.new unless count > 0
+
     sum /= count
     sum.normalize!
     sum *= @maxspeed
@@ -93,6 +97,7 @@ class Boid
     count = 0
     boids.each do |other|
       next if other.equal? self
+
       d = location.dist(other.location)
       if (EPSILON..neighbordist).cover? d
         sum += other.location
@@ -100,6 +105,7 @@ class Boid
       end
     end
     return Vec2D.new unless count > 0
+
     sum /= count
     seek(sum)
   end

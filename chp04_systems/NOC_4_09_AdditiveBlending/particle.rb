@@ -39,5 +39,3 @@ class Particle
     lifespan < 0.0
   end
 end
-
-

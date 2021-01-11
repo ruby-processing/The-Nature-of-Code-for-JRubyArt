@@ -11,7 +11,8 @@ end
 class ParticleSystem
   extend Forwardable
   def_delegators(:@particles, :reject!, :<<, :each)
-  include Enumerable, Runnable
+  include Runnable
+  include Enumerable
 
   def initialize(origin:)
     @origin = origin
@@ -19,7 +20,7 @@ class ParticleSystem
   end
 
   def add_particle
-    part = (rand < 0.5) ? Particle.new(location: @origin) : Confetti.new(location: @origin)
+    part = rand < 0.5 ? Particle.new(location: @origin) : Confetti.new(location: @origin)
     self << part
   end
 end

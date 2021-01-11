@@ -1,6 +1,7 @@
 # NOC_3_06_simple_harmonic_motion
 
 attr_reader :angle, :velocity
+
 def setup
   sketch_title 'Simple Harmonic Motion'
   @angle = 0
@@ -24,4 +25,3 @@ def settings
   size 640, 360
   smooth 4
 end
-

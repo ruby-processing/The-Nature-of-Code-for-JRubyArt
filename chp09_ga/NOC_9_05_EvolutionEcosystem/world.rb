@@ -6,7 +6,8 @@ module Eco
     attr_reader :food, :width, :height
 
     def initialize(num, width, height)
-      @width, @height = width, height
+      @width = width
+      @height = height
       @food = []
       num.times do
         food << Vec2D.new(rand(width), rand(height))
@@ -40,7 +41,8 @@ module Eco
       @dna = dna
       @maxspeed = map1d(dna.genes[0], (0..1), (15..0))
       @r = map1d(dna.genes[0], (0..1), (0..50))
-      @width, @height = Processing.app.width, Processing.app.height
+      @width = Processing.app.width
+      @height = Processing.app.height
     end
 
     def run
@@ -62,6 +64,7 @@ module Eco
 
     def reproduce
       return nil if rand >= 0.0005
+
       child = dna.copy
       child.mutate(0.01)
       Bloop.new(location, child)
@@ -98,6 +101,7 @@ module Eco
   # DNA class
   class DNA
     attr_reader :genes
+
     def initialize(newgenes = [])
       newgenes << rand(0..1.0) if newgenes.empty?
       @genes = newgenes
@@ -109,7 +113,7 @@ module Eco
 
     # this code doesn't make sense unless there is more than one gene
     def mutate(m)
-      @genes.map! { |gene| (rand < m) ? rand(0..1.0) : gene }
+      @genes.map! { |gene| rand < m ? rand(0..1.0) : gene }
     end
   end
 

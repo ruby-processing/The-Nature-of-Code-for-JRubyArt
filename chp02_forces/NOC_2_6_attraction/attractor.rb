@@ -5,6 +5,7 @@
 class Attractor
   include Processing::Proxy
   attr_reader :acceleration, :location, :mass
+
   G = 1
 
   def initialize(location:)
@@ -64,6 +65,7 @@ class Attractor
   def clicked(position:)
     d = position.dist(location)
     return unless d < @mass
+
     @dragging = true
     @drag_offset = location - position
   end
@@ -79,6 +81,7 @@ class Attractor
 
   def drag(position:)
     return unless @dragging
+
     @location = position + @drag_offset
   end
 end

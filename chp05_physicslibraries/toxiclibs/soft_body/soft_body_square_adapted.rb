@@ -53,4 +53,3 @@ end
 def settings
   size(640, 360)
 end
-

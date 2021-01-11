@@ -13,7 +13,7 @@ module SeekingNeural
     def train(forces, error)
       trained = @weights.zip(forces.map(&:to_a)
         .map { |a, b| (a * error.x + b * error.y) * @c })
-      .map { |w, c| constrain(w + c, 0, 1.0) }
+                        .map { |w, c| constrain(w + c, 0, 1.0) }
       @weights = trained
     end
 
@@ -26,7 +26,7 @@ module SeekingNeural
 
   # Seek
   # Daniel Shiffman <http://www.shiffman.net>
-  
+
   class Vehicle
     MAX_SPEED = 4
     MAX_FORCE = 0.1

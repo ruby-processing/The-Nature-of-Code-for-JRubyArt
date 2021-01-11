@@ -4,6 +4,7 @@
 
 class Attractor
   attr_reader :location, :mass
+
   G = 0.4
   def initialize
     @location = Vec3D.new
@@ -11,8 +12,8 @@ class Attractor
   end
 
   def attract(mover:)
-    force = location - mover.location       # Calculate direction of force
-    distance = force.mag                     # Distance between objects
+    force = location - mover.location # Calculate direction of force
+    distance = force.mag # Distance between objects
     # Limit "extreme" results for very close or very far objects
     distance = constrain(distance, 5.0, 25.0)
     # Normalize we just want this vector for direction
@@ -65,7 +66,7 @@ class Mover
 
   def check_edges
     if location.x > width
-      location.x = 0;
+      location.x = 0
     elsif location.x < 0
       location.x = width
     end
@@ -80,14 +81,14 @@ end
 def setup
   sketch_title 'Forces Many Attraction 3D'
   background(255)
-  @movers = Array.new(10) {
-                            Mover.new(
-                                      rand(0.1 .. 2),
-                                      rand(-width/2 .. width/2),
-                                      rand(-height/2 .. height/2),
-                                      rand(-100 ..100)
-                                      )
-                           }
+  @movers = Array.new(10) do
+    Mover.new(
+      rand(0.1..2),
+      rand(-width / 2..width / 2),
+      rand(-height / 2..height / 2),
+      rand(-100..100)
+    )
+  end
   @attractor = Attractor.new
   @angle = 0
 end

@@ -7,7 +7,8 @@ class World
   attr_reader :xrange, :yrange
 
   def initialize(xrange, yrange)
-    @xrange, @yrange = xrange, yrange
+    @xrange = xrange
+    @yrange = yrange
   end
 
   # @param mover is expected respond to loc, vel
@@ -20,6 +21,7 @@ class World
       mover.loc.x = constrain(mover.loc.x, xrange.begin, xrange.last)
     end
     return if yrange.cover? mover.loc.y
+
     mover.vel.y *= -1
     mover.loc.y = constrain(mover.loc.y, yrange.begin, yrange.last)
   end

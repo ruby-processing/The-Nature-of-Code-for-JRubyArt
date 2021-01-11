@@ -8,6 +8,7 @@ class Pair
   extend Forwardable
   def_delegators(:@app, :box2d, :stroke, :line, :stroke_weight)
   attr_reader :p1, :p2, :len, :joint
+
   # Chain constructor
   def initialize(x, y)
     @app = Processing.app
@@ -19,34 +20,32 @@ class Pair
     djd.bodyA = p1.body
     djd.bodyB = p2.body
     # Equilibrium length
-    djd.length = box2d.scale_to_world(len)    
-    # These properties affect how springy the joint is 
+    djd.length = box2d.scale_to_world(len)
+    # These properties affect how springy the joint is
     djd.frequencyHz = 3     # Try a value less than 5 (0 for no elasticity)
     djd.dampingRatio = 0.1  # Ranges between 0 and 1 (1 for no springiness)
-    # Make the joint.  
+    # Make the joint.
     @joint = box2d.world.create_joint(djd)
   end
-  
+
   def kill_bodies
     box2d.world.destroy_joint(joint)
     @joint = nil
     box2d.destroy_body(p1.body)
     box2d.destroy_body(p2.body)
   end
-  
-    # Is the pair ready for deletion?
+
+  # Is the pair ready for deletion?
   def done?
     # Let's find the screen position of the particle
     pos1 = box2d.body_coord(p1.body)
     pos2 = box2d.body_coord(p2.body)
     # Is it off the screen?
     if (0..@app.width).include?(pos1.x) || (0..@app.width).include?(pos2.x)
-      if (0..@app.height).include?(pos1.y) || (0..@app.height).include?(pos2.y)
-        return false
-      end
+      return false if (0..@app.height).include?(pos1.y) || (0..@app.height).include?(pos2.y)
     end
     kill_bodies
-    return true
+    true
   end
 
   def display
@@ -59,4 +58,3 @@ class Pair
     p2.display
   end
 end
-

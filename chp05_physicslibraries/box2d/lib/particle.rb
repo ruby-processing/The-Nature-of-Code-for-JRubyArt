@@ -5,7 +5,8 @@ class Particle
   attr_reader :box2d, :radius, :col
 
   def initialize(world:, location:, radius:)
-    @box2d, @radius = world, radius
+    @box2d = world
+    @radius = radius
     # This function puts the particle in the Box2d world
     make_body(position: location, size: radius)
     @col = -5_263_441 # grey
@@ -28,6 +29,7 @@ class Particle
     pos = box2d.body_coord(body)
     # Is it off the bottom of the screen?
     return false unless pos.y > (box2d.height + radius * 2)
+
     kill_body
     true
   end

@@ -13,7 +13,7 @@ class StaticNetwork
     layers.times do |i|
       inputs.times do |j|
         x = map1d(i, (0..layers), (-200..200))
-        y = map1d(j, (0..inputs-1), (-100..100))
+        y = map1d(j, (0..inputs - 1), (-100..100))
         puts "#{j} #{y}"
         n = Neuron.new(x, y)
         if i > 0
@@ -22,7 +22,7 @@ class StaticNetwork
             prev.join(n)
           end
         end
-        n.join(output) if (i == layers - 1)
+        n.join(output) if i == layers - 1
         neurons << n
       end
     end

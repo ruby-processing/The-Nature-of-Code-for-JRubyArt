@@ -1,5 +1,4 @@
 project 'xor' do
-
   model_version '4.0.0'
   id 'nn:xor:1.0-SNAPSHOT'
   packaging 'jar'
@@ -11,11 +10,11 @@ project 'xor' do
     roles 'developer'
   end
 
-  properties( 'maven.compiler.release' => '11',
-              'polyglot.dump.pom' => 'pom.xml' )
+  properties('maven.compiler.release' => '11',
+             'polyglot.dump.pom' => 'pom.xml')
 
   overrides do
-    plugin( :compiler, '3.8.1',
-            'encoding' =>  'UTF-8' )
+    plugin(:compiler, '3.8.1',
+           'encoding' => 'UTF-8')
   end
 end

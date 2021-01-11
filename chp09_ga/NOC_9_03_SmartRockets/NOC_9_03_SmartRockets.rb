@@ -13,7 +13,7 @@
 
 # This example is inspired by Jer Thorp's Smart Rockets
 # http://www.blprnt.com/smartrockets/
-%w(dna obstacle population rocket).each do |klass|
+%w[dna obstacle population rocket].each do |klass|
   require_relative klass
 end
 
@@ -68,4 +68,3 @@ end
 def settings
   size(640, 360)
 end
-

@@ -8,7 +8,7 @@
 
 class Particle < Physics::VerletParticle2D
   include Processing::Proxy
-  attr_accessor :radius  # Adding a radius for each particle
+  attr_accessor :radius # Adding a radius for each particle
 
   def initialize(x, y)
     super(x, y)

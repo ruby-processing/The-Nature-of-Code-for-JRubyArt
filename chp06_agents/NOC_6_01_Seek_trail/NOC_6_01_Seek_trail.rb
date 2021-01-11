@@ -1,9 +1,9 @@
 # The Nature of Code
 # NOC_6_01_Seek_trail
 
-
 class Vehicle
   attr_reader :location, :velocity, :acceleration, :history
+
   def initialize(location:)
     @acceleration = Vec2D.new
     @velocity = Vec2D.new(0, -2)
@@ -30,6 +30,7 @@ class Vehicle
   def seek(target:)
     desired = target - location
     return if desired.mag < EPSILON
+
     desired.normalize!
     desired *= @maxspeed
     steer = desired - velocity
@@ -83,4 +84,3 @@ end
 def settings
   size(640, 360)
 end
-

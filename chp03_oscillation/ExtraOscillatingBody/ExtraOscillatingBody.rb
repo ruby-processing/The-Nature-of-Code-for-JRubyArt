@@ -43,6 +43,7 @@ class Mover
       location.x = max_x
     end
     return unless location.y > max_y
+
     velocity.y *= -1
     location.y = max_y
   end
@@ -64,8 +65,8 @@ class Attractor
     d = attraction.mag                        # Distance between objects
     d = constrain(d, 5.0, 25.0)               # Limiting the distance to eliminate "extreme" results for very close or very far objects
     attraction.normalize!                     # Normalize vector (distance doesn't matter here, we just want this vector for direction)
-    strength = (G * @mass * mover.mass) / (d * d)     # Calculate gravitional force magnitude
-    attraction *= strength                    #  Get force vector --> magnitude * direction
+    strength = (G * @mass * mover.mass) / (d * d) # Calculate gravitional force magnitude
+    attraction *= strength #  Get force vector --> magnitude * direction
   end
 
   # Method to display
@@ -87,8 +88,9 @@ class Attractor
   def clicked(position:)
     d = position.dist(@location)
     return unless d < @mass
+
     @dragging = true
-    @drag_offset = @location -  position
+    @drag_offset = @location - position
   end
 
   def hover(position:)
@@ -102,6 +104,7 @@ class Attractor
 
   def drag(position:)
     return unless @dragging
+
     @location = position + @drag_offset
   end
 end

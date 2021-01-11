@@ -1,7 +1,6 @@
 require_relative 'test_helper'
 require_relative '../xor'
 
-
 class NeuronTest < Minitest::Test
   attr_reader :neuron, :neuron_one, :neuron_two
 

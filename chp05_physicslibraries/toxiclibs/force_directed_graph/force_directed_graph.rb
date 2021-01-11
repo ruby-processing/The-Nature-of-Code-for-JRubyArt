@@ -93,7 +93,7 @@ def key_pressed
   when 'p'
     @show_particles = !show_particles
     @show_physics = true unless show_particles
-  when  'n'
+  when 'n'
     new_graph
   end
 end

@@ -3,6 +3,7 @@ class Attractor
   include Processing::Proxy
 
   attr_reader :mass, :location
+
   def initialize(location:)
     @location = location
     @mass = 10
@@ -16,8 +17,8 @@ class Attractor
     d = force.mag                      # Distance between objects
     # Limit the distance to eliminate "extremes"
     d = constrain(d, 5.0, 25.0)
-    force.normalize!  # Normalize vector to get direction
-    strength = (G * mass * mover.mass) / (d * d)  # magnitude of g. force
+    force.normalize! # Normalize vector to get direction
+    strength = (G * mass * mover.mass) / (d * d) # magnitude of g. force
     force *= strength # Get force vector --> magnitude * direction
     force
   end

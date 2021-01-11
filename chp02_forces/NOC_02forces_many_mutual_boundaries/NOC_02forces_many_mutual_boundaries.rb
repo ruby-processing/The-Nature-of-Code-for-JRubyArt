@@ -4,11 +4,12 @@
 
 require_relative 'mover'
 attr_reader :movers
+
 SIZE = 20
 
 def setup
   sketch_title 'Forces Many Mutual Boundaries'
-  @movers = (0..SIZE).map  { Mover.new(rand(1.0..2), rand(width), rand(height)) }
+  @movers = (0..SIZE).map { Mover.new(rand(1.0..2), rand(width), rand(height)) }
 end
 
 def draw

@@ -1,6 +1,7 @@
 class Vehicle
   include Processing::Proxy
   attr_reader :location, :velocity, :acceleration
+
   def initialize(location:)
     @location = location
     @r = 12
@@ -25,6 +26,7 @@ class Vehicle
   def seek(target)
     desired = target - location
     return desired if desired.mag < EPSILON
+
     desired.normalize!
     desired *= @maxspeed
     steer = desired - velocity
@@ -38,14 +40,17 @@ class Vehicle
     count = 0
     vehicles.each do |other|
       next if other.equal? self
+
       d = location.dist(other.location)
       next unless (EPSILON..desired_separation).include? d
+
       diff = (location - other.location).normalize
       diff /= d
       sum += diff
       count += 1
     end
     return sum if count == 0
+
     sum /= count
     sum.normalize!
     sum *= @maxspeed

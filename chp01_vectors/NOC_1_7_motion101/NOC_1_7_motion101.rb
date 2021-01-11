@@ -3,6 +3,7 @@
 class Mover
   RADIUS = 24
   attr_reader :location
+
   def initialize(width, height)
     @location = Vec2D.new(rand(0..width), rand(0..height))
     @velocity = Vec2D.new(rand(-2.0..2.0), rand(-2.0..2.0))
@@ -25,6 +26,7 @@ class Mover
       location.x = width - RADIUS if location.x < RADIUS
     end
     return if (RADIUS..height - RADIUS).cover? location.y
+
     location.y = RADIUS if location.y > height - RADIUS
     location.y = height - RADIUS if location.y < RADIUS
   end

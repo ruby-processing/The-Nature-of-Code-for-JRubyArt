@@ -19,7 +19,7 @@ def setup
   box2d.world.set_particle_radius(0.15)
   box2d.world.set_particle_damping(0.2)
   boundaries << Boundary.new(box2d, width / 4, height - 5, width / 2 - 50, 10)
-  boundaries << Boundary.new(box2d, 3 * width / 4, height - 50, width / 2 - 50, 10) 
+  boundaries << Boundary.new(box2d, 3 * width / 4, height - 50, width / 2 - 50, 10)
 end
 
 def mouse_pressed
@@ -31,6 +31,7 @@ def draw
   boundaries.each(&:display)
   pos_buffer = box2d.world.particle_position_buffer
   return if pos_buffer.nil?
+
   stroke(0)
   stroke_weight(2)
   pos_buffer.each do |buf|

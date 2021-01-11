@@ -25,4 +25,3 @@ def settings
   size(800, 200)
   smooth
 end
-

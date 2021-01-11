@@ -2,17 +2,22 @@
 # NOC_7_01_WolframCA_simple
 class CA
   attr_reader :w, :generation
+
   def initialize(width)
     @w = 10
     @cells = Array.new(width / @w) { 0 }
     @cells[@cells.size / 2] = 1
-    @ruleset = [0, 1, 0, 1, 1, 0, 1, 0]
+    @ruleset =  [0, 1, 0, 1, 1, 0, 1, 0]
     @generation = 0
+  end
+
+  def decimal_rule_to_a(dec)
+    format('%08b', dec).split('').map(&:to_i)
   end
 
   def generate
     nextgen = Array.new(@cells.size)
-    (1 ... @cells.size - 1).each do |i|
+    (1...@cells.size - 1).each do |i|
       left = @cells[i - 1]
       me = @cells[i]
       right = @cells[i + 1]

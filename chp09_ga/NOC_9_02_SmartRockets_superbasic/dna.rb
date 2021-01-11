@@ -34,7 +34,7 @@ class DNA
     crossover = rand(genes.length)
     # Take "half" from one and "half" from the other
     genes.length.times do |i|
-      child[i] = (i > crossover) ? genes[i] : partner.genes[i]
+      child[i] = i > crossover ? genes[i] : partner.genes[i]
     end
     DNA.new(lifetime, child)
   end

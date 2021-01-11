@@ -9,7 +9,9 @@ class Connection
   attr_reader :a, :b, :weight, :sending, :sender, :output
 
   def initialize(from, to, w)
-    @weight, @a, @b = w, from, to
+    @weight = w
+    @a = from
+    @b = to
     @sending = false
     @sender = Vec2D.new
     @output = 0
@@ -24,12 +26,14 @@ class Connection
 
   # Update traveling sender
   def update
-    return unless sending       # favour a guard clause in ruby
+    return unless sending # favour a guard clause in ruby
+
     # Use a simple interpolation
     sender.lerp!(b.location, 0.1)
     d = sender.dist(b.location)
     # If we've reached the end
     return unless d < 1
+
     # Pass along the output!
     b.feedforward(output)
     @sending = false
@@ -41,6 +45,7 @@ class Connection
     stroke_weight(1 + weight * 4)
     draw_line a.location, b.location
     return unless sending
+
     fill(0)
     stroke_weight(1)
     ellipse(sender.x, sender.y, 16, 16)

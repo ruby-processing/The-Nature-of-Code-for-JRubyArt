@@ -11,13 +11,13 @@ attr_reader :dx, :amplitude, :max_waves, :y_values
 
 def setup
   sketch_title 'Additive Wave Exercise'
-  @max_waves = 5				    # Total number of waves to add together
+  @max_waves = 5 # Total number of waves to add together
   @wave_width = width + 16	# Width of entire wave
-  @x_spacing = 8				    # How far apart should each horizontal location be spaced
+  @x_spacing = 8 # How far apart should each horizontal location be spaced
   @theta = 0.0
-  @amplitude = []				    # Height of wave
-  @dx = []					        # Value for incrementing X, to be calculated as a function of period and x_spacing
-  @max_waves.times do |i|
+  @amplitude = [] # Height of wave
+  @dx = [] # Value for incrementing X, to be calculated as a function of period and x_spacing
+  @max_waves.times do |_i|
     amplitude << rand(10..30)
     period = rand(100..300) # How many pixels before the wave repeats
     dx << (TAU / period) * @x_spacing

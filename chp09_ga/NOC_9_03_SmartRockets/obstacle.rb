@@ -4,6 +4,7 @@
 class Obstacle
   include Processing::Proxy
   attr_reader :location
+
   def initialize(x, y, w_, h_)
     @location = Vec2D.new(x, y)
     @w = w_

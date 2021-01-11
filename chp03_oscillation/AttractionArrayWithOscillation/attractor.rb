@@ -24,7 +24,7 @@ class Attractor
     dir.normalize! # Normalize vector for direction
     # Calculate gravitional force magnitude
     force = (gravity * mass * crawler.mass) / (d * d)
-    dir *= force   # force vector --> magnitude * direction
+    dir *= force # force vector --> magnitude * direction
     dir
   end
 
@@ -46,6 +46,7 @@ class Attractor
   def clicked(position:)
     d = position.dist(location)
     return unless d < mass
+
     @dragging = true
     @drag_offset = location - position
   end
@@ -83,6 +84,7 @@ class Attractor
 
   def drag(pos)
     return unless @dragging
+
     @location = pos + @drag_offset
   end
 end

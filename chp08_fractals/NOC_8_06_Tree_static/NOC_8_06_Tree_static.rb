@@ -25,6 +25,7 @@ def branch(len)
   # All recursive functions must have an exit condition!!!!
   # Here, ours is when the length of the branch is 2 pixels or less
   return unless len > 2
+
   push_matrix    # Save the current state of transformation (i.e. where are we now)
   rotate(PI / 5) # Rotate by theta
   branch(len)    # Ok, now call myself to draw two new branches!!
@@ -40,4 +41,3 @@ def settings
   size(800, 200)
   smooth
 end
-

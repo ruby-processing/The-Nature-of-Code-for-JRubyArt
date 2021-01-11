@@ -26,6 +26,7 @@ class Vehicle
   def seek(target:)
     desired = target - location
     return if desired.mag < EPSILON
+
     desired.normalize!
     desired *= @maxspeed
     steer = desired - velocity

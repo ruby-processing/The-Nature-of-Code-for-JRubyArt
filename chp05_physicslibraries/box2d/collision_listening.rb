@@ -16,16 +16,18 @@ end
 
 def draw
   background(255)
-  particles << Particle.new(
-    world: box2d, 
-    location: Vec2D.new(rand(width), 20), 
-    radius: rand(4..8)
-  ) if rand < 0.1
-  particles.each{ |p| p.display(app: self) }
+  if rand < 0.1
+    particles << Particle.new(
+      world: box2d,
+      location: Vec2D.new(rand(width), 20),
+      radius: rand(4..8)
+    )
+  end
+  particles.each { |p| p.display(app: self) }
   particles.reject!(&:done)
   wall.display(self)
 end
+
 def settings
   size 400, 400
 end
-

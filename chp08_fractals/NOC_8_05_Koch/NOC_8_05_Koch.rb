@@ -49,6 +49,7 @@ end
 
 class KochFractal
   attr_reader :count, :start, :finish, :lines
+
   def initialize(start:, finish:)
     @start = start
     @finish = finish
@@ -85,7 +86,7 @@ class KochFractal
   # As we do this over and over again, each line gets broken into 4 lines,
   # which gets broken into 4 lines, and so on. . .
   def iterate(before)
-    now = []    # Create empty list
+    now = [] # Create empty list
     before.each do |l|
       # Calculate 5 koch vectors (done for us by the line object)
       a = l.start
@@ -108,7 +109,7 @@ attr_reader :koch
 def setup
   sketch_title 'Koch'
   background(255)
-  frame_rate(1)  # Animate slowly
+  frame_rate(1) # Animate slowly
   @koch = KochFractal.new(
     start: Vec2D.new(0, height - 20),
     finish: Vec2D.new(width, height - 20)

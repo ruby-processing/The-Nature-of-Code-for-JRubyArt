@@ -40,6 +40,7 @@ class Bob
   def clicked(position:)
     d = position.dist(location)
     return unless d < mass
+
     @dragging = true
     @drag_offset = location - position
   end
@@ -50,6 +51,7 @@ class Bob
 
   def drag(position:)
     return unless @dragging
+
     @location = position + @drag_offset
   end
 end
@@ -57,7 +59,6 @@ end
 # Class to describe an anchor point that can connect to "Bob" objects via a spring
 # Thank you: http://www.myphysicslab.com/spring2d.html
 class Spring
-
   def initialize(bob_a:, bob_b:, length:)
     @bob_a = bob_a
     @bob_b = bob_b

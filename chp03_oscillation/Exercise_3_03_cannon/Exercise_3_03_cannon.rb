@@ -58,6 +58,7 @@ def draw
   end
   ball.display
   return unless ball.position.y > height || ball.position.x > width
+
   @ball = CannonBall.new(location: position)
   @shot = false
 end

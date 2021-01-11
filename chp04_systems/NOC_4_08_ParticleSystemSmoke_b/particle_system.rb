@@ -13,7 +13,8 @@ module Runnable
 end
 
 class ParticleSystem
-  include Enumerable, Runnable
+  include Runnable
+  include Enumerable
   extend Forwardable
   def_delegators(:@particles, :reject!, :<<, :each, :empty?)
   def_delegator(:@particles, :empty?, :dead?)

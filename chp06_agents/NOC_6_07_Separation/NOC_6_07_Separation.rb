@@ -3,6 +3,7 @@
 
 class Vehicle
   attr_reader :acceleration, :location, :velocity
+
   def initialize(location:)
     @location = location
     @r = 12
@@ -22,15 +23,17 @@ class Vehicle
     count = 0
     vehicles.each do |other|
       next if other.equal? self
+
       d = location.dist(other.location)
-      if (EPSILON..desired_separation).cover? d
-        diff = (location - other.location).normalize
-        diff /= d
-        sum += diff
-        count += 1
-      end
+      next unless (EPSILON..desired_separation).cover? d
+
+      diff = (location - other.location).normalize
+      diff /= d
+      sum += diff
+      count += 1
     end
     return if count == 0
+
     sum /= count
     sum.normalize!
     sum *= @maxspeed

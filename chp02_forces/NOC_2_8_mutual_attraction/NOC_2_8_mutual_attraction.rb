@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # NOC_2_8_mutual_attraction
 # http://natureofcode.com
 require_relative 'mover'
@@ -14,14 +16,13 @@ end
 
 def draw
   background(255)
-  @movers.each do |m|
-    @movers.each do |mm|
-      next if m.equal? mm
-      attraction = mm.attract(mover: m)
-      m.apply_force(force: attraction)
+  @movers.each do |moover|
+    @movers.each do |other|
+      next if moover.equal? other
+
+      moover.apply_force(force: other.attract(mover: moover))
     end
-    m.update
-    m.display
+    moover.run
   end
 end
 

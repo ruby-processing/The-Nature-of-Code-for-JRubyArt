@@ -11,7 +11,7 @@ def draw
   @theta = map1d(mouse_x, (0..width), (0..PI / 2))
 
   # Start the tree from the bottom of the screen
-  translate(width/2, height)
+  translate(width / 2, height)
   stroke(0)
   branch(60)
 end
@@ -27,6 +27,7 @@ def branch(len)
   # All recursive functions must have an exit condition!!!!
   # Here, ours is when the length of the branch is 2 pixels or less
   return unless len > 2
+
   push_matrix    # Save the current state of transformation (i.e. where are we now)
   rotate(@theta) # Rotate by theta
   branch(len)    # Ok, now call myself to draw two new branches!!

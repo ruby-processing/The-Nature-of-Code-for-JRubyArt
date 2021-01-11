@@ -14,7 +14,9 @@ class Rocket
 
   # constructor
   def initialize(l, dna, target)
-    @location, @dna, @target = l.dup, dna, target
+    @location = l.dup
+    @dna = dna
+    @target = target
     @acceleration = Vec2D.new
     @velocity = Vec2D.new
     @r = 4

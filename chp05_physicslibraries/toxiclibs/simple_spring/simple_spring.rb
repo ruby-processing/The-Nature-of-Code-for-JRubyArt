@@ -42,6 +42,7 @@ def draw
   p2.display
   # Move the second one according to the mouse
   return unless mouse_pressed?
+
   p2.lock
   p2.set_x mouse_x
   p2.set_y mouse_y
@@ -51,4 +52,3 @@ end
 def settings
   size(640, 360)
 end
-

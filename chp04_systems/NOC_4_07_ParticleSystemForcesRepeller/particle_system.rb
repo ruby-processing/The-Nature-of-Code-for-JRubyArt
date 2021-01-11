@@ -9,10 +9,11 @@ module Runnable
 end
 
 class ParticleSystem
-  include Enumerable, Runnable
+  include Runnable
+  include Enumerable
   extend Forwardable
   def_delegators(:@particle_system, :each, :<<, :reject!)
-  
+
   def initialize(origin:)
     @origin = origin
     @particle_system = []

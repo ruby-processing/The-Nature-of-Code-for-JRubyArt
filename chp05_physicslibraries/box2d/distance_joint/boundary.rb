@@ -8,9 +8,12 @@ class Boundary
   def_delegators(:@app, :box2d, :rect_mode, :rect, :fill, :stroke)
   # A boundary is a simple rectangle with x, y, width, and height
   attr_reader :x, :y, :w, :h
-  
+
   def initialize(x, y, w, h)
-    @x, @y, @w, @h = x, y, w, h
+    @x = x
+    @y = y
+    @w = w
+    @h = h
     @app = Processing.app
     # Define the polygon
     sd = PolygonShape.new
@@ -22,10 +25,10 @@ class Boundary
     # Create the body
     bd = BodyDef.new
     bd.type = BodyType::STATIC
-    bd.position.set(box2d.processing_to_world(x,y))
+    bd.position.set(box2d.processing_to_world(x, y))
     b = box2d.createBody(bd)
     # Attached the shape to the body using a Fixture
-    b.createFixture(sd,1)
+    b.createFixture(sd, 1)
   end
 
   # Draw the boundary, if it were at an angle we'd have to do something fancier

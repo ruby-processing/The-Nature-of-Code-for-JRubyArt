@@ -15,6 +15,7 @@ class Neuron
 
   def calc_output
     return if bias #  do nothing
+
     sigmoid = ->(x) { 1.0 / (1.0 + Math.exp(-x)) }
     sum = 0
     bias_value = 0

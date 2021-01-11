@@ -5,6 +5,7 @@
 
 class Turtle
   attr_writer :len, :todo
+
   def initialize(s, l, t)
     @todo = s
     @len = l
@@ -14,16 +15,17 @@ class Turtle
   def render
     stroke(0, 175)
     @todo.each_char do |c|
-      if c == 'F' or c == 'G'
-        line(0,0, @len, 0)
+      case(c)
+      when 'F', 'G'
+        line(0, 0, @len, 0)
         translate(@len, 0)
-      elsif c == '+'
+      when '+'
         rotate(@theta)
-      elsif c == '-'
+      when '-'
         rotate(-@theta)
-      elsif c == '['
+      when '['
         push_matrix
-      elsif c == ']'
+      when ']'
         pop_matrix
       end
     end
@@ -36,6 +38,7 @@ end
 
 class Rule
   attr_reader :a, :b
+
   def initialize(a, b)
     @a = a
     @b = b
@@ -44,6 +47,7 @@ end
 
 class LSystem
   attr_reader :sentence, :generation
+
   def initialize(axiom, r)
     @sentence = axiom
     @ruleset = r
@@ -93,7 +97,7 @@ end
 def draw
   background(255)
   fill(0)
-  #text('Click mouse to generate', 10, height-10)
+  # text('Click mouse to generate', 10, height-10)
   translate(width / 2, height)
   rotate(-PI / 2)
   @turtle.render
@@ -102,6 +106,7 @@ end
 
 def mouse_pressed
   return if @counter >= 5
+
   push_matrix
   @lsys.generate
   @turtle.todo = @lsys.sentence
@@ -114,4 +119,3 @@ end
 def settings
   size(600, 600)
 end
-

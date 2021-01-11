@@ -17,8 +17,13 @@ end
 class Boundary
   include Processing::Proxy
   attr_reader :box2d, :x, :y, :w, :h, :b
+
   def initialize(b2d, x, y, w, h)
-    @box2d, @x, @y, @w, @h = b2d, x, y, w, h
+    @box2d = b2d
+    @x = x
+    @y = y
+    @w = w
+    @h = h
     sd = PolygonShape.new
     box2d_w = box2d.scale_to_world(w / 2)
     box2d_h = box2d.scale_to_world(h / 2)

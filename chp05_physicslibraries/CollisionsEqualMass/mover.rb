@@ -34,7 +34,7 @@ class Mover
   def initialize(app:, velocity:, location:)
     @app = app
     @vel = velocity
-    @loc = location  
+    @loc = location
     @r = 20
     @world = World.new((r..app.width - r), (r..app.height - r))
     @colliding = false

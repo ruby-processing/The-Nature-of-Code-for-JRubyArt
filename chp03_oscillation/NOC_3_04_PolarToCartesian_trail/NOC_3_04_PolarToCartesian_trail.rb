@@ -15,7 +15,7 @@ def setup
 end
 
 def draw
-  #background(255)
+  # background(255)
   no_stroke
   fill 255, 5
   rect(0, 0, width, height)

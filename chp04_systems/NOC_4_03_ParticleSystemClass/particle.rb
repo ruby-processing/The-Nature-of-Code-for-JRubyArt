@@ -3,6 +3,7 @@
 class Particle
   include Processing::Proxy
   attr_reader :acceleration, :lifespan, :location, :velocity
+
   def initialize(location:)
     @location = location
     @acceleration = Vec2D.new(0, 0.05)

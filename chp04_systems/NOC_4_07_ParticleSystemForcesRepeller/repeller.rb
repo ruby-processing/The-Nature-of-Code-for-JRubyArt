@@ -4,6 +4,7 @@ class Repeller
 
   G = 100
   attr_reader :location
+
   def initialize(origin:)
     @location = origin
   end
@@ -21,7 +22,7 @@ class Repeller
     dir.normalize!                     # Normalize vector for direction
     d = constrain(d, 5.0, 100.0)       # Keep distance within a range
     # Repelling force is inversely proportional to distance
-    force =  -1 * G / (d * d)
+    force = -1 * G / (d * d)
     dir * force                 # Get force vector --> magnitude * direction
   end
 end

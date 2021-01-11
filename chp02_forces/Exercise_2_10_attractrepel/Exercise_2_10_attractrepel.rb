@@ -21,6 +21,7 @@ def draw
   @movers.each do |m|
     @movers.each do |mm|
       next if m.equal? mm
+
       repel = mm.repel(mover: m)
       m.apply_force(force: repel)
     end

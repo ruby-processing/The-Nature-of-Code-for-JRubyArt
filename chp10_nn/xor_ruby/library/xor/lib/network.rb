@@ -10,6 +10,7 @@
 class Network
   LEARNING_CONSTANT = 0.5
   attr_reader :input, :hidden, :output
+
   # Only One output now to start!!! (i can do better, really. . .)
   # Constructor makes the entire network based on number of inputs & number of
   # neurons in hidden layer
@@ -87,6 +88,7 @@ class Network
         connections.each do |c|
           # Is this a from previous layer (input) to hidden layer?
           next unless c.to == hidden1
+
           loutput = hidden1.output
           delta_hidden = loutput * (1 - loutput) # Derivative of sigmoid(x)
           delta_hidden *= sum # Would sum for all outputs if more than one output

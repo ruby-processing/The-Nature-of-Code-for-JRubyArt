@@ -2,8 +2,11 @@
 # NOC_7_03_GameOfLifeOOP
 class Cell
   attr_reader :previous, :state
+
   def initialize(x, y, w)
-    @x, @y, @w = x, y, w
+    @x = x
+    @y = y
+    @w = w
     @state = rand(2)
     @previous = @state
   end
@@ -17,11 +20,11 @@ class Cell
   end
 
   def display
-    if @previous == 0 && @state == 1
+    if @previous.zero? && @state == 1
       fill(0, 0, 255)
     elsif @state == 1
       fill(0)
-    elsif @previous == 1 && @state == 0
+    elsif @previous == 1 && @state.zero?
       fill(255, 0, 0)
     else
       fill(255)
@@ -34,14 +37,15 @@ end
 class GOL
   def initialize(width, height)
     @w = 8
-    @columns, @rows = width / @w, height / @w
+    @columns = width / @w
+    @rows = height / @w
     init
   end
 
   def init
     @board = Array.new(@columns) do |i|
       Array.new(@rows) do |j|
-        Cell.new(i*@w, j*@w, @w)
+        Cell.new(i * @w, j * @w, @w)
       end
     end
   end
@@ -101,4 +105,3 @@ end
 def settings
   size(640, 360)
 end
-

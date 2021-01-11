@@ -39,7 +39,7 @@ def calc_wave
   (0...MAX_WAVES).each do |j|
     x = @theta
     @yvalues.each_index do |i|
-      j.even? ? @yvalues[i] = sin(x) * @amplitudes[j] : @yvalues[i] = cos(x) * @amplitudes[j]
+      @yvalues[i] = j.even? ? sin(x) * @amplitudes[j] : cos(x) * @amplitudes[j]
       x += @dx[j]
     end
   end

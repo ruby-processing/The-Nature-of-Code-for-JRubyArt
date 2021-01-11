@@ -1,5 +1,5 @@
 desc 'Default'
-task :default => [:compile, :install, :run]
+task default: %i[compile install run]
 
 desc 'Compile'
 task :compile do

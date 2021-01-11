@@ -22,9 +22,9 @@ class Windmill
     # NB: using java_send to access the unreachable 'initialize' method
     rjd.java_send :initialize, [Body, Body, Vec2], box1.body, box2.body, box1.body.getWorldCenter
     # Turning on a motor (optional)
-    rjd.motorSpeed = Math::PI * 2       # how fast?
+    rjd.motorSpeed = Math::PI * 2 # how fast?
     rjd.maxMotorTorque = 1000.0 # how powerful?
-    rjd.enableMotor = false      # is it on?
+    rjd.enableMotor = false # is it on?
     # There are many other properties you can set for a Revolute joint
     # For example, you can limit its angle between a minimum and a maximum
     # See box2d manual for more

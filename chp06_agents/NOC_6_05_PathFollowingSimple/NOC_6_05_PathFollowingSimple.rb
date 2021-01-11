@@ -1,9 +1,9 @@
 # The Nature of Code
 # NOC_6_05_PathFollowingSimple
 
-
 class Path
   attr_reader :start, :finish, :radius
+
   def initialize(start, finish)
     @radius = 20
     @start = start
@@ -76,6 +76,7 @@ class Vehicle
   def seek(target:)
     desired = target - location
     return if desired.mag < EPSILON
+
     desired.normalize!
     desired *= @maxspeed
     steer = desired - velocity

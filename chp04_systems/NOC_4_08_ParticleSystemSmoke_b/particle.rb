@@ -4,6 +4,7 @@
 class Particle
   include Processing::Proxy
   attr_reader :lifespan
+
   def initialize(loc, vel, img)
     @loc = loc.copy
     @img = img

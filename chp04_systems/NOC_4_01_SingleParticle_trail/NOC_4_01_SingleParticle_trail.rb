@@ -16,6 +16,7 @@ def draw
   # NB: in ruby-processing use mouse_pressed? instead of mousePressed
   # replacing a conditional with a guard clause
   return unless mouse_pressed?
+
   no_stroke
   fill(255, 5)
   rect(0, 0, width, height)

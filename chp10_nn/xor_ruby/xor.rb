@@ -59,7 +59,7 @@ def iterate
     # Compute XOR
     first = inp[0]
     second = inp[1]
-    @known = ((first > 0.0 && second > 0.0) || (first < 1.0 && second < 1.0)) ? 0 : 1.0
+    @known = (first > 0.0 && second > 0.0) || (first < 1.0 && second < 1.0) ? 0 : 1.0
     # Train that sucker!
     @result = nn.train(inp, known)
     @count += 1

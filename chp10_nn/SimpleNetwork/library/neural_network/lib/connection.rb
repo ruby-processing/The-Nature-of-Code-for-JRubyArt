@@ -25,11 +25,13 @@ class Connection
   # Update traveling sender
   def update
     return unless sending
+
     # Use a simple interpolation
     sender.lerp!(neuron_b.location, 0.1)
     d = sender.dist(neuron_b.location)
     # If we've reached the end
     return unless d < 1
+
     # Pass along the output!
     neuron_b.feedforward(output)
     @sending = false
@@ -41,6 +43,7 @@ class Connection
     stroke_weight(1 + weight * 4)
     line(neuron_a.location.x, neuron_a.location.y, neuron_b.location.x, neuron_b.location.y)
     return unless sending
+
     fill(0)
     stroke_weight(1)
     ellipse(sender.x, sender.y, 16, 16)

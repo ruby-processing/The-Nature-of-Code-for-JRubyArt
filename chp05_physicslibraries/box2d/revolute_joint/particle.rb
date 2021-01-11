@@ -37,7 +37,6 @@ class Particle
     false
   end
 
-  #
   def display
     # We look at each body and get its screen position
     pos = box2d.body_coord(body)

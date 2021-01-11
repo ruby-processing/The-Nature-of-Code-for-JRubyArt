@@ -3,7 +3,6 @@
 # http://natureofcode.com
 # Chapter 3: Asteroids
 class Spaceship
-
   def initialize(location:)
     @location = location
     @velocity = Vec2D.new
@@ -29,7 +28,7 @@ class Spaceship
 
   # Newton's law: F = M * A
   def apply_force(force:)
-     @acceleration += force
+    @acceleration += force
   end
 
   # Turn changes angle
@@ -51,15 +50,15 @@ class Spaceship
 
   def wrap_edges(max_x:, max_y:)
     buffer = @r * 2
-    if @location.x > max_x +  buffer
+    if @location.x > max_x + buffer
       @location.x = -buffer
     elsif @location.x < -buffer
-      @location.x = max_x+buffer
+      @location.x = max_x + buffer
     end
     if @location.y > max_y + buffer
       @location.y = -buffer
     elsif @location.y < -buffer
-      @location.y = max_y+buffer
+      @location.y = max_y + buffer
     end
   end
 
@@ -71,7 +70,7 @@ class Spaceship
     translate(@location.x, @location.y + @r)
     rotate(@heading)
     fill(175)
-    fill(255,0,0) if @thrusting
+    fill(255, 0, 0) if @thrusting
     # Booster rockets
     rect(-@r / 2, @r, @r / 3, @r / 2)
     rect(@r / 2, @r, @r / 3, @r / 2)
@@ -111,7 +110,7 @@ def key_pressed
     @ship.turn(-0.03)
   elsif key == CODED && key_code == RIGHT
     @ship.turn(0.03)
-  elsif key == 'z' or key == 'Z'
+  elsif (key == 'z') || (key == 'Z')
     @ship.thrust
   end
 end

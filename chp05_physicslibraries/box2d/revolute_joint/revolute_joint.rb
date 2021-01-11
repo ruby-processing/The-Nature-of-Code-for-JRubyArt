@@ -33,11 +33,11 @@ def draw
   particles.reject!(&:done?)
   # Draw the windmill
   windmill.display
-  status = windmill.motor_on? ? "ON" : "OFF"
+  status = windmill.motor_on? ? 'ON' : 'OFF'
   fill(0)
   text(format("Click mouse to toggle motor.\nMotor: %s", status), 10, height - 30)
 end
 
 def settings
-  size(640,360)
+  size(640, 360)
 end

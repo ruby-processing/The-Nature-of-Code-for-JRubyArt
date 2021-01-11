@@ -12,12 +12,11 @@
 #      -- mate DNA with another set of DNA
 #      -- mutate DNA
 
-
 class DNA
   attr_reader :genes
 
   def initialize(num)
-    @genes = (0 ... num).map { rand(32..122).chr }
+    @genes = (0...num).map { rand(32..122).chr }
   end
 
   # Converts character array to a String
@@ -41,18 +40,18 @@ class DNA
     midpoint = rand(0..@genes.size) # Pick a midpoint
     # Half from one, half from the other
     @genes.each_with_index do |c, i|
-      if i > midpoint
-        child.genes[i] = c
-      else
-        child.genes[i] = partner.genes[i]
-      end
+      child.genes[i] = if i > midpoint
+                         c
+                       else
+                         partner.genes[i]
+                       end
     end
     child
   end
 
   # Based on a mutation probability, picks a new rand character
   def mutate(mutation_rate)
-    @genes.map! { |c| (rand < mutation_rate) ? rand(32..122).chr : c }
+    @genes.map! { |c| rand < mutation_rate ? rand(32..122).chr : c }
   end
 
   def to_s
@@ -68,7 +67,7 @@ class Population
   def initialize(p, m, num)
     @target = p
     @mutation_rate = m
-    @population = (0 ... num).map { DNA.new(@target.size) }
+    @population = (0...num).map { DNA.new(@target.size) }
     calc_fitness
     @mating_pool = []
     @finished = false
@@ -97,7 +96,7 @@ class Population
       fitness = map1d(p.fitness(@target), (0..max_fitness), (0..1.0))
       # Arbitrary multiplier, we can also use monte carlo method
       n = (fitness * 100).to_i
-      n.times{ @mating_pool << p } # and pick two rand numbers
+      n.times { @mating_pool << p } # and pick two rand numbers
     end
   end
 
@@ -105,15 +104,14 @@ class Population
   def generate
     # Refill the population with children from the mating pool
     @population.each_index do |i|
-      partner_a = @mating_pool[rand(0 ... @mating_pool.size)]
-      partner_b = @mating_pool[rand(0 ... @mating_pool.size)]
+      partner_a = @mating_pool[rand(0...@mating_pool.size)]
+      partner_b = @mating_pool[rand(0...@mating_pool.size)]
       child = partner_a.crossover(partner_b)
       child.mutate(@mutation_rate)
       @population[i] = child
     end
     @generations += 1
   end
-
 
   # Compute the current "most fit" member of the population
   def compute_best
@@ -181,6 +179,7 @@ def draw
   display_info
   # If we found the target phrase, stop
   return unless @population.finished
+
   puts "Time taken #{format('%.2f', millis / 1_000.to_f)} seconds"
   no_loop
 end
@@ -209,4 +208,3 @@ end
 def settings
   size(640, 360)
 end
-

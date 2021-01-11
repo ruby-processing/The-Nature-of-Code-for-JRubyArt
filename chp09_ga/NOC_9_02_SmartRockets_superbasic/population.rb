@@ -10,7 +10,10 @@ class Population
 
   # Initialize the population
   def initialize(m, num, width, height, target)
-    @mutation_rate, @width, @height, @target = m, width, height, target
+    @mutation_rate = m
+    @width = width
+    @height = height
+    @target = target
     # Array.new(num, Rocket.new)
     @mating_pool = []
     @generations = 0
@@ -42,7 +45,7 @@ class Population
     # A lower fitness = fewer entries to mating pool = less likely to be picked as a parent
     population.length.times do |i|
       fitness_normal = map1d(population[i].fitness, (0..max_fit), (0..1))
-      n = (fitness_normal * 100).to_i  # Arbitrary multiplier
+      n = (fitness_normal * 100).to_i # Arbitrary multiplier
       n.times { mating_pool << population[i] }
     end
   end

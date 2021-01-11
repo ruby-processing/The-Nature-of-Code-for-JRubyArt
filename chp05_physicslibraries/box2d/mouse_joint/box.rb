@@ -9,10 +9,12 @@ class Box
                  :box2d, :rotate, :translate, :push_matrix, :pop_matrix)
   # We need to keep track of a Body and a width and height
   attr_accessor :body, :w, :h
+
   # Constructor
   def initialize(x, y)
     @app = Processing.app
-    @w, @h = 24, 24
+    @w = 24
+    @h = 24
     # Add the box to the box2d world
     make_body(Vec2.new(x, y), w, h)
   end

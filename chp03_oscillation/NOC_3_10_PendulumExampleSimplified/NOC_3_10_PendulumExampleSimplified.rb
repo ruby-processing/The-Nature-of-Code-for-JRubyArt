@@ -2,6 +2,7 @@
 
 class Pendulum
   attr_reader :angle, :origin, :location
+
   def initialize(origin_, r_)
     @origin = origin_
     @location = Vec2D.new
@@ -9,7 +10,7 @@ class Pendulum
     @angle = PI / 4
     @aVelocity = 0.0
     @aAcceleration = 0.0
-    @damping = 0.995   # Arbitrary damping
+    @damping = 0.995 # Arbitrary damping
   end
 
   def go
@@ -18,7 +19,7 @@ class Pendulum
   end
 
   def update
-    gravity = 0.4                                # Arbitrary constant
+    gravity = 0.4 # Arbitrary constant
     # Calculate acceleration (see: http://www.myphysicslab.com/pendulum1.html)
     @aAcceleration = (-1 * gravity / @r) * sin(angle)
     @aVelocity += @aAcceleration                 # Increment velocity
@@ -57,4 +58,3 @@ def settings
   size(800, 200)
   smooth 4
 end
-

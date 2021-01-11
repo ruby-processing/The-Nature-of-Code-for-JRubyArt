@@ -27,7 +27,8 @@ class Pendulum
   def update
     # As long as we aren't dragging the pendulum, let it swing!
     return if @dragging # using guard clause in place of conditional
-    gravity = 0.4                              # Arbitrary constant
+
+    gravity = 0.4 # Arbitrary constant
     # Calculate acceleration (see: http://www.myphysicslab.com/pendulum1.html)
     @aAcceleration = (-1 * gravity / @r) * sin(@angle)
     @aVelocity += @aAcceleration               # Increment velocity
@@ -66,6 +67,7 @@ class Pendulum
     # pendulum origin and mouse location
     # we assign that angle to the pendulum
     return unless @dragging
+
     diff = @origin - Vec2D.new(mouse_x, mouse_y)
     @angle = -diff.heading - PI / 2
   end
@@ -75,7 +77,7 @@ end
 def setup
   sketch_title 'Noc 3 10 Pendulum Example'
   # Make a new Pendulum with an origin location and armlength
-  @p = Pendulum.new(origin: Vec2D.new(width/2, 0), length: 175)
+  @p = Pendulum.new(origin: Vec2D.new(width / 2, 0), length: 175)
 end
 
 def draw

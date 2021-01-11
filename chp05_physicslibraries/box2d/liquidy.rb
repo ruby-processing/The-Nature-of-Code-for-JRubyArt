@@ -36,5 +36,5 @@ def mouse_pressed
 end
 
 def settings
-  size(400,300)
+  size(400, 300)
 end

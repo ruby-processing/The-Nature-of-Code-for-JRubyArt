@@ -6,7 +6,7 @@ attr_reader :vehicles
 
 def setup
   sketch_title 'Separation And Seek'
-  @vehicles = Array.new(100) do 
+  @vehicles = Array.new(100) do
     Vehicle.new(location: Vec2D.new(rand(width), rand(height)))
   end
 end

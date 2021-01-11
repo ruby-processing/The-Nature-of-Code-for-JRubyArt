@@ -9,10 +9,12 @@ class Landscape
   attr_reader :scl, :w, :h, :rows, :cols, :z, :zoff
 
   def initialize(scl, w, h)
-    @scl, @w, @h  = scl, w, h
+    @scl = scl
+    @w = w
+    @h = h
     @cols = w / scl
     @rows = h / scl
-    @z = (0..cols).map do |row|
+    @z = (0..cols).map do |_row|
       (0..rows).map { 0.0 }
     end
     @zoff = 0

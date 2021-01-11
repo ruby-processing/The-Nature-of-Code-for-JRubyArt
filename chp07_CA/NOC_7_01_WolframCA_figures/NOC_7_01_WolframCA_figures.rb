@@ -16,12 +16,12 @@ class CA
   end
 
   def randomize
-    @ruleset = Array.new(@ruleset.size){ rand(2) }
+    @ruleset = Array.new(@ruleset.size) { rand(2) }
   end
 
   def generate
     nextgen = Array.new(@cells.size)
-    (1 ... @cells.size - 1).each do |i|
+    (1...@cells.size - 1).each do |i|
       left = @cells[i - 1]
       me = @cells[i]
       right = @cells[i + 1]
@@ -63,9 +63,7 @@ end
 def draw
   @ca.render
   @ca.generate
-  if @ca.finished(height)
-    save_frame('rule222.png')
-  end
+  save_frame('rule222.png') if @ca.finished(height)
 end
 
 def mouse_pressed
@@ -77,4 +75,3 @@ end
 def settings
   size(1800, 600)
 end
-

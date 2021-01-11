@@ -29,13 +29,14 @@ class Neuron
     @sum += input
     # Activate it?
     return sum unless sum > 1
+
     fire
-    @sum = 0  # Reset the sum to 0 if it fires
+    @sum = 0 # Reset the sum to 0 if it fires
   end
 
   # The Neuron fires
   def fire
-    @r = 64   # It suddenly is bigger
+    @r = 64 # It suddenly is bigger
     # We send the output through all connections
     connections.each { |c| c.feedforward(sum) }
   end

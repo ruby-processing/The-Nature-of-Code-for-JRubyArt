@@ -2,6 +2,7 @@
 # NOC_6_06_PathFollowing
 class Path
   attr_reader :points, :radius
+
   def initialize
     @radius = 20
     @points = []
@@ -34,7 +35,6 @@ class Path
 end
 
 class Vehicle
-
   attr_reader :acceleration, :location, :velocity
 
   def initialize(loc, ms, mf)
@@ -66,15 +66,15 @@ class Vehicle
       normal_point = get_normal_point(predict_loc, a, b)
       normal_point = b.copy if normal_point.x < a.x || normal_point.x > b.x
       distance = predict_loc.dist(normal_point)
-      if distance < worldrecord
-        worldrecord = distance
-        normal = normal_point
-        dir = b - a
-        dir.normalize!
-        dir *= 10
-        near_target = normal_point.copy
-        near_target += dir
-      end
+      next unless distance < worldrecord
+
+      worldrecord = distance
+      normal = normal_point
+      dir = b - a
+      dir.normalize!
+      dir *= 10
+      near_target = normal_point.copy
+      near_target += dir
     end
     seek(target: near_target) if worldrecord > path.radius
   end
@@ -101,6 +101,7 @@ class Vehicle
   def seek(target:)
     desired = target - location
     return if desired.mag < EPSILON
+
     desired.normalize!
     desired *= @maxspeed
     steer = desired - velocity
@@ -127,6 +128,7 @@ class Vehicle
   # wrap around
   def borders(path:)
     return if @location.x < path.finish.x + @r
+
     @location.x = path.start.x - @r
     @location.y = path.start.y + (@location.y - path.finish.y)
   end
@@ -155,8 +157,8 @@ end
 def new_path
   @road = Path.new
   road.add_point(-20, height / 2)
-  road.add_point(rand(0.. width / 2), rand(0..height))
-  road.add_point(rand(width / 2.. width), rand(0..height))
+  road.add_point(rand(0..width / 2), rand(0..height))
+  road.add_point(rand(width / 2..width), rand(0..height))
   road.add_point(width + 20, height / 2)
 end
 

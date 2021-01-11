@@ -9,28 +9,28 @@ class Particle
                  :push_matrix, :pop_matrix, :ellipse, :rotate, :translate)
   # We need to keep track of a Body and a radius
   attr_reader :body, :r
-  
+
   def initialize(x, y)
     @r = 8
     @app = Processing.app
     # Define a body
     bd = BodyDef.new
     # Set its position
-    bd.position = box2d.processing_to_world(x,y)
+    bd.position = box2d.processing_to_world(x, y)
     bd.type = BodyType::DYNAMIC
     @body = box2d.world.createBody(bd)
 
     # Make the body's shape a circle
     cs = CircleShape.new
     cs.m_radius = box2d.scale_to_world(r)
-    
+
     fd = FixtureDef.new
     fd.shape = cs
     # Parameters that affect physics
     fd.density = 1
     fd.friction = 0.01
     fd.restitution = 0.3
-    
+
     # Attach fixture to body
     body.createFixture(fd)
     body.setLinearVelocity(Vec2.new(rand(-5..5), rand(2..5)))
@@ -40,7 +40,7 @@ class Particle
   def kill_body
     box2d.destroy_body(body)
   end
-  
+
   # Is the particle ready for deletion?
   def done
     # Let's find the screen position of the particle
@@ -70,5 +70,3 @@ class Particle
     pop_matrix
   end
 end
-
-

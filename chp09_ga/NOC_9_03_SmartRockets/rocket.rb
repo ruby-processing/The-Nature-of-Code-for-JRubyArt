@@ -10,8 +10,8 @@ class Rocket
     @location = l.copy
     @r = 4
     @dna = dna
-    @finish_time = 0  # We're going to count how long it takes to reach target
-    @record_dist = 10_000      #  Some high number that will be beat instantly
+    @finish_time = 0 # We're going to count how long it takes to reach target
+    @record_dist = 10_000 #  Some high number that will be beat instantly
     @gene_counter = 0
     @stopped = false
     @hit_target = false
@@ -29,8 +29,8 @@ class Rocket
     @fitness = (1 / (@finish_time * @record_dist))
     # Make the function exponential
     @fitness **= 4
-    @fitness *= 0.1 if stopped       # lose 90% of fitness hitting an obstacle
-    @fitness *= 2 if hit_target     # twice the fitness for finishing!
+    @fitness *= 0.1 if stopped # lose 90% of fitness hitting an obstacle
+    @fitness *= 2 if hit_target # twice the fitness for finishing!
     @fitness
   end
 

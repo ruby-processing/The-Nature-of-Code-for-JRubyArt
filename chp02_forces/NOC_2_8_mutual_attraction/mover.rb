@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 # Mover class
 class Mover
   include Processing::Proxy
 
   attr_reader :acceleration, :mass, :velocity, :location
+
   G = 0.4
 
   def initialize(location:, mass:)
@@ -29,6 +32,11 @@ class Mover
     ellipse(location.x, location.y, mass * 24, mass * 24)
   end
 
+  def run
+    update
+    display
+  end
+
   def attract(mover:)
     force = location - mover.location
     distance = force.mag
@@ -36,6 +44,5 @@ class Mover
     force.normalize!
     strength = (G * mass * mass) / (distance * distance)
     force *= strength
-    force
   end
 end

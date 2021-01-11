@@ -5,12 +5,12 @@ Vect = Struct.new(:x, :y) # no functionality required no need for Vec2D here
 
 class Wave
   def initialize(position:, width:, amplitude:, period:)
-    @xspacing = 8    # How far apart should each horizontal location be space
+    @xspacing = 8 # How far apart should each horizontal location be space
     @theta = 0.0
     @origin = position # Where does the wave's first point start
     @w = width         # Width of entire wave
     @period = period   # How many pixels before the wave repeats
-    @amplitude = amplitude  # Height of wave
+    @amplitude = amplitude # Height of wave
     @dx = (TWO_PI / @period) * @xspacing
     # Use an array to store height values for the wave (not really necessary)
     @yvalues = Array.new(@w / @xspacing)

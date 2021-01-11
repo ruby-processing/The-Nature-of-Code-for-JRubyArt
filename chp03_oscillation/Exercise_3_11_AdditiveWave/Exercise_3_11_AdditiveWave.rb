@@ -20,7 +20,7 @@ def setup
   #   (TWO_PI / period) * @xspacing
   # end
   @dx = (0..MAX_WAVES).map do
-    period = rand(100..300)            # How many pixels before the wave repeats
+    period = rand(100..300) # How many pixels before the wave repeats
     (TWO_PI / period) * @xspacing
   end
 end
@@ -35,17 +35,17 @@ def calc_wave
   # Increment theta (try different values for 'angular velocity' here
   @theta += 0.02
   # Set all height values to zero
-  @yvalues = (0..(@w / @xspacing)).map {0}
+  @yvalues = (0..(@w / @xspacing)).map { 0 }
   # Accumulate wave height values
   (0...MAX_WAVES).each do |j|
     x = theta
     @yvalues.each_index do |i|
       # Every other wave is cosine instead of sine
-      if j.even?
-        @yvalues[i] += sin(x) * @amplitudes[j]
-      else
-        @yvalues[i] += cos(x) * @amplitudes[j]
-      end
+      @yvalues[i] += if j.even?
+                       sin(x) * @amplitudes[j]
+                     else
+                       cos(x) * @amplitudes[j]
+                     end
       x += @dx[j]
     end
   end

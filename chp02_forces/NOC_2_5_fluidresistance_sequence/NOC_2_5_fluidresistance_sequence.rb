@@ -4,7 +4,11 @@
 class Liquid
   # Coefficient of drag
   def initialize(x, y, w, h, c)
-    @x, @y, @w, @h, @c = x, y, w, h, c
+    @x = x
+    @y = y
+    @w = w
+    @h = h
+    @c = c
   end
 
   # Is the Mover in the Liquid?
@@ -37,6 +41,7 @@ end
 # The Mover class
 class Mover
   attr_reader :acceleration, :location, :mass, :radius, :velocity
+
   def initialize(mass:, location:)
     @location = location
     @velocity = Vec2D.new(0, 0)
@@ -65,7 +70,8 @@ class Mover
   # bounce off the bottom of the window
   def check_edges(max_y:)
     return if location.y < max_y - radius
-    @velocity.y *= -0.9  # A little dampening when hitting the bottom
+
+    @velocity.y *= -0.9 # A little dampening when hitting the bottom
     @location.y = max_y - radius
   end
 end

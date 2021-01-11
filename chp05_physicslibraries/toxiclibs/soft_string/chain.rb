@@ -12,7 +12,11 @@ class Chain
   # Chain constructor
   def initialize(p, l, n, r, s)
     @particles = []
-    @physics, @total_length, @num_points, @radius, @strength = p, l, n, r, s
+    @physics = p
+    @total_length = l
+    @num_points = n
+    @radius = r
+    @strength = s
     len = total_length / num_points
     @offset = Vect.new(0, 0)
     # Here is the real work, go through and add particles to the chain itself
@@ -23,7 +27,8 @@ class Chain
       physics.addParticle(particle)
       particles << particle
       # Connect the particles with a Spring (except for the head)
-      next if (i == 0)
+      next if i == 0
+
       previous = particles[i - 1]
       # Add the spring to the physics world
       physics.addSpring(Physics::VerletSpring2D.new(particle, previous, len, strength))
@@ -38,7 +43,8 @@ class Chain
   # Check if a point is within the ball at the end of the chain
   # If so, set dragged = true
   def contains(x, y)
-    return unless (tail.x - x) * (tail.x - x)  + (tail.y - y) * (tail.y - y) < radius * radius
+    return unless (tail.x - x) * (tail.x - x) + (tail.y - y) * (tail.y - y) < radius * radius
+
     offset.x = tail.x - x
     offset.y = tail.y - y
     tail.lock

@@ -14,16 +14,14 @@ class CustomListener
     o1 = b1.getUserData
     o2 = b2.getUserData
     return unless [o1, o2].all? { |obj| obj.respond_to?(:change) }
+
     o1.change
     o2.change
   end
 
-  def end_contact(_cp)
-  end
+  def end_contact(_cp); end
 
-  def pre_solve(_cp, _m)
-  end
+  def pre_solve(_cp, _m); end
 
-  def post_solve(_cp, _ci)
-  end
+  def post_solve(_cp, _ci); end
 end

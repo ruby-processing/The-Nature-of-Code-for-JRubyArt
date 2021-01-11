@@ -39,6 +39,7 @@ class Bob
   def clicked(position:)
     d = position.dist(location)
     return unless d < @mass
+
     @dragging = true
     @drag_offset = location - position
   end
@@ -49,12 +50,12 @@ class Bob
 
   def drag(position:)
     return unless @dragging
+
     @location = position + @drag_offset
   end
 end
 
 class Spring
-
   def initialize(a, b, l)
     @bob_a = a
     @bob_b = b
@@ -109,11 +110,11 @@ def draw
 end
 
 def mouse_pressed
-  @bobs.each{ |b| b.clicked(position: Vec2D.new(mouse_x, mouse_y)) }
+  @bobs.each { |b| b.clicked(position: Vec2D.new(mouse_x, mouse_y)) }
 end
 
 def mouse_released
-  @bobs.each{ |b| b.stop_dragging }
+  @bobs.each { |b| b.stop_dragging }
 end
 
 def settings

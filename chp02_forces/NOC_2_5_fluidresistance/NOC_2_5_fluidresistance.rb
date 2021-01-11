@@ -4,7 +4,11 @@
 class Liquid
   # Coefficient of drag
   def initialize(x, y, w, h, c)
-    @x, @y, @w, @h, @c = x, y, w, h, c
+    @x = x
+    @y = y
+    @w = w
+    @h = h
+    @c = c
   end
 
   # Is the Mover in the Liquid?
@@ -36,9 +40,8 @@ end
 
 # Mover class
 class Mover
-
-
   attr_reader :acceleration, :location, :mass, :radius, :velocity
+
   def initialize(mass:, location:)
     @location = location
     @velocity = Vec2D.new(0, 0)

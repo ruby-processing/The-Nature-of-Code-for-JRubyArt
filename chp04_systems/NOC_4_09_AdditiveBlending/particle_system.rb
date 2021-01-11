@@ -15,7 +15,9 @@ end
 
 # The ParticleSystem class doubles as a enumerator and is runnable
 class ParticleSystem
-  include Processing::Proxy, Enumerable, Runnable
+  include Runnable
+  include Enumerable
+  include Processing::Proxy
   extend Forwardable
   def_delegators(:@particles, :reject!, :<<, :each, :empty)
   def_delegator(:@particles, :empty?, :dead?)

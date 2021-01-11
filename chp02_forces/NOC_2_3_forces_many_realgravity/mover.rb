@@ -3,6 +3,7 @@ class Mover
   include Processing::Proxy
 
   attr_reader :mass
+
   def initialize(mass, x, y)
     @location = Vec2D.new(x, y)
     @velocity = Vec2D.new(0, 0)

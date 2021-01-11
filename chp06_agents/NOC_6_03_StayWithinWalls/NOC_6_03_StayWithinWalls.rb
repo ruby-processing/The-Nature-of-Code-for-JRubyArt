@@ -1,9 +1,9 @@
 # The Nature of Code
 # NOC_6_01_Seek_trail
 
-
 class Vehicle
   attr_reader :location, :velocity, :acceleration, :width, :height
+
   def initialize(location:, max_x:, max_y:, safe_distance:)
     @acceleration = Vec2D.new
     @velocity = Vec2D.new(3, -2)
@@ -33,18 +33,17 @@ class Vehicle
   end
 
   def boundaries
-    if location.x < @d
-      desired = Vec2D.new(@maxspeed, velocity.y)
-    elsif location.x > width - @d
-      desired = Vec2D.new(-@maxspeed, velocity.y)
-    elsif location.y < @d
-      desired = Vec2D.new(velocity.x, @maxspeed)
-    elsif location.y > height - @d
-      desired = Vec2D.new(velocity.x, -@maxspeed)
-    else
-      desired = nil
-    end
+    desired = if location.x < @d
+                Vec2D.new(@maxspeed, velocity.y)
+              elsif location.x > width - @d
+                Vec2D.new(-@maxspeed, velocity.y)
+              elsif location.y < @d
+                Vec2D.new(velocity.x, @maxspeed)
+              elsif location.y > height - @d
+                Vec2D.new(velocity.x, -@maxspeed)
+              end
     return if desired.nil?
+
     desired.normalize!
     desired *= @maxspeed
     steer = desired - velocity

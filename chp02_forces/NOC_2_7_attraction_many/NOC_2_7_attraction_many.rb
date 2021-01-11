@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # NOC_2_7_attraction_many
 require_relative 'mover'
 require_relative 'attractor'
@@ -19,8 +21,7 @@ def draw
   @attractor.drag(position: Vec2D.new(mouse_x, mouse_y))
   @attractor.hover(position: Vec2D.new(mouse_x, mouse_y))
   @movers.each do |m|
-    attraction = @attractor.attract(mover: m)
-    m.apply_force(force: attraction)
+    m.apply_force(force: @attractor.attract(mover: m))
     m.update
     m.display
   end

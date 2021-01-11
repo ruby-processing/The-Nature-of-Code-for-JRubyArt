@@ -9,14 +9,14 @@ def setup
   sketch_title 'Attract Repel'
   @physics = Physics::VerletPhysics2D.new
   physics.setDrag(0.01)
-  @particles = (0..50).map do 
+  @particles = (0..50).map do
     Particle.new(
       app: self,
       location: TVec2D.new(rand(width), rand(height))
     )
   end
   @attractor = Attractor.new(
-    app: self, 
+    app: self,
     location: TVec2D.new(width / 2, height / 2)
   )
 end

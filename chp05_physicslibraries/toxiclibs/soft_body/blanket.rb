@@ -3,7 +3,7 @@
 # http://natureofcode.com
 class Blanket
   extend Forwardable
-  def_delegators(:@app, :physics, :width)  
+  def_delegators(:@app, :physics, :width)
   attr_reader :particles, :springs
 
   def initialize(app)
@@ -25,12 +25,12 @@ class Blanket
           physics.add_spring(c)
           springs << c
         end
-        if y > 0
-          above = particles[particles.size - w - 1]
-          c = Connection.new(p, above, len, strength)
-          physics.add_spring(c)
-          springs << c
-        end
+        next unless y > 0
+
+        above = particles[particles.size - w - 1]
+        c = Connection.new(p, above, len, strength)
+        physics.add_spring(c)
+        springs << c
       end
     end
     topleft = particles[0]

@@ -33,7 +33,7 @@ class FlowField
     row = constrain(vector.y / resolution, 0, rows - 1).to_i
     field[column][row].copy
   end
-  
+
   def reset!
     @field = create_field(cols, rows)
   end
@@ -43,7 +43,7 @@ class FlowField
   def create_field(cols, rows)
     noise_seed(rand(10_000))
     xoff = -1
-    field = Array.new(cols) do
+    Array.new(cols) do
       yoff = 0
       xoff += 1
       Array.new(rows) do
@@ -52,7 +52,7 @@ class FlowField
         Vec2D.new(cos(theta), sin(theta))
       end
     end
-    field # need to return field 2D Array
+    # need to return field 2D Array
   end
 end
 
@@ -133,11 +133,11 @@ def setup
   )
   @vehicles = Array.new(120) do
     Vehicle.new(
-        location: Vec2D.new(rand(width), rand(height)),
-        maxspeed: rand(2.0..5),
-        maxforce: rand(0.1..0.5),
-        max_x: width,
-        max_y: height
+      location: Vec2D.new(rand(width), rand(height)),
+      maxspeed: rand(2.0..5),
+      maxforce: rand(0.1..0.5),
+      max_x: width,
+      max_y: height
     )
   end
 end
@@ -158,4 +158,3 @@ end
 def mouse_pressed
   flowfield.reset!
 end
-  

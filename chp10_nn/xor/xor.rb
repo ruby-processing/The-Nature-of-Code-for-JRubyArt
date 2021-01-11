@@ -33,7 +33,7 @@ def draw
   ITERATIONS_PER_FRAME.times do
     inp = inputs.sample
     # Compute XOR
-    @known = ((inp[0] > 0.0 && inp[1] > 0.0) || (inp[0] < 1.0 && inp[1] < 1.0)) ? 0 : 1.0
+    @known = (inp[0] > 0.0 && inp[1] > 0.0) || (inp[0] < 1.0 && inp[1] < 1.0) ? 0 : 1.0
     # Train that sucker!
     @result = nn.train(inp, known)
     @count += 1

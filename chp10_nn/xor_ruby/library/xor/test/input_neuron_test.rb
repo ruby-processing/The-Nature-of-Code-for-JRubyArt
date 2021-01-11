@@ -1,9 +1,7 @@
 require_relative 'test_helper'
 require_relative '../xor'
 
-
 class NeuronTest < Minitest::Test
-
   def test_new_no_param
     neuron = InputNeuron.new
     assert !neuron.bias

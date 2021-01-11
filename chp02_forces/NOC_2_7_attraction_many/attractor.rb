@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # NOC_2_7_attraction_many
 # The Nature of Code
 # http://natureofcode.com
@@ -19,13 +21,13 @@ class Attractor
     # Calculate direction of force
     force = location - mover.location
     # Distance between objects
-    d = force.mag
-    # Limit the distance to avoid "extreme" results
-    d = constrain(d, 5.0, 25.0)
+    dist = force.mag
+    # Limit the dististance to avoid "extreme" results
+    dist = constrain(dist, 5.0, 25.0)
     # Normalize vector, we just want the vector direction
     force.normalize!
     # Calculate magnitude of gravitional force
-    strength = (G * mass * mover.mass) / (d * d)
+    strength = (G * mass * mover.mass) / (dist * dist)
     force *= strength # Calculate force vector --> magnitude * direction
     force
   end
@@ -46,15 +48,16 @@ class Attractor
 
   # The methods below are for mouse interaction
   def clicked(position:)
-    d = position.dist(location)
-    return unless d < @mass
+    dist = position.dist(location)
+    return unless dist < @mass
+
     @dragging = true
     @drag_offset = location - position
   end
 
   def hover(position:)
-    d = position.dist(location)
-    @rollover = d < @mass
+    dist = position.dist(location)
+    @rollover = dist < @mass
   end
 
   def stop_dragging
@@ -63,6 +66,7 @@ class Attractor
 
   def drag(position:)
     return unless @dragging
+
     @location = position + @drag_offset
   end
 end
