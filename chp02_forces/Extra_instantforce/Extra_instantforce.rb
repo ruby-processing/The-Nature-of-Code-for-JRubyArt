@@ -50,7 +50,7 @@ end
 def draw
   background(255)
   # Perlin noise wind
-  wx = map1d(noise(@t), (0..1.0), (-1..1.0))
+  wx = map1d(noise(@t), (-1.0..1.0), (-1..1.0))
   wind = Vec2D.new(wx, 0)
   @t += 0.01
   line(width / 2, height / 2, width / 2 + wind.x * 100, height / 2 + wind.y * 100)

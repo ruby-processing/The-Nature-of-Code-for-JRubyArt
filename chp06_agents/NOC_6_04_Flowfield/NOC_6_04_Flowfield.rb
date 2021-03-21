@@ -47,7 +47,7 @@ class FlowField
       yoff = 0
       xoff += 1
       Array.new(rows) do
-        theta = map1d(noise(xoff, yoff), (0..1), (0..TWO_PI))
+        theta = map1d(noise(xoff, yoff), (-1..1.0), (0..TWO_PI))
         yoff += 1
         Vec2D.new(cos(theta), sin(theta))
       end

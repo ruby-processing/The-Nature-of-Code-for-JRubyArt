@@ -23,9 +23,9 @@ class Surface
       # Doing some stuff with perlin noise to calculate a surface that points down on one side
       # and up on the other
       @y = if x > width / 2
-             100 + (width - x) * 1.1 + map1d(noise(xoff), (0..1.0), (-80..80))
+             100 + (width - x) * 1.1 + map1d(noise(xoff), (-1.0..1.0), (-80..80))
            else
-             100 + x * 1.1 + map1d(noise(xoff), (0..1.0), (-80..80))
+             100 + x * 1.1 + map1d(noise(xoff), (-1.0..1.0), (-80..80))
            end
       # Store the vertex in screen coordinates
       surface << Vec2.new(x, y)

@@ -71,8 +71,8 @@ module Eco
     end
 
     def update
-      vx = map1d(noise(@xoff), (0..1.0), (-@maxspeed..@maxspeed))
-      vy = map1d(noise(@yoff), (0..1.0), (-@maxspeed..@maxspeed))
+      vx = map1d(noise(@xoff), (-1.0..1.0), (-@maxspeed..@maxspeed))
+      vy = map1d(noise(@yoff), (-1.0..1.0), (-@maxspeed..@maxspeed))
       velocity = Vec2D.new(vx, vy)
       @xoff += 0.01
       @yoff += 0.01
